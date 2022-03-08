@@ -1,4 +1,7 @@
+beautifulsoup4==4.10.0
 python_telegram_bot==13.11
+requests==2.25.1
 selenium==4.1.2
 telegram==0.0.1
 webdriver_manager==3.5.3
+lxml==4.8.0

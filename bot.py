@@ -1,10 +1,10 @@
 import telegram
 import config
 import logging
+import scraper
 
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
-from scrapers import cs_fetch
 
 # Enable logging
 logging.basicConfig(
@@ -12,6 +12,11 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+math_website = scraper.Math()
+sksdb_website = scraper.Sksdb()
+
+websites = [sksdb_website, math_website]
 
 
 def start(update: Update, context: CallbackContext):
@@ -33,20 +38,19 @@ def isOnline(update: Update, context: CallbackContext):
 
 
 def check_newAnnouncements(context: CallbackContext):
-    announcement = cs_fetch.check_announcement()
+    for website in websites:
+        announcement = website.get_announcement()
 
-    if announcement is not None:
-        title = announcement['title']
-        content = announcement['content']
-        url = announcement['url']
+        if announcement is not None:
+            title = announcement['title']
+            content = announcement['content']
+            url = announcement['url']
 
-        context.bot.send_message(chat_id=config.admin_id, text=f"\U0001F514 <b>{title}</b>\n\n"
-                                                               f"\U0001F4AC {content}\n\n"
-                                                               f'\U0001F310 <a href="{url}">Click here!</a>',
-                                 parse_mode=telegram.ParseMode.HTML,
-                                 disable_web_page_preview=True)
-    else:
-        context.bot.send_message(chat_id=config.admin_id, text="No message currently!")
+            context.bot.send_message(chat_id=config.admin_id, text=f"\U0001F514 <b>{title}</b>\n\n"
+                                                                   f"\U0001F4AC {content}\n\n"
+                                                                   f'\U0001F310 <a href="{url}">Click here!</a>',
+                                     parse_mode=telegram.ParseMode.HTML,
+                                     disable_web_page_preview=True)
 
 
 def main():
@@ -56,7 +60,7 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start)),
     dispatcher.add_handler(CommandHandler("online_status", isOnline))
 
-    updater.job_queue.run_repeating(check_newAnnouncements, interval=10, first=1)
+    updater.job_queue.run_repeating(check_newAnnouncements, interval=20, first=1)
 
     updater.start_polling()
     updater.idle()

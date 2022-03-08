@@ -1,2 +1,4 @@
 config.py
 announcements.json
+.idea/
+__pycache__/
