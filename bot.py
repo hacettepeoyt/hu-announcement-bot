@@ -29,10 +29,26 @@ def start(update: Update, context: CallbackContext):
     user_name = user['first_name']
     print(user['id'])
 
-    update.message.reply_text(f"Hi {user_name}! I'm not fully live yet, coming soon!")
+    update.message.reply_text(f"Hi {user_name}! See /help to learn how to use \n"
+                              f"By the way, you have been automatically subscribed to all departments!")
 
     for website in websites.values():
         website.add_subscriber(user['id'])
+
+
+def help(update: Update, context: CallbackContext):
+    user = update.message.from_user
+    departments_text = ''
+    for website in websites.values():
+        departments_text += website.name + ', '
+
+    context.bot.send_message(chat_id=user['id'], text="If you want to subscribe a department, you should use /add command\n"
+                                                      "<i>Example:</i> <b>/add SKSDB</b> \n\n"
+                                                      "If you want to unsubscribe, you can use /remove command\n"
+                                                      "<i>Example:</i> <b>/remove SKSDB</b> \n\n"
+                                                      f"Current departments: {departments_text.strip(',')}",
+                             parse_mode=telegram.ParseMode.HTML,
+                             disable_web_page_preview=True)
 
 
 def isOnline(update: Update, context: CallbackContext):
@@ -48,7 +64,7 @@ def check_newAnnouncements(context: CallbackContext):
 
         if announcement is not None:
             subscribers = website.subscribers
-            send_message(context, announcement, subscribers)
+            send_message(context, announcement, subscribers, website.name)
 
 
 def remove_subscribtion(update: Update, context: CallbackContext):
@@ -65,15 +81,24 @@ def add_subscribtion(update: Update, context: CallbackContext):
     website.add_subscriber(user_id)
 
 
-def send_message(context: CallbackContext, announcement, userList):
+def send_message(context: CallbackContext, announcement, userList, website_name):
     title = announcement['title']
     content = announcement['content']
     url = announcement['url']
+    text_to_print = ''
+
+    # This loop will eliminate the None values before printing. Especially content values might be None.
+    for key in announcement.keys():
+        if key == 'title' and title is not None:
+            text_to_print += f"\U0001F514 <b>{title}</b>\n\n"
+        if key == 'content' and content is not None:
+            text_to_print += f"\U0001F4AC {content}\n\n"
+        if key == 'url' and url is not None:
+            text_to_print += f'\U0001F310 <a href="{url}">Click here!</a>'
 
     for user in userList:
-        context.bot.send_message(chat_id=user, text=f"\U0001F514 <b>{title}</b>\n\n"
-                                                    f"\U0001F4AC {content}\n\n"
-                                                    f'\U0001F310 <a href="{url}">Click here!</a>',
+        context.bot.send_message(chat_id=user, text=f"<b>Announcement from {website_name} Department!!!</b> \n\n"
+                                                    f"{text_to_print}",
                                  parse_mode=telegram.ParseMode.HTML,
                                  disable_web_page_preview=True)
 
@@ -86,6 +111,8 @@ def main():
     dispatcher.add_handler(CommandHandler("online_status", isOnline))
     dispatcher.add_handler(CommandHandler("remove", remove_subscribtion))
     dispatcher.add_handler(CommandHandler("add", add_subscribtion))
+    dispatcher.add_handler(CommandHandler("help", help))
+
     updater.job_queue.run_repeating(check_newAnnouncements, interval=600, first=10)
 
     updater.start_polling()
