@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 math_website = scraper.Math()
 sksdb_website = scraper.Sksdb()
 chemie_website = scraper.Chemie()
+cs_website = scraper.ComputerScience()
 
 websites = {
     'Math': math_website,
@@ -42,11 +43,12 @@ def help(update: Update, context: CallbackContext):
     for website in websites.values():
         departments_text += website.name + ', '
 
-    context.bot.send_message(chat_id=user['id'], text="If you want to subscribe a department, you should use /add command\n"
-                                                      "<i>Example:</i> <b>/add SKSDB</b> \n\n"
-                                                      "If you want to unsubscribe, you can use /remove command\n"
-                                                      "<i>Example:</i> <b>/remove SKSDB</b> \n\n"
-                                                      f"Current departments: {departments_text.strip(',')}",
+    context.bot.send_message(chat_id=user['id'],
+                             text="If you want to subscribe a department, you should use /add command\n"
+                                  "<i>Example:</i> <b>/add SKSDB</b> \n\n"
+                                  "If you want to unsubscribe, you can use /remove command\n"
+                                  "<i>Example:</i> <b>/remove SKSDB</b> \n\n"
+                                  f"Current departments: {departments_text.strip(',')}",
                              parse_mode=telegram.ParseMode.HTML,
                              disable_web_page_preview=True)
 
