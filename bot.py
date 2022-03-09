@@ -15,10 +15,12 @@ logger = logging.getLogger(__name__)
 
 math_website = scraper.Math()
 sksdb_website = scraper.Sksdb()
+chemie_website = scraper.Chemie()
 
 websites = {
     'Math': math_website,
-    'SKSDB': sksdb_website
+    'SKSDB': sksdb_website,
+    'Chemie': chemie_website
 }
 
 
@@ -84,7 +86,7 @@ def main():
     dispatcher.add_handler(CommandHandler("online_status", isOnline))
     dispatcher.add_handler(CommandHandler("remove", remove_subscribtion))
     dispatcher.add_handler(CommandHandler("add", add_subscribtion))
-    updater.job_queue.run_repeating(check_newAnnouncements, interval=20, first=1)
+    updater.job_queue.run_repeating(check_newAnnouncements, interval=600, first=10)
 
     updater.start_polling()
     updater.idle()
