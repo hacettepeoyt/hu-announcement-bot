@@ -8,7 +8,9 @@ class Math:
     def __init__(self):
         self.announcement = {}
         self.name = 'Math'
-        self.subscribers = []
+
+        with open('userConfigs.json') as file:
+            self.subscribers = json.load(file)[self.name]
 
     def __complete_url(self, text):
         if text[:4] == 'http' or text[:3] == 'www':
@@ -17,6 +19,26 @@ class Math:
             url = 'http://www.mat.hacettepe.edu.tr/' + text
 
         return url
+
+
+    def __update_subscribers(self):
+        with open('userConfigs.json') as file:
+            user_configs = json.load(file)
+            user_configs[self.name] = self.subscribers
+            json_object = json.dumps(user_configs)
+
+        with open('userConfigs.json', 'w') as file:
+            file.write(json_object)
+
+    def add_subscriber(self, user_id):
+        if user_id not in self.subscribers:
+            self.subscribers.append(user_id)
+            self.__update_subscribers()
+
+    def remove_subscriber(self, user_id):
+        if user_id in self.subscribers:
+            self.subscribers.remove(user_id)
+            self.__update_subscribers()
 
     def get_announcement(self):
         print("**math checkpoint**")
@@ -60,7 +82,29 @@ class Sksdb:
     def __init__(self):
         self.announcement = {}
         self.name = 'SKSDB'
-        self.subscribers = []
+
+        with open('userConfigs.json') as file:
+            self.subscribers = json.load(file)[self.name]
+
+
+    def __update_subscribers(self):
+        with open('userConfigs.json') as file:
+            user_configs = json.load(file)
+            user_configs[self.name] = self.subscribers
+            json_object = json.dumps(user_configs)
+
+        with open('userConfigs.json', 'w') as file:
+            file.write(json_object)
+
+    def add_subscriber(self, user_id):
+        if user_id not in self.subscribers:
+            self.subscribers.append(user_id)
+            self.__update_subscribers()
+
+    def remove_subscriber(self, user_id):
+        if user_id in self.subscribers:
+            self.subscribers.remove(user_id)
+            self.__update_subscribers()
 
     def get_announcement(self):
         print("**sksdb checkpoint**")
