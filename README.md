@@ -4,7 +4,7 @@ Hacettepe Duyurucusu is a Telegram BOT that shares announcements from Hacettepe 
 
 ## Reminder
 
-This version is using polling method but in the future we will switch it to polling method. You can explore the
+This version is using polling method but in the future we will switch it to webhook method. You can explore the
 difference with [this article](https://dzone.com/articles/evaluating-webhooks-vs-polling).
 
 ## Usage
@@ -28,7 +28,9 @@ Pull requests are welcome! Especially, you can help us with adding other departm
 
 > Using mongodb for saving user configs
 
-> BOT will work for other users!
+> ~~BOT will work for other users!~~
+
+> ~~Buttons will be added for better UX~~ 
 
 > To be continued... :)
 
