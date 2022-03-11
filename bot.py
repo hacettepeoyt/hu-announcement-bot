@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 import telegram
@@ -9,6 +10,7 @@ from scraper.chemie import Chemie
 from scraper.cs import ComputerScience
 from scraper.math import Math
 from scraper.sksdb import Sksdb
+from scraper.ie import IndustrialEngineering
 
 
 
@@ -19,11 +21,13 @@ math_website = Math()
 sksdb_website = Sksdb()
 chemie_website = Chemie()
 cs_website = ComputerScience()
+ie_website = IndustrialEngineering()
 
 websites = {
     'Math': math_website,
     'SKSDB': sksdb_website,
-    'Chemie': chemie_website
+    'Chemie': chemie_website,
+    'IE': ie_website
 }
 
 
@@ -48,10 +52,9 @@ def help(update: Update, context: CallbackContext):
         departments_text += website.name + ', '
 
     context.bot.send_message(chat_id=user['id'],
-                             text="If you want to subscribe a department, you should use /add command\n"
-                                  "<i>Example:</i> <b>/add SKSDB</b> \n\n"
-                                  "If you want to unsubscribe, you can use /remove command\n"
-                                  "<i>Example:</i> <b>/remove SKSDB</b> \n\n"
+                             text="See the menu for commands, let me give you hint\n\n"
+                                  "/add   --->   You can subscribe to available departments with this command\n"
+                                  "/remove   --->   You can unsubscribe from departments with this command\n\n"
                                   f"Available departments: {departments_text.strip(', ')}",
                              parse_mode=telegram.ParseMode.HTML,
                              disable_web_page_preview=True)
@@ -120,6 +123,8 @@ def send_message(context: CallbackContext, announcement, userList, website_name)
                                                     f"{text_to_print}",
                                  parse_mode=telegram.ParseMode.HTML,
                                  disable_web_page_preview=True)
+
+        print(f"Message has been sent to {user} from {website_name} Department at {datetime.datetime.now()} GMT")
 
 
 def messageHandler(update: Update, context: CallbackContext):
