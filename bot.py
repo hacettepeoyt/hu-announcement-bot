@@ -11,6 +11,7 @@ from scraper.cs import ComputerScience
 from scraper.math import Math
 from scraper.sksdb import Sksdb
 from scraper.ie import IndustrialEngineering
+from scraper.tomer import Tomer
 
 
 
@@ -22,12 +23,15 @@ sksdb_website = Sksdb()
 chemie_website = Chemie()
 cs_website = ComputerScience()
 ie_website = IndustrialEngineering()
+tomer_website = Tomer()
 
 websites = {
+    'CS': cs_website,
     'Math': math_website,
     'SKSDB': sksdb_website,
     'Chemie': chemie_website,
-    'IE': ie_website
+    'IE': ie_website,
+    'TOMER': tomer_website
 }
 
 
@@ -35,7 +39,6 @@ def start(update: Update, context: CallbackContext):
 
     user = update.message.from_user
     user_name = user['first_name']
-    print(user['id'])
 
     update.message.reply_text(f"Hi {user_name}! See /help to learn how to use \n\n"
                               f"By the way, you have been automatically subscribed to all departments!")
@@ -76,6 +79,8 @@ def check_newAnnouncements(context: CallbackContext):
         if announcement is not None:
             subscribers = website.subscribers
             send_message(context, announcement, subscribers, website.name)
+
+        print(website.name + " checked!   -----   " + str(datetime.datetime.now()))
 
 
 def remove_subscription(update: Update, context: CallbackContext):
