@@ -86,8 +86,16 @@ def remove_subscription(update: Update, context: CallbackContext):
     for department in unsubscribedDepartments:
         buttons.append([KeyboardButton("Remove " + department.name)])
 
-    context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to unsubscribe from below",
-                             reply_markup=ReplyKeyboardMarkup(buttons))
+    thanksButton = [[KeyboardButton('Thank you Hacettepe Duyurucusu!')]]
+
+    if len(buttons) == 0:
+        context.bot.send_message(chat_id=update.effective_user.id, text="You are already don't have subscriptions\n\n"
+                                                                        "If you want a new department, please write a feedback!\n\n"
+                                                                        "Also thank me ^^",
+                                 reply_markup=ReplyKeyboardMarkup(thanksButton))
+    else:
+        context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to unsubscribe from below",
+                                 reply_markup=ReplyKeyboardMarkup(buttons))
 
 
 def add_subscription(update: Update, context: CallbackContext):
@@ -98,8 +106,16 @@ def add_subscription(update: Update, context: CallbackContext):
     for department in unsubscribedDepartments:
         buttons.append([KeyboardButton("Add " + department.name)])
 
-    context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to subscribe from below",
-                             reply_markup=ReplyKeyboardMarkup(buttons))
+    thanksButton = [[KeyboardButton('Thank you Hacettepe Duyurucusu!')]]
+
+    if len(buttons) == 0:
+        context.bot.send_message(chat_id=update.effective_user.id, text="You are already subscribed to all departments\n\n"
+                                                                        "If you want a new department, please write a feedback!\n\n"
+                                                                        "Also thank me ^^",
+                                 reply_markup=ReplyKeyboardMarkup(thanksButton))
+    else:
+        context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to subscribe from below",
+                                 reply_markup=ReplyKeyboardMarkup(buttons))
 
 
 def send_message(context: CallbackContext, announcement, userList, website_name):
@@ -135,10 +151,17 @@ def messageHandler(update: Update, context: CallbackContext):
     if process == 'Add':
         department = websites[departmentName]
         department.add_subscriber(update.effective_user.id)
+        update.message.reply_text(f"Successfully subscribed to {departmentName} Department!")
+        add_subscription(update,context)                # This is for updating the buttons in screen
 
     if process == 'Remove':
         department = websites[departmentName]
         department.remove_subscriber(update.effective_user.id)
+        update.message.reply_text(f"Successfully unsubscribed from {departmentName} Department!")
+        remove_subscription(update, context)            # This is for updating the buttons in screen
+
+    if update.message.text == 'Thank you Hacettepe Duyurucusu!':
+        update.message.reply_text("You are welcome sweethart :)")
 
 
 def find_subscribedWebsites(user_id):
