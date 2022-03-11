@@ -16,7 +16,8 @@ class Math:
             self.subscribers = json.load(file)[self.name]
 
 
-    def __complete_url(self, text):
+    @staticmethod
+    def __complete_url(text):
 
         if text[:4] == 'http' or text[:3] == 'www':
             url = text
