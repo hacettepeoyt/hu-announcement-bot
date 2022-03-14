@@ -13,6 +13,7 @@ from scraper.sksdb import Sksdb
 from scraper.ie import IndustrialEngineering
 from scraper.tomer import Tomer
 from scraper.medicine import Medicine
+from scraper.stat import Stat
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -25,6 +26,7 @@ cs_website = ComputerScience()
 ie_website = IndustrialEngineering()
 tomer_website = Tomer()
 medicine_website = Medicine()
+stat_website = Stat()
 
 websites = {
     'CS': cs_website,
@@ -33,11 +35,16 @@ websites = {
     'Chemie': chemie_website,
     'IE': ie_website,
     'TOMER': tomer_website,
-    'Medicine': medicine_website
+    'Medicine': medicine_website,
+    'Stat': stat_website
 }
 
 
 def start(update: Update, context: CallbackContext):
+    # Temporary logging
+    print()
+    print(update)
+    print()
 
     user = update.message.from_user
     user_name = user['first_name']
@@ -50,6 +57,10 @@ def start(update: Update, context: CallbackContext):
 
 
 def help(update: Update, context: CallbackContext):
+    # Temporary logging
+    print()
+    print(update)
+    print()
 
     user = update.message.from_user
     departments_text = ''
@@ -67,10 +78,7 @@ def help(update: Update, context: CallbackContext):
 
 def isOnline(update: Update, context: CallbackContext):
 
-    user = update.message.from_user
-    user_id = user['id']
-
-    context.bot.send_message(chat_id=user_id, text="Yes, I'm alive!")
+    context.bot.send_message(chat_id=update.effective_user.id, text="Yes, I'm alive!")
 
 
 def check_newAnnouncements(context: CallbackContext):
@@ -86,6 +94,10 @@ def check_newAnnouncements(context: CallbackContext):
 
 
 def remove_subscription(update: Update, context: CallbackContext):
+    # Temporary logging
+    print()
+    print(update)
+    print()
 
     unsubscribedDepartments = find_subscribedWebsites(update.effective_user.id)
     buttons = []
@@ -106,6 +118,10 @@ def remove_subscription(update: Update, context: CallbackContext):
 
 
 def add_subscription(update: Update, context: CallbackContext):
+    # Temporary logging
+    print()
+    print(update)
+    print()
 
     unsubscribedDepartments = find_unsubscribedWebsites(update.effective_user.id)
     buttons = []
@@ -151,6 +167,10 @@ def send_message(context: CallbackContext, announcement, userList, website_name)
 
 
 def messageHandler(update: Update, context: CallbackContext):
+    # Temporary logging
+    print()
+    print(update)
+    print()
 
     process = update.message.text.split()[0]
     departmentName = update.message.text.split()[1]
