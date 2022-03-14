@@ -12,7 +12,7 @@ from scraper.math import Math
 from scraper.sksdb import Sksdb
 from scraper.ie import IndustrialEngineering
 from scraper.tomer import Tomer
-
+from scraper.medicine import Medicine
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -24,6 +24,7 @@ chemie_website = Chemie()
 cs_website = ComputerScience()
 ie_website = IndustrialEngineering()
 tomer_website = Tomer()
+medicine_website = Medicine()
 
 websites = {
     'CS': cs_website,
@@ -31,7 +32,8 @@ websites = {
     'SKSDB': sksdb_website,
     'Chemie': chemie_website,
     'IE': ie_website,
-    'TOMER': tomer_website
+    'TOMER': tomer_website,
+    'Medicine': medicine_website
 }
 
 
