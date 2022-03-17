@@ -2,6 +2,7 @@ from telegram import Update
 from telegram.ext import CallbackContext
 
 import User
+import config
 from database import UserDatabase
 
 
@@ -34,3 +35,16 @@ def main(update: Update, context: CallbackContext):
 
     if update.message.text == 'Thank you Hacettepe Duyurucusu!':
         update.message.reply_text("You are welcome sweethart :)")
+
+
+def send_from_admin(update: Update, context: CallbackContext):
+
+    message_from_admin = ' '.join(context.args[:])
+
+    if update.effective_user.id == config.admin_id:
+        all_users = UserDatabase.find_all_users()
+
+        for user in all_users:
+            context.bot.send_message(chat_id=user, text=message_from_admin)
+    else:
+        context.bot.send_message(chat_id=update.effective_user, text='Oops! You are not admin. Sshhh!')

@@ -59,9 +59,10 @@ def main():
     dispatcher.add_handler(CommandHandler('remove', User.remove_subscription))
     dispatcher.add_handler(CommandHandler('add', User.add_subscription))
     dispatcher.add_handler(CommandHandler('help', help))
+    dispatcher.add_handler(CommandHandler('admin_interface', Mh.send_from_admin))
     dispatcher.add_handler(MessageHandler(Filters.text, Mh.main))
 
-    updater.job_queue.run_repeating(Ah.check_new_announcements, interval=600, first=10)
+    updater.job_queue.run_repeating(Ah.check_new_announcements, interval=600, first=60)
 
     updater.start_polling()
     updater.idle()
