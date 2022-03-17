@@ -4,6 +4,11 @@ from telegram.ext import CallbackContext
 from database import UserDatabase
 from bot import departments
 
+'''
+This module will handle the user business. Such as, if there is a new subscripton, bot will call here.
+The reason why it's longer than expected is because there are buttons to implement.
+'''
+
 
 def remove_subscription(update: Update, context: CallbackContext):
 
@@ -38,7 +43,6 @@ def add_subscription(update: Update, context: CallbackContext):
 
     if len(buttons) == 0:
         context.bot.send_message(chat_id=update.effective_user.id, text="You are already subscribed to all departments\n\n"
-                                                                        "If you want a new department, please write a feedback!\n\n"
                                                                         "Also thank me ^^",
                                  reply_markup=ReplyKeyboardMarkup(thanksButton))
     else:
