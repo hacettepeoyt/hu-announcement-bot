@@ -5,9 +5,10 @@ from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
 
 import MessageHandler as Mh
+import AnnouncementHandler as Ah
 import User
 import config
-from database import UserDatabase, AnnouncementDatabase
+from database import UserDatabase
 from scraper.chemie import Chemie
 from scraper.cs import ComputerScience
 from scraper.ie import IndustrialEngineering
@@ -17,7 +18,21 @@ from scraper.sksdb import Sksdb
 from scraper.stat import Stat
 from scraper.tomer import Tomer
 
+'''
+In bot module, I've written the core code. Think this module as the Eiffel Tower.
+You can go anywhere in the city from here.
 
+We're enabling logging in the first lines. After that, there are objects which I created them from scraper module.
+You're seeing long <from scraper.department import department> formatted imports, yeah that's why. Some Python problems...
+After that, I'm adding those department object into a dictionary called departments{}.
+
+Later on, there are some functions to call whenever the user invokes.
+start() --> User will user this to start to bot. There is welcome message and database checking. If the user isn't in database,
+mongodb will add.
+help() --> This is for giving some basic information about how to use bot.
+is_online() --> This is for checking the bot if she is online or not (yes, she..).
+main() --> Core function. Polling is written here.
+'''
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -45,10 +60,9 @@ departments = {
 
 def start(update: Update, context: CallbackContext):
 
-    update.message.reply_text(f"Hi {update.effective_user.name}! See /help to learn how to use \n\n")
+    update.message.reply_text(f"Hi {update.effective_user.first_name}! See /help to learn how to use \n\n")
 
-    # Add the user into database if she/he isn't in yet!
-    UserDatabase.add_user(update.effective_user.id)
+    UserDatabase.add_user(update.effective_user.id,update.effective_user.first_name,update.effective_user.last_name)
 
 
 def help(update: Update, context: CallbackContext):
@@ -65,42 +79,6 @@ def is_online(update: Update, context: CallbackContext):
     update.message.reply_text("Yes, I'm alive right now!")
 
 
-def check_new_announcements(context: CallbackContext):
-
-    for department in departments.values():
-        new_announcement = department.get_announcement()
-        old_announcements = AnnouncementDatabase.find_announcement(department.name)
-
-        if new_announcement != old_announcements:
-            user_list = UserDatabase.find_subscribers(department.name)
-            send_message(context, new_announcement, user_list, department.name)
-            AnnouncementDatabase.update_announcements(department.name, new_announcement)
-
-
-def send_message(context: CallbackContext, announcement, userList, department_name):
-
-    title = announcement['title']
-    content = announcement['content']
-    url = announcement['url']
-    text_to_print = f'<b>Hey, there is a message from {department_name} Department!</b> \n\n'
-
-    # This loop will eliminate the None values before printing. Especially content values might be None.
-    for key in announcement.keys():
-        if key == 'title' and title is not None:
-            text_to_print += f"\U0001F514 <b>{title}</b>\n\n"
-        if key == 'content' and content is not None:
-            text_to_print += f"\U0001F4AC {content}\n\n"
-        if key == 'url' and url is not None:
-            text_to_print += f'\U0001F310 <a href="{url}">Click here!</a>'
-
-    for user in userList:
-        context.bot.send_message(chat_id=user, text=f"{text_to_print}",
-                                 parse_mode=telegram.ParseMode.HTML,
-                                 disable_web_page_preview=True)
-
-        print(f"Message has been sent to {user} from {department_name} Department!")
-
-
 def main():
 
     updater = Updater(config.API_KEY, use_context=True)
@@ -113,7 +91,7 @@ def main():
     dispatcher.add_handler(CommandHandler('help', help))
     dispatcher.add_handler(MessageHandler(Filters.text, Mh.main))
 
-    updater.job_queue.run_repeating(check_new_announcements, interval=600, first=60)
+    updater.job_queue.run_repeating(Ah.check_new_announcements, interval=600, first=10)
 
     updater.start_polling()
     updater.idle()
