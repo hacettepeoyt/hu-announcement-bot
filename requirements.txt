@@ -5,3 +5,5 @@ selenium==4.1.2
 telegram==0.0.1
 webdriver_manager==3.5.3
 lxml==4.8.0
+dnspython~=2.2.1
+pymongo~=4.0.2
