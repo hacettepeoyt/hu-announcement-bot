@@ -1,6 +1,6 @@
 # Hacettepe Duyurucusu
 
-Hacettepe Duyurucusu is a Telegram BOT that shares announcements from Hacettepe University Departments with the user.
+[Hacettepe Duyurucusu](t.me/HacettepeDuyurucuBot) is a Telegram BOT that shares announcements from Hacettepe University Departments with the user.
 
 ## Reminder
 
@@ -26,11 +26,13 @@ Pull requests are welcome! Especially, you can help us with adding other departm
 
 > Other department websites will be added
 
-> Using mongodb for saving user configs
+> ~~Using mongodb for saving user configs~~
 
 > ~~BOT will work for other users!~~
 
 > ~~Buttons will be added for better UX~~ 
+
+> ~~New documentations~~
 
 > To be continued... :)
 
