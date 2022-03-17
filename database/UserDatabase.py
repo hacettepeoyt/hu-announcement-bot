@@ -31,6 +31,17 @@ def find_subscriptions(user_id):
     return user['departments']
 
 
+def find_all_users():
+    user_configs = fetch_database()
+    users = user_configs.find()
+    user_IDs = []
+
+    for user in users:
+        user_IDs.append(user['user_id'])
+
+    return user_IDs
+
+
 def add_user(user_id, first_name, last_name):
     user_configs = fetch_database()
     user = user_configs.find_one({'user_id': user_id})
