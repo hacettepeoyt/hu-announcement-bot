@@ -4,27 +4,17 @@ import telegram
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
 
-import MessageHandler as Mh
 import AnnouncementHandler as Ah
+import MessageHandler as Mh
 import User
 import config
 from database import UserDatabase
-from scraper.chemie import Chemie
-from scraper.cs import ComputerScience
-from scraper.ie import IndustrialEngineering
-from scraper.math import Math
-from scraper.medicine import Medicine
-from scraper.sksdb import Sksdb
-from scraper.stat import Stat
-from scraper.tomer import Tomer
 
 '''
 In bot module, I've written the core code. Think this module as the Eiffel Tower.
 You can go anywhere in the city from here.
 
-We're enabling logging in the first lines. After that, there are objects which I created them from scraper module.
-You're seeing long <from scraper.department import department> formatted imports, yeah that's why. Some Python problems...
-After that, I'm adding those department object into a dictionary called departments{}.
+We're enabling logging in the first lines.
 
 Later on, there are some functions to call whenever the user invokes.
 start() --> User will user this to start to bot. There is welcome message and database checking. If the user isn't in database,
@@ -36,26 +26,6 @@ main() --> Core function. Polling is written here.
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-math_website = Math()
-sksdb_website = Sksdb()
-chemie_website = Chemie()
-cs_website = ComputerScience()
-ie_website = IndustrialEngineering()
-tomer_website = Tomer()
-medicine_website = Medicine()
-stat_website = Stat()
-
-departments = {
-    'CS': cs_website,
-    'Math': math_website,
-    'SKSDB': sksdb_website,
-    'Chemie': chemie_website,
-    'IE': ie_website,
-    'TOMER': tomer_website,
-    'Medicine': medicine_website,
-    'Stat': stat_website
-}
 
 
 def start(update: Update, context: CallbackContext):
