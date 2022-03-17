@@ -5,7 +5,7 @@ class Bilisim:
 
     def __init__(self):
         self.announcement = {}
-        self.name = 'Bilisim'
+        self.name = 'Bilişim Enstitüsü'
 
     def __complete_url(self, text):
         if text[:4] == 'http' or text[:3] == 'www':

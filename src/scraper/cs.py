@@ -9,7 +9,7 @@ class ComputerScience:
     def __init__(self):
 
         self.announcement = {}
-        self.name = 'CS'
+        self.name = 'Computer Science'
 
 
     def get_announcement(self):

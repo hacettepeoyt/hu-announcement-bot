@@ -8,7 +8,7 @@ class ChEng:
 
     def __init__(self):
         self.announcement = {}
-        self.name = 'ChEng'
+        self.name = 'Chemie Engineering'
 
 
     @staticmethod

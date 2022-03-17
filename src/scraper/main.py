@@ -22,21 +22,21 @@ tomer_website = tomer.Tomer()
 medicine_website = medicine.Medicine()
 stat_website = stat.Stat()
 cheng_website = cheng.ChEng()
-bilisim_website = bilisim.Bilisim
+bilisim_website = bilisim.Bilisim()
 muhfac_website = muhfac.MuhFac()
 me_website = me.ME()
 
 departments = {
-    'CS': cs_website,
+    'Computer Science': cs_website,
     'Math': math_website,
     'SKSDB': sksdb_website,
     'Chemie': chemie_website,
-    'IE': ie_website,
+    'Industrial Engineering': ie_website,
     'TOMER': tomer_website,
     'Medicine': medicine_website,
-    'Stat': stat_website,
-    "ChEng": cheng_website,
-    "Bilisim": bilisim_website,
-    "MuhFac": muhfac_website,
-    "ME": me_website
+    'Statistic': stat_website,
+    "Chemie Engineering": cheng_website,
+    "Bilişim Enstitüsü": bilisim_website,
+    "Engineering Faculty": muhfac_website,
+    "Mechanical Engineering": me_website
 }

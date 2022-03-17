@@ -5,7 +5,7 @@ class ME:
 
     def __init__(self):
         self.announcement = {}
-        self.name = 'ME'
+        self.name = 'Mechanical Engineering'
 
     def __complete_url(self, text):
         if text[:4] == 'http' or text[:3] == 'www':

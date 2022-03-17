@@ -5,7 +5,7 @@ class MuhFac:
 
     def __init__(self):
         self.announcement = {}
-        self.name = 'MuhFac'
+        self.name = 'Engineering Faculty'
 
     def __complete_url(self, text):
         if text[:4] == 'http' or text[:3] == 'www':

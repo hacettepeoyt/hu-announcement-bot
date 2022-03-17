@@ -8,7 +8,7 @@ class IndustrialEngineering:
 
     def __init__(self):
         self.announcement = {}
-        self.name = 'IE'
+        self.name = 'Industrial Engineering'
 
 
     @staticmethod

@@ -10,7 +10,7 @@ class Stat:
     def __init__(self):
 
         self.announcement = {}
-        self.name = 'Stat'
+        self.name = 'Statistic'
 
 
     @staticmethod
