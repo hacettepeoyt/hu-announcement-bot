@@ -1,4 +1,5 @@
 import logging
+import os
 
 import telegram
 from telegram import Update
@@ -51,7 +52,9 @@ def is_online(update: Update, context: CallbackContext):
 
 def main():
 
-    updater = Updater(config.API_KEY, use_context=True)
+    TOKEN = config.API_KEY
+    PORT = int(os.environ.get('PORT', '8443'))
+    updater = Updater(TOKEN)
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler('start', start)),
@@ -62,9 +65,12 @@ def main():
     dispatcher.add_handler(CommandHandler('admin_interface', Mh.send_from_admin))
     dispatcher.add_handler(MessageHandler(Filters.text, Mh.main))
 
-    updater.job_queue.run_repeating(Ah.check_new_announcements, interval=600, first=60)
+    updater.job_queue.run_repeating(Ah.check_new_announcements, interval=600, first=10)
 
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN,
+                          webhook_url='https://hu-announcement-bot.herokuapp.com/' + TOKEN)
     updater.idle()
 
 
