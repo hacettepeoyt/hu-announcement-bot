@@ -9,3 +9,5 @@ Although, it wasn't enough for some departments (only cs at the moment) because 
 If you are going to add new departments, you don't need to open issue. Just send us a pull request!
 
 Keep in mind, we don't like to use Selenium. If you have another solution beside Selenium, again pull requests are welcome!
+
+[M.Eren SOYKOK](https://github.com/rentale)
