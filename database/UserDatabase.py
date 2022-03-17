@@ -48,4 +48,4 @@ def update_subscriptions(user_id, subscribedDepartments):
                                      {'$set': {'departments': subscribedDepartments}},
                                      return_document=ReturnDocument.AFTER)
 
-    print("Subscriptions has been updated successfully!")
+    print(f"Subscriptions has been updated successfully for {user_id}!")

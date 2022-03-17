@@ -2,7 +2,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import CallbackContext
 
 from database import UserDatabase
-from bot import departments
+from scraper.main import departments
 
 '''
 This module will handle the user business. Such as, if there is a new subscripton, bot will call here.

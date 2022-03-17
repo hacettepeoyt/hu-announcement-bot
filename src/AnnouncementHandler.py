@@ -1,7 +1,8 @@
+import datetime
 import telegram
 from telegram.ext import CallbackContext
 
-from bot import departments
+from scraper.main import departments
 from database import UserDatabase, AnnouncementDatabase
 
 '''
@@ -17,6 +18,7 @@ but there are title and URL.
 def check_new_announcements(context: CallbackContext):
 
     for department in departments.values():
+        print(f"Checking {department.name}...")
         new_announcement = department.get_announcement()
         old_announcements = AnnouncementDatabase.find_announcement(department.name)
 
@@ -35,7 +37,7 @@ def send_message(context: CallbackContext, announcement, userList, department_na
                                  parse_mode=telegram.ParseMode.HTML,
                                  disable_web_page_preview=True)
 
-        print(f"Message has been sent to {user} from {department_name} Department!")
+        print(f"Message has been sent to {user} from {department_name} Department at {datetime.datetime.now} GMT")
 
 
 def make_pretty(department_name, announcement):
