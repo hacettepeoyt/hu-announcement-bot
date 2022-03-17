@@ -31,12 +31,12 @@ def find_subscriptions(user_id):
     return user['departments']
 
 
-def add_user(user_id):
+def add_user(user_id, first_name, last_name):
     user_configs = fetch_database()
     user = user_configs.find_one({'user_id': user_id})
 
     if user is None:
-        user_info = {'user_id': user_id, 'departments': [], 'language': 'tr'}
+        user_info = {'user_id': user_id, 'first_name': first_name, 'last_name': last_name, 'departments': [], 'language': 'tr'}
         user_configs.insert_one(user_info)
         print(f"{user_id} has been successfully enrolled the database!")
 
