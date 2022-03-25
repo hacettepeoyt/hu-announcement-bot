@@ -10,6 +10,7 @@ import src.scraper.cheng as cheng
 import src.scraper.bilisim as bilisim
 import src.scraper.muhfac as muhfac
 import src.scraper.me as me
+import src.scraper.ydyo as ydyo
 
 
 
@@ -25,6 +26,7 @@ cheng_website = cheng.ChEng()
 bilisim_website = bilisim.Bilisim()
 muhfac_website = muhfac.MuhFac()
 me_website = me.ME()
+ydyo_website = ydyo.ForeignLanguages()
 
 departments = {
     'Computer Science': cs_website,
@@ -38,5 +40,6 @@ departments = {
     "Chemie Engineering": cheng_website,
     "Bilişim Enstitüsü": bilisim_website,
     "Engineering Faculty": muhfac_website,
-    "Mechanical Engineering": me_website
+    "Mechanical Engineering": me_website,
+    "Foreign Languages School": ydyo_website
 }
