@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 
 
-class ChEng:
+class ChemieEngineering:
 
     def __init__(self):
         self.announcement = {}

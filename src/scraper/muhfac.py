@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-class MuhFac:
+class EngineeringFaculty:
 
     def __init__(self):
         self.announcement = {}

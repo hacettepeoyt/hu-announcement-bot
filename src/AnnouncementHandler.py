@@ -54,6 +54,6 @@ def make_pretty(department_name, announcement):
         if key == 'content' and content is not None:
             text += f"\U0001F4AC {content}\n\n"
         if key == 'url' and url is not None:
-            text += f'\U0001F310 <a href="{url}">Click here!</a>'
+            text += f'\U0001F310 <a href="{url}">Details are here!</a>'
 
     return text

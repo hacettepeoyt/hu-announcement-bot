@@ -22,10 +22,10 @@ ie_website = ie.IndustrialEngineering()
 tomer_website = tomer.Tomer()
 medicine_website = medicine.Medicine()
 stat_website = stat.Stat()
-cheng_website = cheng.ChEng()
+cheng_website = cheng.ChemieEngineering()
 bilisim_website = bilisim.Bilisim()
-muhfac_website = muhfac.MuhFac()
-me_website = me.ME()
+muhfac_website = muhfac.EngineeringFaculty()
+me_website = me.MechanicalEngineering()
 ydyo_website = ydyo.ForeignLanguages()
 
 departments = {
