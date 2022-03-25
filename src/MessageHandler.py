@@ -9,7 +9,7 @@ from database import UserDatabase
 def main(update: Update, context: CallbackContext):
 
     process = update.message.text.split()[0]
-    departmentName = ' '.join(update.message.text.split()[1])
+    departmentName = ' '.join(update.message.text.split()[1:])
 
     if process == 'Add':
         subscriptions = UserDatabase.find_subscriptions(update.effective_user.id)
