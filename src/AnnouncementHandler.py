@@ -33,11 +33,16 @@ def send_message(context: CallbackContext, announcement, userList, department_na
     text_to_print = make_pretty(department_name, announcement)
 
     for user in userList:
-        context.bot.send_message(chat_id=user, text=f"{text_to_print}",
-                                 parse_mode=telegram.ParseMode.HTML,
-                                 disable_web_page_preview=True)
 
-        print(f"Message has been sent to {user} from {department_name} Department at {datetime.datetime.now} GMT")
+        try:
+            context.bot.send_message(chat_id=user, text=f"{text_to_print}",
+                                     parse_mode=telegram.ParseMode.HTML,
+                                     disable_web_page_preview=True)
+
+            print(f"Message has been sent to {user} from {department_name} Department at {datetime.datetime.now()} GMT")
+
+        except telegram.error.Unauthorized:
+            print(f"I couldn't deliver message to {user}")
 
 
 def make_pretty(department_name, announcement):

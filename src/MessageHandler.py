@@ -45,6 +45,12 @@ def send_from_admin(update: Update, context: CallbackContext):
         all_users = UserDatabase.find_all_users()
 
         for user in all_users:
-            context.bot.send_message(chat_id=user, text=message_from_admin)
+
+            try:
+                context.bot.send_message(chat_id=user, text=message_from_admin)
+                print(f"Admin sent a message to {user}")
+
+            except telegram.error.Unauthorized:
+                print(f"I couldn't deliver message to {user}")
     else:
         context.bot.send_message(chat_id=update.effective_user, text='Oops! You are not admin. Sshhh!')
