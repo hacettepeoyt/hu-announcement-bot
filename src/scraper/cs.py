@@ -18,7 +18,7 @@ class ComputerScience:
         if text[:4] == 'http' or text[:3] == 'www':
             url = text
         else:
-            url = 'http://www.cs.hacettepe.edu.tr' + text
+            url = 'http://www.cs.hacettepe.edu.tr/' + text
 
         return url
 

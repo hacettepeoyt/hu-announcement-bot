@@ -1,9 +1,11 @@
+import telegram
 from telegram import Update
 from telegram.ext import CallbackContext
 
 import User
 import config
 from database import UserDatabase
+from scraper.main import availableDepartments
 
 
 def main(update: Update, context: CallbackContext):
@@ -13,18 +15,21 @@ def main(update: Update, context: CallbackContext):
 
     if process == 'Add':
         subscriptions = UserDatabase.find_subscriptions(update.effective_user.id)
-        if departmentName not in subscriptions:
+
+        if departmentName not in subscriptions and departmentName in availableDepartments:
             subscriptions.append(departmentName)
             UserDatabase.update_subscriptions(update.effective_user.id, subscriptions)
             update.message.reply_text(f"Successfully subscribed to {departmentName} Department!")
-        else:
+        if departmentName in subscriptions:
             update.message.reply_text(f"You are already subscribed to {departmentName} Department!")
+        else:
+            update.message.reply_text("There is no such department!")
 
         User.add_subscription(update,context)                # This is for updating the buttons in screen
 
     if process == 'Remove':
         subscriptions = UserDatabase.find_subscriptions(update.effective_user.id)
-        if departmentName in subscriptions:
+        if departmentName in subscriptions and departmentName in availableDepartments:
             subscriptions.remove(departmentName)
             UserDatabase.update_subscriptions(update.effective_user.id, subscriptions)
             update.message.reply_text(f"Successfully unsubscribed from {departmentName} Department!")
