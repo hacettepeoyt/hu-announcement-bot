@@ -28,7 +28,7 @@ muhfac_website = muhfac.EngineeringFaculty()
 me_website = me.MechanicalEngineering()
 ydyo_website = ydyo.ForeignLanguages()
 
-departments = {
+availableDepartments = {
     'Computer Science': cs_website,
     'Math': math_website,
     'SKSDB': sksdb_website,

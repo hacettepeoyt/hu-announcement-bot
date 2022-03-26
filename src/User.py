@@ -2,7 +2,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import CallbackContext
 
 from database import UserDatabase
-from scraper.main import departments
+from scraper.main import availableDepartments
 
 '''
 This module will handle the user business. Such as, if there is a new subscripton, bot will call here.
@@ -17,7 +17,7 @@ def remove_subscription(update: Update, context: CallbackContext):
     thanksButton = [[KeyboardButton('Thank you Hacettepe Duyurucusu!')]]
 
     for department in subscribedDepartments:
-        department = departments[department]
+        department = availableDepartments[department]
         buttons.append([KeyboardButton("Remove " + department.name)])
 
     if len(buttons) == 0:
@@ -33,12 +33,12 @@ def remove_subscription(update: Update, context: CallbackContext):
 def add_subscription(update: Update, context: CallbackContext):
 
     subscribedDepartments = UserDatabase.find_subscriptions(update.effective_user.id)
-    unsubscribedDepartments = [department.name for department in departments.values() if department.name not in subscribedDepartments]
+    unsubscribedDepartments = [department.name for department in availableDepartments.values() if department.name not in subscribedDepartments]
     buttons = []
     thanksButton = [[KeyboardButton('Thank you Hacettepe Duyurucusu!')]]
 
     for department in unsubscribedDepartments:
-        department = departments[department]
+        department = availableDepartments[department]
         buttons.append([KeyboardButton("Add " + department.name)])
 
     if len(buttons) == 0:

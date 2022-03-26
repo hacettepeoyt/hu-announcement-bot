@@ -2,7 +2,7 @@ import datetime
 import telegram
 from telegram.ext import CallbackContext
 
-from scraper.main import departments
+from scraper.main import availableDepartments
 from database import UserDatabase, AnnouncementDatabase
 
 '''
@@ -17,7 +17,7 @@ but there are title and URL.
 
 def check_new_announcements(context: CallbackContext):
 
-    for department in departments.values():
+    for department in availableDepartments.values():
         print(f"Checking {department.name}...")
         new_announcement = department.get_announcement()
         old_announcements = AnnouncementDatabase.find_announcement(department.name)
