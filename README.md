@@ -1,7 +1,7 @@
 # Hacettepe Duyurucusu
 
 Who really enjoys visiting department websites regularly? Probably nobody. Now it's time to automate it with a Telegram BOT.\
-[Hacettepe Duyurucusu](t.me/HacettepeDuyurucusuBot) offers you this simple service.
+**[Hacettepe Duyurucusu](t.me/HacettepeDuyurucusuBot)** offers you this simple service.
 
 ## Reminder
 
@@ -10,7 +10,7 @@ difference with [this article](https://dzone.com/articles/evaluating-webhooks-vs
 
 ## Usage
 
-You can use the [BOT](t.me/HacettepeDuyurucusuBot). It's open to any users.
+You can use the **[BOT](t.me/HacettepeDuyurucusuBot)**. It's open to any users.
 
 Required libraries and modules are specified in the *requirements.txt*
 
@@ -21,7 +21,7 @@ Also, you can get your free Telegram API from **[BotFather](t.me/BotFather)**
 ## Contributing
 
 Pull requests are welcome! Especially, you can help us with adding other department websites.\
-You can also open issues if you encounter one while using the BOT or if you want to suggest a new feature.\
+You can also open issues if you encounter one while using the BOT or if you want to suggest a new feature.
 
 ## In the future
 
@@ -36,6 +36,8 @@ You can also open issues if you encounter one while using the BOT or if you want
 > ~~New documentations~~
 
 > Minor UX improvements everytime needed
+
+> Multilanguage support
 
 > To be continued... :)
 
