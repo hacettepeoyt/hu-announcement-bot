@@ -3,29 +3,30 @@ from bs4 import BeautifulSoup
 
 
 
-class Konservatuvar:
+class StandartDepartment:
 
 
-    def __init__(self):
+    def __init__(self, name, address):
 
         self.announcement = {}
-        self.name = 'Ankara Devlet Konservatuvarı'
+        self.name = name
+        self.address = address
 
 
-    @staticmethod
-    def __complete_url(text):
+
+    def __complete_url(self, text):
 
         if text[:4] == 'http' or text[:3] == 'www':
             url = text
         else:
-            url = 'http://www.adk.hacettepe.edu.tr/' + text
+            url = self.address + text
 
         return url
 
 
     def get_announcement(self):
 
-        r = requests.get('http://www.adk.hacettepe.edu.tr/')
+        r = requests.get(self.address)
         r.encoding = 'utf-8'
         html_text = r.text
 

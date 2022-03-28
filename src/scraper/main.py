@@ -1,39 +1,31 @@
 import src.scraper.math as math
 import src.scraper.sksdb as sksdb
-import src.scraper.chemie as chemie
 import src.scraper.cs as cs
 import src.scraper.ie as ie
-import src.scraper.tomer as tomer
-import src.scraper.medicine as medicine
-import src.scraper.stat as stat
 import src.scraper.cheng as cheng
 import src.scraper.bilisim as bilisim
 import src.scraper.muhfac as muhfac
 import src.scraper.me as me
-import src.scraper.ydyo as ydyo
-import src.scraper.oidb as oidb
-import src.scraper.law as law
-import src.scraper.dentistry as dentistry
-import src.scraper.konservatuvar as konservatuvar
+import src.scraper.Standart as Standart
 
 
 math_website = math.Math()
 sksdb_website = sksdb.Sksdb()
-chemie_website = chemie.Chemie()
+me_website = me.MechanicalEngineering()
 cs_website = cs.ComputerScience()
 ie_website = ie.IndustrialEngineering()
-tomer_website = tomer.Tomer()
-medicine_website = medicine.Medicine()
-stat_website = stat.Stat()
 cheng_website = cheng.ChemieEngineering()
 bilisim_website = bilisim.Bilisim()
 muhfac_website = muhfac.EngineeringFaculty()
-me_website = me.MechanicalEngineering()
-ydyo_website = ydyo.ForeignLanguages()
-oidb_website = oidb.StudentAffairsOffice()
-law_website = law.Law()
-dentistry_website = dentistry.Dentistry()
-konservatuvar_website = konservatuvar.Konservatuvar()
+chemie_website = Standart.StandartDepartment('Chemie', 'http://www.chem.hacettepe.edu.tr/')
+tomer_website = Standart.StandartDepartment('TOMER', 'http://www.tomer.hacettepe.edu.tr/')
+medicine_website = Standart.StandartDepartment('Medicine', 'http://www.tip.hacettepe.edu.tr/')
+stat_website = Standart.StandartDepartment('Statistic', 'http://www.stat.hacettepe.edu.tr/tr')
+ydyo_website = Standart.StandartDepartment('Foreign Languages School', 'http://www.ydyo.hacettepe.edu.tr/')
+oidb_website = Standart.StandartDepartment('Student Affairs Office', 'http://www.oidb.hacettepe.edu.tr/')
+law_website = Standart.StandartDepartment('Law', 'http://www.hukukfakultesi.hacettepe.edu.tr/')
+dentistry_website = Standart.StandartDepartment('Dentistry', 'http://www.dis.hacettepe.edu.tr/')
+konservatuvar_website = Standart.StandartDepartment('Ankara Devlet Konservatuvarı', 'http://adk.hacettepe.edu.tr/')
 
 availableDepartments = {
     'Computer Science': cs_website,
