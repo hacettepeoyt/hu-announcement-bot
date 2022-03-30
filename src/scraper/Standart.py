@@ -35,7 +35,13 @@ class StandartDepartment:
 
         title = announcement.text.strip()
         content = None
-        url = self.__complete_url(announcement.find('a').get('href'))
+
+        # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
+        try:
+            url = self.__complete_url(announcement.find('a').get('href'))
+        except AttributeError:
+            print("ERROR: Attribute error for scraping URL")
+            url = None
 
         self.announcement = {
             "title": title,

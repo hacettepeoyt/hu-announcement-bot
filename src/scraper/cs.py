@@ -33,7 +33,13 @@ class ComputerScience:
 
         title = last_announcement['title']
         content = body.find('p').text
-        url = self.__complete_url(body.find('a').get('href'))
+
+        # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
+        try:
+            url = self.__complete_url(body.find('a').get('href'))
+        except AttributeError:
+            print("ERROR: Attribute error for scraping URL")
+            url = None
 
         self.announcement = {'title': title, 'content': content, 'url': url}
 

@@ -34,7 +34,13 @@ class ChemieEngineering:
 
         title = announcement.get_text(strip=True)
         content = None
-        url = self.__complete_url(soup.select_one('.liste a').get('href'))
+
+        # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
+        try:
+            url = self.__complete_url(soup.select_one('.liste a').get('href'))
+        except AttributeError:
+            print("ERROR: Attribute error for scraping URL")
+            url = None
 
         self.announcement = {
             "title": title,

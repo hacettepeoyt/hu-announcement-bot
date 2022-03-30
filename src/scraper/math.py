@@ -34,7 +34,14 @@ class Math:
 
         title = p.get_text()
         content = None
-        url = self.__complete_url(p.select_one('a').get('href'))
+
+        # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
+        try:
+            url = self.__complete_url(p.select_one('a').get('href'))
+        except AttributeError:
+            print("ERROR: Attribute error for scraping URL")
+            url = None
+
 
         self.announcement = {
             "title": title,

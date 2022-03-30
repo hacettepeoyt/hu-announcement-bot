@@ -28,22 +28,18 @@ class IndustrialEngineering:
         r.encoding = 'utf-8'
         html_text = r.text
 
+        soup = BeautifulSoup(html_text, 'lxml')
+        announcement = soup.select_one('.homepageAnnouncements p')
+
+        title = announcement.get_text().split('\n')[0]
+        content = None
+
+        # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
         try:
-            soup = BeautifulSoup(html_text, 'lxml')
-            announcement = soup.select_one('.homepageAnnouncements p')
-
-            title = announcement.get_text().split('\n')[0]
-            content = ' '.join(announcement.get_text().split()[1:-1])
-
-            try:
-                url = announcement.select_one('a').get('href')
-            except:
-                print("Inner exception has raised for ie")
-                url = None
-
-        except:
-            print("Outer exception has raised for ie")
-            title, content, url = None, None, None
+            url = self.__complete_url(announcement.select_one('a').get('href'))
+        except AttributeError:
+            print("ERROR: Attribute error for scraping URL")
+            url = None
 
         self.announcement = {
             "title": title,

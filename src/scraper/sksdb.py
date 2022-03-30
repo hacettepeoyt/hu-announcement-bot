@@ -24,7 +24,13 @@ class Sksdb:
 
         title = announcement.text
         content = None
-        url = announcement.get('href')
+
+        # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
+        try:
+            url = announcement.get('href')
+        except AttributeError:
+            print("ERROR: Attribute error for scraping URL")
+            url = None
 
         self.announcement = {
             "title": title,
