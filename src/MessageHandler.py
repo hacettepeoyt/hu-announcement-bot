@@ -20,7 +20,7 @@ def main(update: Update, context: CallbackContext):
             subscriptions.append(departmentName)
             UserDatabase.update_subscriptions(update.effective_user.id, subscriptions)
             update.message.reply_text(f"Successfully subscribed to {departmentName} Department!")
-        if departmentName in subscriptions:
+        elif departmentName in subscriptions:
             update.message.reply_text(f"You are already subscribed to {departmentName} Department!")
         else:
             update.message.reply_text("There is no such department!")

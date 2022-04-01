@@ -40,14 +40,19 @@ def help(update: Update, context: CallbackContext):
 
     update.message.reply_text(text="See the menu for commands, let me give you hint\n\n"
                                    "/add   --->   You can subscribe to available departments with this command\n"
-                                   "/remove   --->   You can unsubscribe from departments with this command\n\n",
+                                   "/remove   --->   You can unsubscribe from departments with this command\n\n"
+                                   "/reset   --->   Unsubscribe from all departments\n\n"
+                                   "/feedback   --->   You can give a private feedback with this command\n"
+                                   "<i>Example: /feedback your bot sucks!</i>",
                               parse_mode=telegram.ParseMode.HTML,
                               disable_web_page_preview=True)
 
 
-def is_online(update: Update, context: CallbackContext):
+def give_feedback(update: Update, context: CallbackContext):
 
-    update.message.reply_text("Yes, I'm alive right now!")
+    context.bot.forward_message(chat_id=config.feedback_chat_id,
+                                from_chat_id=update.message.chat_id,
+                                message_id=update.message.message_id)
 
 
 def main():
@@ -58,10 +63,11 @@ def main():
     dispatcher = updater.dispatcher
 
     dispatcher.add_handler(CommandHandler('start', start)),
-    dispatcher.add_handler(CommandHandler('online_status', is_online))
     dispatcher.add_handler(CommandHandler('remove', User.remove_subscription))
     dispatcher.add_handler(CommandHandler('add', User.add_subscription))
+    dispatcher.add_handler(CommandHandler('reset', User.reset_subscriptions))
     dispatcher.add_handler(CommandHandler('help', help))
+    dispatcher.add_handler(CommandHandler('feedback', give_feedback))
     dispatcher.add_handler(CommandHandler('admin_interface', Mh.send_from_admin))
     dispatcher.add_handler(MessageHandler(Filters.text, Mh.main))
 

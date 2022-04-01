@@ -48,3 +48,9 @@ def add_subscription(update: Update, context: CallbackContext):
     else:
         context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to subscribe from below",
                                  reply_markup=ReplyKeyboardMarkup(buttons))
+
+
+def reset_subscriptions(update: Update, context: CallbackContext):
+
+    UserDatabase.update_subscriptions(update.effective_user.id, [])
+    context.bot.send_message(chat_id=update.effective_user.id, text="I'm sad because you unsubscribed from all.. \U0001F97A")
