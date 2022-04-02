@@ -26,6 +26,8 @@ oidb_website = Standart.StandartDepartment('Student Affairs Office', 'http://www
 law_website = Standart.StandartDepartment('Law', 'http://www.hukukfakultesi.hacettepe.edu.tr/')
 dentistry_website = Standart.StandartDepartment('Dentistry', 'http://www.dis.hacettepe.edu.tr/')
 konservatuvar_website = Standart.StandartDepartment('Ankara Devlet Konservatuvarı', 'http://adk.hacettepe.edu.tr/')
+cevre_website = Standart.StandartDepartment('Environmental Engineering', 'http://cevre.hacettepe.edu.tr')
+biology_website = Standart.StandartDepartment('Biology', 'http://www.biology.hacettepe.edu.tr/')
 
 availableDepartments = {
     'Computer Science': cs_website,
@@ -44,5 +46,7 @@ availableDepartments = {
     'Engineering Faculty': muhfac_website,
     'Mechanical Engineering': me_website,
     'Law': law_website,
-    'Foreign Languages School': ydyo_website
+    'Foreign Languages School': ydyo_website,
+    'Environmental Engineering': cevre_website,
+    'Biology': biology_website
 }
