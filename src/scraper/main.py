@@ -2,21 +2,17 @@ import src.scraper.math as math
 import src.scraper.sksdb as sksdb
 import src.scraper.cs as cs
 import src.scraper.ie as ie
-import src.scraper.cheng as cheng
-import src.scraper.bilisim as bilisim
-import src.scraper.muhfac as muhfac
-import src.scraper.me as me
 import src.scraper.Standart as Standart
 
 
 math_website = math.Math()
 sksdb_website = sksdb.Sksdb()
-me_website = me.MechanicalEngineering()
 cs_website = cs.ComputerScience()
 ie_website = ie.IndustrialEngineering()
-cheng_website = cheng.ChemieEngineering()
-bilisim_website = bilisim.Bilisim()
-muhfac_website = muhfac.EngineeringFaculty()
+me_website = Standart.StandartDepartment('Mechanical Engineering', 'http://www.me.hacettepe.edu.tr')
+cheng_website = Standart.StandartDepartment('Chemie Engineering', 'http://www.cheng.hacettepe.edu.tr/')
+bilisim_website = Standart.StandartDepartment('Bilişim Enstitüsü', 'http://www.bilisim.hacettepe.edu.tr')
+muhfac_website = Standart.StandartDepartment('Engineering Faculty', 'http://www.muhfak.hacettepe.edu.tr/')
 chemie_website = Standart.StandartDepartment('Chemie', 'http://www.chem.hacettepe.edu.tr/')
 tomer_website = Standart.StandartDepartment('TOMER', 'http://www.tomer.hacettepe.edu.tr/')
 medicine_website = Standart.StandartDepartment('Medicine', 'http://www.tip.hacettepe.edu.tr/')
