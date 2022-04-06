@@ -24,7 +24,7 @@ class IndustrialEngineering:
 
     def get_announcement(self):
 
-        r = requests.get('http://www.ie.hacettepe.edu.tr/index.php?lang=tr')
+        r = requests.get('http://www.ie.hacettepe.edu.tr/index.php?lang=tr', timeout=(5,10))
         r.encoding = 'utf-8'
         html_text = r.text
 

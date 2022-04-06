@@ -19,7 +19,13 @@ def check_new_announcements(context: CallbackContext):
 
     for department in availableDepartments.values():
         print(f"Checking {department.name}...")
-        new_announcement = department.get_announcement()
+
+        try:
+            new_announcement = department.get_announcement()
+        except ConnectionError or TimeoutError:
+            print(f"Couldn't connect to {department.name}!")
+            continue
+
         old_announcements = AnnouncementDatabase.find_announcement(department.name)
 
         if new_announcement != old_announcements:
