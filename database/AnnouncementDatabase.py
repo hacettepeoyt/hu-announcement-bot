@@ -21,11 +21,12 @@ def find_announcement(departmentName):
     return old_announcement
 
 
-def update_announcements(departmanName, new_announcement):
+def update_announcements(departmentName, new_announcement):
     collection = fetch_database()
-    collection.find_one_and_update({'department': departmanName},
+    collection.find_one_and_update({'department': departmentName},
                                    {'$set': {'title': new_announcement['title'], 'content': new_announcement['content'],
                                              'url': new_announcement['url']}},
                                    return_document=ReturnDocument.AFTER)
 
-    print(f"Announcements updated for {departmanName} department in database!")
+    print(f"Announcements updated for {departmentName} department in database!")
+    
