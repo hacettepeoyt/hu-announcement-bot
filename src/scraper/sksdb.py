@@ -15,7 +15,7 @@ class Sksdb:
 
     def get_announcement(self):
 
-        r = requests.get('http://www.sksdb.hacettepe.edu.tr/bidbnew/index.php', timeout=(5,10))
+        r = requests.get('http://www.sksdb.hacettepe.edu.tr/bidbnew/index.php', timeout=5)
         r.encoding = 'utf-8'
         html_text = r.text
 

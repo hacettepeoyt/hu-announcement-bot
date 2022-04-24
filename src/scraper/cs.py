@@ -25,7 +25,7 @@ class ComputerScience:
 
     def get_announcement(self):
 
-        r = requests.get('http://cs.hacettepe.edu.tr/json/announcements.json', timeout=(5,10))
+        r = requests.get('http://cs.hacettepe.edu.tr/json/announcements.json', timeout=5)
 
         announcements = r.json()
         last_announcement = announcements[0]

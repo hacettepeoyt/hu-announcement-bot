@@ -26,7 +26,7 @@ class StandartDepartment:
 
     def get_announcement(self):
 
-        r = requests.get(self.address, timeout=(5,10))
+        r = requests.get(self.address, timeout=5)
         r.encoding = 'utf-8'
         html_text = r.text
 

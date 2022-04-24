@@ -25,7 +25,7 @@ class Math:
 
     def get_announcement(self):
 
-        r = requests.get('http://www.mat.hacettepe.edu.tr/duyurular.html', timeout=(5,10))
+        r = requests.get('http://www.mat.hacettepe.edu.tr/duyurular.html', timeout=5)
         r.encoding = 'utf-8'
         html_text = r.text
 
