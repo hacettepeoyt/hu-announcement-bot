@@ -1,5 +1,6 @@
 import datetime
 import telegram
+import requests
 from telegram.ext import CallbackContext
 
 from scraper.main import availableDepartments
@@ -22,7 +23,7 @@ def check_new_announcements(context: CallbackContext):
 
         try:
             new_announcement = department.get_announcement()
-        except ConnectionError or TimeoutError:
+        except requests.exceptions.ConnectTimeout:
             print(f"Couldn't connect to {department.name}!")
             continue
 
