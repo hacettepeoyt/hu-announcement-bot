@@ -32,7 +32,7 @@ class ComputerScience:
         body = BeautifulSoup(last_announcement['body'], 'lxml')
 
         title = last_announcement['title']
-        content = body.find('p').text
+        content = body.text
 
         # Sometimes announcements don't contain a URL. This try-except block will bypass that problem.
         try:
