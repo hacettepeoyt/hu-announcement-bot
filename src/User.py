@@ -1,56 +1,71 @@
-from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
-from telegram.ext import CallbackContext
-
-from database import UserDatabase
-from scraper.main import availableDepartments
-
-'''
-This module will handle the user business. Such as, if there is a new subscripton, bot will call here.
-The reason why it's longer than expected is because there are buttons to implement.
-'''
+from mongo import UserDatabase
 
 
-def remove_subscription(update: Update, context: CallbackContext):
+def enroll(user):
+    user_id = user.id
+    first_name = user.first_name
+    last_name = user.last_name
+    language = user.language_code
 
-    subscribedDepartments = UserDatabase.find_subscriptions(update.effective_user.id)
-    buttons = []
-    thanksButton = [[KeyboardButton('Thank you Hacettepe Duyurucusu!')]]
-
-    for department in subscribedDepartments:
-        department = availableDepartments[department]
-        buttons.append([KeyboardButton("Remove " + department.name)])
-
-    if len(buttons) == 0:
-        context.bot.send_message(chat_id=update.effective_user.id, text="You are already don't have subscriptions\n\n"
-                                                                        "If you want a new department, please write a feedback!\n\n"
-                                                                        "Also thank me ^^",
-                                 reply_markup=ReplyKeyboardMarkup(thanksButton))
-    else:
-        context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to unsubscribe from below",
-                                 reply_markup=ReplyKeyboardMarkup(buttons))
+    UserDatabase.enroll(user_id, first_name, last_name, language, ['hu-3', 'hu-13'])
 
 
-def add_subscription(update: Update, context: CallbackContext):
-
-    subscribedDepartments = UserDatabase.find_subscriptions(update.effective_user.id)
-    unsubscribedDepartments = [department.name for department in availableDepartments.values() if department.name not in subscribedDepartments]
-    buttons = []
-    thanksButton = [[KeyboardButton('Thank you Hacettepe Duyurucusu!')]]
-
-    for department in unsubscribedDepartments:
-        department = availableDepartments[department]
-        buttons.append([KeyboardButton("Add " + department.name)])
-
-    if len(buttons) == 0:
-        context.bot.send_message(chat_id=update.effective_user.id, text="You are already subscribed to all departments\n\n"
-                                                                        "Also thank me ^^",
-                                 reply_markup=ReplyKeyboardMarkup(thanksButton))
-    else:
-        context.bot.send_message(chat_id=update.effective_user.id, text="Choose a department to subscribe from below",
-                                 reply_markup=ReplyKeyboardMarkup(buttons))
+def add_subscription(user_id, department_id):
+    subscriptions = UserDatabase.find_subscriptions(user_id)
+    subscriptions.append(department_id)
+    UserDatabase.update_subscriptions(user_id, subscriptions)
+    return subscriptions
 
 
-def reset_subscriptions(update: Update, context: CallbackContext):
+def remove_subscription(user_id, department_id):
+    subscriptions = UserDatabase.find_subscriptions(user_id)
+    subscriptions.remove(department_id)
+    UserDatabase.update_subscriptions(user_id, subscriptions)
+    return subscriptions
 
-    UserDatabase.update_subscriptions(update.effective_user.id, [])
-    context.bot.send_message(chat_id=update.effective_user.id, text="I'm sad because you unsubscribed from all.. \U0001F97A")
+
+def get_subscriptions(user_id):
+    return UserDatabase.find_subscriptions(user_id)
+
+
+def reset_subscriptions(user_id):
+    UserDatabase.update_subscriptions(user_id, [])
+    return []
+
+
+def set_notification(user_id, value):
+    UserDatabase.set_customs(user_id, 'notification_status', value)
+    print(f"Notification status has been changed for {user_id} - {value}")
+
+
+def set_holiday_mode(user_id, value):
+    UserDatabase.set_customs(user_id, 'holiday_mode', value)
+    print(f"Holiday mode has been changed for {user_id} - {value}")
+
+
+def set_language(user_id, value):
+    UserDatabase.set_customs(user_id, 'language', value)
+    print(f"Language has been changed for {user_id} - {value}")
+
+
+def get_dnd(user_id):
+    return UserDatabase.get_property(user_id, 'dnd')
+
+
+def get_holiday_mode(user_id):
+    return UserDatabase.get_property(user_id, 'holiday_mode')
+
+
+def get_language(user_id):
+    return UserDatabase.get_property(user_id, 'language')
+
+
+def get_properties(user_id, fields):
+    return UserDatabase.get_properties(user_id, fields)
+
+
+def get_customs(user_id):
+    fields = ['dnd', 'holiday_mode', 'language']
+    customs = UserDatabase.get_properties(user_id, fields)
+
+    return customs['dnd'], customs['holiday_mode'], customs['language']
