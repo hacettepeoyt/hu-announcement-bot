@@ -33,6 +33,10 @@ def reset_subscriptions(user_id):
     return []
 
 
+def find_subscribers(department_id):
+    return UserDatabase.find_subscribers(department_id)
+
+
 def set_notification(user_id, value):
     UserDatabase.set_customs(user_id, 'notification_status', value)
     print(f"Notification status has been changed for {user_id} - {value}")

@@ -28,8 +28,23 @@ def get_settings(dnd, holiday, language):
     return text
 
 
-def create_announcement_text():
-    pass
+def create_announcement_text(department_id, announcement, language):
+    title = announcement['title']
+    content = announcement['content']
+    url = announcement['url']
+    text = f"{encode(department_id, language)} {encode('header', language)}\n\n"
+
+    for key in announcement.keys():
+        if key == 'title' and title is not None:
+            text += f"\U0001F514 <b>{title}</b>\n\n"
+
+        if key == 'content' and content is not None:
+            text += f"\U0001F4AC {content}\n\n"
+
+        if key == 'url' and url is not None:
+            text += f"\U0001F310 <a href='{url}'>{encode('anchor-text', language)}</a>"
+
+    return text
 
 
 def get_departments(language):

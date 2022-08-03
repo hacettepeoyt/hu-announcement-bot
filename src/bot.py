@@ -4,6 +4,7 @@ import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
 
 import config
+import Task
 from src.handler import CallbackQueryHandler as Cqh, CommandHandler as Ch, MessageHandler as Mh
 
 logging.basicConfig(
@@ -36,7 +37,10 @@ def main():
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, Mh.edit_subscription))
     dispatcher.add_handler(CallbackQueryHandler(Cqh.button))
 
+    updater.job_queue.run_repeating(Task.check_announcements, interval=300, first=1)
+
     updater.start_polling()
+    updater.idle()
 
 
 if __name__ == '__main__':
