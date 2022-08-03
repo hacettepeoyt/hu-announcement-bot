@@ -28,7 +28,7 @@ class StandartDepartment:
             title = p.text.strip()
 
             try:
-                url = self.complete_url(p.find('a').encode('href'))
+                url = self.complete_url(p.find('a').get('href'))
             except AttributeError:
                 print("ERROR: Attribute error for scraping URL")
                 url = None

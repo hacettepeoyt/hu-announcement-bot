@@ -23,7 +23,7 @@ class Sksdb:
             title = a.text
 
             try:
-                url = a.encode('href')
+                url = a.get('href')
             except AttributeError:
                 print("ERROR: Attribute error for scraping URL")
                 url = None
