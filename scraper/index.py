@@ -2,6 +2,7 @@ import scraper.math as math
 import scraper.sksdb as sksdb
 import scraper.cs as cs
 import scraper.standart as standart
+import scraper.ie as ie
 
 cs_website = cs.ComputerScience('hu-1', 'http://www.cs.hacettepe.edu.tr/')
 math_website = math.Math('hu-2', 'http://www.mat.hacettepe.edu.tr/')
@@ -21,6 +22,7 @@ dentistry_website = standart.StandartDepartment('hu-15', 'http://www.dis.hacette
 konservatuvar_website = standart.StandartDepartment('hu-16', 'http://adk.hacettepe.edu.tr/')
 iibf_website = standart.StandartDepartment('hu-17', 'http://www.iibf.hacettepe.edu.tr/')
 politics_website = standart.StandartDepartment('hu-18', 'http://www.sbky.hacettepe.edu.tr/')
+ie_website = ie.IndustrialEngineering('hu-19', 'http://www.ie.hacettepe.edu.tr/')
 
 availableDepartments = {
     cs_website.name: cs_website,
@@ -40,7 +42,8 @@ availableDepartments = {
     law_website.name: law_website,
     ydyo_website.name: ydyo_website,
     iibf_website.name: iibf_website,
-    politics_website.name: politics_website
+    politics_website.name: politics_website,
+    ie_website.name: ie_website
 }
 
 """
