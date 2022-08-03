@@ -11,8 +11,13 @@ def update(department_id, announcements):
     logger.info(f"Announcements updated for {department_id} department in database!")
 
 
-def new_department(document):
-    AnnouncementDatabase.insert_documents(document)
+def new_department(department_id):
+    document = {
+        'department': department_id,
+        'announcements': []
+    }
+
+    AnnouncementDatabase.insert_documents([document])
     logger.info('New document(s) have been inserted!')
 
 

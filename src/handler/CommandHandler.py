@@ -1,9 +1,12 @@
+import telegram
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import CallbackContext, ConversationHandler
 
-from src import User, Text
+from src import User, Text, Announcement
 from scraper.index import availableDepartments
 from src.Keyboard import create_keyboard, create_inline_keyboard
+from src.Logging import logger
+from config import admin_id
 
 
 def start(update: Update, context: CallbackContext):
@@ -87,3 +90,27 @@ def answer_feedback(update: Update, context: CallbackContext):
     reciever_id = update.message.reply_to_message.forward_from.id
     message = update.message.text[8:]
     context.bot.send_message(chat_id=reciever_id, text=message)
+
+
+def add_new_department(update: Update, context: CallbackContext):
+    is_admin = update.effective_user.id == admin_id
+
+    if is_admin:
+        Announcement.new_department(context.args[0])
+    else:
+        update.message.reply_text("403")
+
+
+def send_from_admin(update: Update, context: CallbackContext):
+    message_from_admin = ' '.join(context.args[:])
+
+    if update.effective_user.id == admin_id:
+        for user in User.get_all_users():
+            try:
+                context.bot.send_message(chat_id=user, text=message_from_admin)
+                logger.info(f"Admin sent a message to {user}")
+
+            except telegram.error.Unauthorized:
+                logger.info(f"Couldn't deliver message to {user}")
+    else:
+        update.message.reply_text("403")

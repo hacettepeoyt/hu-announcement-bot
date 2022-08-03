@@ -40,7 +40,7 @@ def reset_subscriptions(user_id):
     return []
 
 
-def find_subscribers(department_id):
+def get_subscribers(department_id):
     return UserDatabase.find_subscribers(department_id)
 
 
@@ -80,3 +80,7 @@ def get_customs(user_id):
     customs = UserDatabase.get_properties(user_id, fields)
 
     return customs['dnd'], customs['holiday_mode'], customs['language']
+
+
+def get_all_users():
+    return UserDatabase.find_all_users()
