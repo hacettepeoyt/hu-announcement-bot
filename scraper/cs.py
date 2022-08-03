@@ -28,7 +28,6 @@ class ComputerScience:
             try:
                 url = self.complete_url(body.find('a').get('href'))
             except AttributeError:
-                print("ERROR: Attribute error for scraping URL")
                 url = None
 
             announcement = {'title': title, 'content': content, 'url': url}

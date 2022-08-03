@@ -1,4 +1,5 @@
 from mongo import UserDatabase
+from Logging import logger
 
 
 def enroll(user):
@@ -8,12 +9,15 @@ def enroll(user):
     language = user.language_code
 
     UserDatabase.enroll(user_id, first_name, last_name, language, ['hu-3', 'hu-13'])
+    logger.info(f"{user_id} has been successfully enrolled the database!")
 
 
 def add_subscription(user_id, department_id):
     subscriptions = UserDatabase.find_subscriptions(user_id)
     subscriptions.append(department_id)
     UserDatabase.update_subscriptions(user_id, subscriptions)
+    logger.info(f"Subscriptions has been updated successfully for {user_id}!")
+
     return subscriptions
 
 
@@ -21,6 +25,8 @@ def remove_subscription(user_id, department_id):
     subscriptions = UserDatabase.find_subscriptions(user_id)
     subscriptions.remove(department_id)
     UserDatabase.update_subscriptions(user_id, subscriptions)
+    logger.info(f"Subscriptions has been updated successfully for {user_id}!")
+
     return subscriptions
 
 
@@ -30,6 +36,7 @@ def get_subscriptions(user_id):
 
 def reset_subscriptions(user_id):
     UserDatabase.update_subscriptions(user_id, [])
+    logger.info(f"Subscriptions has been updated successfully for {user_id}!")
     return []
 
 
@@ -39,17 +46,17 @@ def find_subscribers(department_id):
 
 def set_notification(user_id, value):
     UserDatabase.set_customs(user_id, 'notification_status', value)
-    print(f"Notification status has been changed for {user_id} - {value}")
+    logger.info(f"Notification status has been changed for {user_id} - {value}")
 
 
 def set_holiday_mode(user_id, value):
     UserDatabase.set_customs(user_id, 'holiday_mode', value)
-    print(f"Holiday mode has been changed for {user_id} - {value}")
+    logger.info(f"Holiday mode has been changed for {user_id} - {value}")
 
 
 def set_language(user_id, value):
     UserDatabase.set_customs(user_id, 'language', value)
-    print(f"Language has been changed for {user_id} - {value}")
+    logger.info(f"Language has been changed for {user_id} - {value}")
 
 
 def get_dnd(user_id):

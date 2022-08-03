@@ -1,23 +1,21 @@
-import datetime
-
-import requests
 import telegram
 from telegram.ext import CallbackContext
 
-from scraper.index import availableDepartments
-import User
 import Announcement
 import Text
+import User
+from Logging import logger
+from scraper.index import availableDepartments
 
 
 def check_announcements(context: CallbackContext):
     for department in availableDepartments.values():
-        print(f"Checking {department.name}...")
+        logger.info(f"Checking {department.name}...")
 
         try:
             news = department.get_announcements()
-        except requests.exceptions.ConnectTimeout:
-            print(f"Couldn't connect to {department.name}!")
+        except:
+            logger.info(f"Couldn't connect to {department.name}!")
             continue
 
         olds = Announcement.find(department.name)
@@ -26,6 +24,9 @@ def check_announcements(context: CallbackContext):
 
         for announcement in diff:
             notify_users(context, announcement, user_list, department.name)
+
+        if diff:
+            Announcement.update(department.name, news)
 
 
 def notify_users(context: CallbackContext, announcement, user_list, department_id):
@@ -38,7 +39,7 @@ def notify_users(context: CallbackContext, announcement, user_list, department_i
                                      parse_mode=telegram.ParseMode.HTML,
                                      disable_web_page_preview=True)
 
-            print(f"Message has been sent to {user} from {department_id} Department at {datetime.datetime.now()} GMT")
+            logger.info(f"Message has been sent to {user} from {department_id} Department")
 
         except telegram.error.Unauthorized:
-            print(f"I couldn't deliver message to {user}")
+            logger.info(f"Couldn't deliver message to {user}")

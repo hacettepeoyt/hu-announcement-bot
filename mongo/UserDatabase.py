@@ -53,7 +53,6 @@ def enroll(user_id, first_name, last_name, lang, def_deps):
                      'departments': def_deps}
 
         user_configs.insert_one(user_info)
-        print(f"{user_id} has been successfully enrolled the database!")
 
 
 def update_subscriptions(user_id, subscribedDepartments):
@@ -62,15 +61,13 @@ def update_subscriptions(user_id, subscribedDepartments):
                                      {'$set': {'departments': subscribedDepartments}},
                                      return_document=ReturnDocument.AFTER)
 
-    print(f"Subscriptions has been updated successfully for {user_id}!")
-
 
 def set_customs(user_id, key, value):
     user_configs = fetch_collection()
     user_configs.find_one_and_update({'user_id': user_id},
                                      {'$set': {key: value}})
 
-#DELETE
+
 def get_property(user_id, field):
     user_configs = fetch_collection()
     query = {'user_id': user_id}

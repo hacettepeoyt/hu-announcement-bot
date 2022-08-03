@@ -1,4 +1,3 @@
-import logging
 import os
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
@@ -6,11 +5,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Conve
 import config
 import Task
 from src.handler import CallbackQueryHandler as Cqh, CommandHandler as Ch, MessageHandler as Mh
-
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
-)
-logger = logging.getLogger(__name__)
+from Logging import logger
 
 
 def main():

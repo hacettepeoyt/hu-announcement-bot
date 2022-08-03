@@ -30,7 +30,6 @@ class Math:
             try:
                 url = self.complete_url(p.select_one('a').get('href'))
             except AttributeError:
-                print("ERROR: Attribute error for scraping URL")
                 url = None
 
             announcement = {"title": title, "content": None, "url": url}

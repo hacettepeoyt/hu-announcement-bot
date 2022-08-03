@@ -17,8 +17,6 @@ def insert_documents(documents):
     collection = fetch_collection()
     collection.insert_many(documents)
 
-    print('New document(s) have been inserted!')
-
 
 def find(departmentName):
     collection = fetch_collection()
@@ -39,5 +37,3 @@ def update(department, announcements):
     collection.find_one_and_update({'department': department},
                                    {'$set': {'announcements': announcements}},
                                    return_document=ReturnDocument.AFTER)
-
-    print(f"Announcements updated for {department} department in database!")
