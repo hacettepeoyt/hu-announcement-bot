@@ -20,7 +20,7 @@ def check_announcements(context: CallbackContext):
 
         olds = Announcement.find(department.name)
         diff = Announcement.compare(olds, news)
-        user_list = User.find_subscribers(department.name)
+        user_list = User.get_subscribers(department.name)
 
         for announcement in diff:
             notify_users(context, announcement, user_list, department.name)
