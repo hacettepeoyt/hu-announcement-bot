@@ -44,8 +44,8 @@ def get_subscribers(department_id):
     return UserDatabase.find_subscribers(department_id)
 
 
-def set_notification(user_id, value):
-    UserDatabase.set_customs(user_id, 'notification_status', value)
+def set_dnd(user_id, value):
+    UserDatabase.set_customs(user_id, 'dnd', value)
     logger.info(f"Notification status has been changed for {user_id} - {value}")
 
 
