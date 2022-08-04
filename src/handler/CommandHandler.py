@@ -65,7 +65,7 @@ def settings(update: Update, context: CallbackContext):
 
     message = Text.get_settings(dnd, holiday, lang)
     reply_markup = create_inline_keyboard(language)
-    update.message.reply_text(message, reply_markup=reply_markup)
+    update.message.reply_text(message, reply_markup=reply_markup, parse_mode=telegram.ParseMode.HTML)
 
 
 def feedback(update: Update, context: CallbackContext):

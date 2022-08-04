@@ -12,18 +12,19 @@ def get_settings(dnd, holiday, language):
     text = ""
 
     if dnd:
-        text += f"{encode('dnd-text', language)}: {encode('enabled', language)}\n"
+        text += f"\U0001F508 <b>{encode('dnd-text', language)}:</b> {encode('enabled', language)}\n\n"
     else:
-        text += f"{encode('dnd-text', language)}: {encode('disabled', language)}\n"
+        text += f"\U0001F508 <b>{encode('dnd-text', language)}:</b> {encode('disabled', language)}\n\n"
 
     if holiday:
-        text += f"{encode('holiday-text', language)}: {encode('enabled', language)}\n"
+        text += f"\U0001F3D6 <b>{encode('holiday-text', language)}:</b> {encode('enabled', language)}\n\n"
     else:
-        text += f"{encode('holiday-text', language)}: {encode('disabled', language)}\n"
+        text += f"\U0001F3D6 <b>{encode('holiday-text', language)}:</b> {encode('disabled', language)}\n\n"
 
-    text += f"{encode('language-text', language)}: {encode('language', language)}\n\n\n"
+    text += f"\U0001F30D <b>{encode('language-text', language)}:</b> {encode('language', language)}\n\n\n"
 
-    text += f"{encode('dnd-desc', language)}\n\n{encode('holiday-desc', language)}\n"
+    text += f"<b>{encode('dnd-text', language)}:</b> <i>{encode('dnd-desc', language)}</i>\n\n" \
+            f"<b>{encode('holiday-text', language)}:</b> <i>{encode('holiday-desc', language)}</i>\n"
 
     return text
 
@@ -32,7 +33,7 @@ def create_announcement_text(department_id, announcement, language):
     title = announcement['title']
     content = announcement['content']
     url = announcement['url']
-    text = f"{encode(department_id, language)} {encode('header', language)}\n\n"
+    text = f"<b>{encode(department_id, language)} {encode('header', language)}</b>\n\n\n"
 
     for key in announcement.keys():
         if key == 'title' and title is not None:

@@ -1,3 +1,4 @@
+import telegram
 from telegram import Update
 from telegram.ext import CallbackContext
 import os
@@ -30,7 +31,7 @@ def button(update: Update, context: CallbackContext):
     query.answer()
     message = Text.get_settings(current_dnd, current_holiday, current_lang)
     reply_markup = create_inline_keyboard(current_lang)
-    query.edit_message_text(text=message, reply_markup=reply_markup)
+    query.edit_message_text(text=message, reply_markup=reply_markup, parse_mode=telegram.ParseMode.HTML)
 
 
 def find_language_list():
@@ -52,4 +53,3 @@ def find_next_language(language):
         return language_list[0]
 
     return language_list[current_index + 1]
-    
