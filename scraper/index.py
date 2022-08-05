@@ -23,6 +23,11 @@ konservatuvar_website = StandartDepartment('hu-16', 'http://adk.hacettepe.edu.tr
 iibf_website = StandartDepartment('hu-17', 'http://www.iibf.hacettepe.edu.tr/')
 politics_website = StandartDepartment('hu-18', 'http://www.sbky.hacettepe.edu.tr/')
 ie_website = IndustrialEngineering('hu-19', 'http://www.ie.hacettepe.edu.tr/')
+pharmacy_website = StandartDepartment('hu-20', 'http://www.eczacilik.hacettepe.edu.tr/')
+ce_website = StandartDepartment('hu-21', 'http://www.ce.hacettepe.edu.tr/')
+cevre_website = StandartDepartment('hu-22', 'http://www.cevre.hacettepe.edu.tr/')
+psychology_website = StandartDepartment('hu-23', 'http://www.psikoloji.hacettepe.edu.tr/')
+
 
 availableDepartments = {
     cs_website.name: cs_website,
@@ -43,5 +48,9 @@ availableDepartments = {
     ydyo_website.name: ydyo_website,
     iibf_website.name: iibf_website,
     politics_website.name: politics_website,
-    ie_website.name: ie_website
+    ie_website.name: ie_website,
+    pharmacy_website.name: pharmacy_website,
+    ce_website.name: ce_website,
+    cevre_website.name: cevre_website,
+    psychology_website.name: psychology_website
 }

@@ -26,16 +26,16 @@
   "anchor-text": "Detaylar burada!",
 
   "hu-1": "Bilgisayar Mühendisliği",
-  "hu-2": "Matematik",
+  "hu-2": "Matematik Bölümü",
   "hu-3": "SKSDB",
   "hu-4": "Makine Mühendisliği",
   "hu-5": "Kimya Mühendisliği",
   "hu-6": "Bilişim Enstitüsü",
   "hu-7": "Mühendislik Fakültesi",
-  "hu-8": "Kimya",
+  "hu-8": "Kimya Bölümü",
   "hu-9": "TOMER",
   "hu-10": "Tıp",
-  "hu-11": "İstatistik",
+  "hu-11": "İstatistik Bölümü",
   "hu-12": "Yabancı Diller Yüksekokulu",
   "hu-13": "Öğrenci İşleri Ofisi",
   "hu-14": "Hukuk Fakültesi",
@@ -43,5 +43,9 @@
   "hu-16": "Ankara Devlet Konservatuvarı",
   "hu-17": "İktisadi ve İdari Bilimler Fakültesi",
   "hu-18": "Siyaset Bilimi ve Kamu Yönetimi",
-  "hu-19": "Endüstri Mühendisliği"
+  "hu-19": "Endüstri Mühendisliği",
+  "hu-20": "Eczacılık Fakültesi",
+  "hu-21": "İnşaat Mühendisliği",
+  "hu-22": "Çevre Mühendisliği",
+  "hu-23": "Psikoloji Bölümü"
 }
