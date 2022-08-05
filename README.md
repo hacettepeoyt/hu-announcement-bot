@@ -1,4 +1,5 @@
-<img src="assets/hu-announcement-bot-banner.png" alt="hu-announcement-bot-banner">
+![Hacettepe Duyurucusu Banner](assets/hu-announcement-bot-banner-light.png#gh-light-mode-only)
+![Hacettepe Duyurucusu Banner](assets/hu-announcement-bot-banner-dark.png#gh-dark-mode-only)
 
 Who really enjoys visiting department websites regularly? Probably nobody. Now it's time to automate it with a Telegram Bot. [Hacettepe Duyurucusu](t.me/HacettepeDuyurucuBot) offers this simple service to you with no cost.
 
