@@ -35,10 +35,13 @@ def button(update: Update, context: CallbackContext):
 
 
 def find_language_list():
-    file_list = sorted(os.listdir('src/locale/'))
+    file_list = sorted(os.listdir('locale/'))
     languages = []
 
     for file in file_list:
+        if file[-4:] != 'json':
+            continue
+
         name = file.replace('.json', '')
         languages.append(name)
 

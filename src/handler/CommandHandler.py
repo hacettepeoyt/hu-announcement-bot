@@ -89,7 +89,9 @@ def cancel(update: Update, context: CallbackContext):
 def answer_feedback(update: Update, context: CallbackContext):
     reciever_id = update.message.reply_to_message.forward_from.id
     message = update.message.text[8:]
-    context.bot.send_message(chat_id=reciever_id, text=message)
+    context.bot.send_message(chat_id=reciever_id, text=message,
+                             parse_mode=telegram.ParseMode.HTML,
+                             disable_web_page_preview=True)
 
 
 def add_new_department(update: Update, context: CallbackContext):
@@ -102,12 +104,14 @@ def add_new_department(update: Update, context: CallbackContext):
 
 
 def send_from_admin(update: Update, context: CallbackContext):
-    message_from_admin = ' '.join(context.args[:])
+    message = update.message.text[16:]
 
     if update.effective_user.id == admin_id:
         for user in User.get_all_users():
             try:
-                context.bot.send_message(chat_id=user, text=message_from_admin)
+                context.bot.send_message(chat_id=user, text=message,
+                                         parse_mode=telegram.ParseMode.HTML,
+                                         disable_web_page_preview=True)
                 logger.info(f"Admin sent a message to {user}")
 
             except telegram.error.Unauthorized:
