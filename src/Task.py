@@ -26,7 +26,8 @@ def check_announcements(context: CallbackContext):
             notify_users(context, announcement, user_list, department.name)
 
         if diff:
-            Announcement.update(department.name, news)
+            olds.extend(diff)
+            Announcement.update(department.name, olds)
 
 
 def notify_users(context: CallbackContext, announcement, user_list, department_id):
@@ -35,9 +36,15 @@ def notify_users(context: CallbackContext, announcement, user_list, department_i
         message = Text.create_announcement_text(department_id, announcement, language)
 
         try:
-            context.bot.send_message(chat_id=user, text=f"{message}",
-                                     parse_mode=telegram.ParseMode.HTML,
-                                     disable_web_page_preview=True)
+            if User.get_dnd(user):
+                context.bot.send_message(chat_id=user, text=f"{message}",
+                                         parse_mode=telegram.ParseMode.HTML,
+                                         disable_web_page_preview=True, disable_notification=True)
+
+            else:
+                context.bot.send_message(chat_id=user, text=f"{message}",
+                                         parse_mode=telegram.ParseMode.HTML,
+                                         disable_web_page_preview=True)
 
             logger.info(f"Message has been sent to {user} from {department_id} Department")
 

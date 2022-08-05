@@ -15,7 +15,7 @@ def fetch_collection():
 
 def find_subscribers(departmentName):
     user_configs = fetch_collection()
-    users = user_configs.find({"departments": departmentName})
+    users = user_configs.find({"departments": departmentName, "holiday_mode": False})
 
     subscribedUsers = []
     for user in users:
