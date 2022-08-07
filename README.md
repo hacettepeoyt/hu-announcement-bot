@@ -52,7 +52,9 @@ You can also use this code to make a bot, it's [open-source](https://www.redhat.
 - [x]  User customizations *(DND, Holiday Mode)*
 - [ ]  Support for groups and channels
 - [ ]  New departments
-- [ ]  Brand new logo
+- [x]  Brand new logo
+- [ ]  r/Hacettepe support
+- [ ]  Support of popular Instagram pages related to Hacettepe
 
 # License
 [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)

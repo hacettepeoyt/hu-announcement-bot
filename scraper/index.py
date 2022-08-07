@@ -27,6 +27,7 @@ pharmacy_website = StandartDepartment('hu-20', 'http://www.eczacilik.hacettepe.e
 ce_website = StandartDepartment('hu-21', 'http://www.ce.hacettepe.edu.tr/')
 cevre_website = StandartDepartment('hu-22', 'http://www.cevre.hacettepe.edu.tr/')
 psychology_website = StandartDepartment('hu-23', 'http://www.psikoloji.hacettepe.edu.tr/')
+edu_website = StandartDepartment('hu-24', 'http://www.egitim.hacettepe.edu.tr/')
 
 
 availableDepartments = {
@@ -52,5 +53,6 @@ availableDepartments = {
     pharmacy_website.name: pharmacy_website,
     ce_website.name: ce_website,
     cevre_website.name: cevre_website,
-    psychology_website.name: psychology_website
+    psychology_website.name: psychology_website,
+    edu_website.name: edu_website
 }
