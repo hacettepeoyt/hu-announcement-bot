@@ -8,11 +8,9 @@ def create_keyboard(array, language):
     if len(array) == 0:
         return ReplyKeyboardRemove()
 
-    buttons = []
-
-    for dep_id in array:
-        dep_name = Text.encode(dep_id, language)
-        buttons.append([KeyboardButton(dep_name)])
+    deps = [Text.encode(dep_id, language) for dep_id in array]
+    deps.sort()
+    buttons = [[KeyboardButton(dep)] for dep in deps]
 
     return ReplyKeyboardMarkup(buttons)
 
