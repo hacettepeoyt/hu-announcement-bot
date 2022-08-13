@@ -39,10 +39,9 @@ class IndustrialEngineering:
             try:
                 url = self.complete_url(document.find('a').get('href'))
             except AttributeError:
-                print("ERROR: Attribute error for scraping URL")
                 url = None
 
             new_announcements.append(
                 {'title': title, 'content': content, 'url': url})
 
-        return new_announcements        
+        return new_announcements
