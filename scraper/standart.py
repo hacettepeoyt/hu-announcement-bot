@@ -48,11 +48,6 @@ class StandartDepartment:
                 url = None
 
             announcement = {"title": title, "content": None, "url": url}
-            print(announcement)
             new_announcements.append(announcement)
 
         return new_announcements
-
-
-standard = StandartDepartment('Test', 'http://www.ydyo.hacettepe.edu.tr/')
-standard.get_announcements()
