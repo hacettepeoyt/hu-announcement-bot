@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 
 
 class StandartDepartment:
@@ -8,9 +9,23 @@ class StandartDepartment:
         self.name = name
         self.address = address
 
+    def fix_invalid_url(self, text):
+        valid_path_pattern = r'(-\d+)$'
+        invalid_path_pattern = r'\/([^\/]+-\d+)$'
+        if re.search(invalid_path_pattern, text) == None:
+            return text
+        found_suffix = re.search(valid_path_pattern, text).group(1)
+
+        text = re.sub(invalid_path_pattern, '/' + found_suffix, text)
+        return text
+
     def complete_url(self, text):
+        text = self.fix_invalid_url(text)
         if text[:4] == 'http' or text[:3] == 'www':
             return text
+
+        if (text[0] == '/'):
+            text = text[1:]
 
         return self.address + text
 
@@ -33,6 +48,11 @@ class StandartDepartment:
                 url = None
 
             announcement = {"title": title, "content": None, "url": url}
+            print(announcement)
             new_announcements.append(announcement)
 
         return new_announcements
+
+
+standard = StandartDepartment('Test', 'http://www.ydyo.hacettepe.edu.tr/')
+standard.get_announcements()
