@@ -1,3 +1,16 @@
+'''
+        As well as Announcement module, User module is also another layer
+        between Database and other things in the project.
+
+        I write about this layer and abstraction in mongo/UserDatabase
+
+        User module has lots of functions. They all are self explanatory with the name :)
+        If the mongo module would be cleared in the future, as well as User module too.
+        They are all connected to each other.
+'''
+
+
+
 from mongo import UserDatabase
 from Logging import logger
 
@@ -84,3 +97,4 @@ def get_customs(user_id):
 
 def get_all_users():
     return UserDatabase.find_all_users()
+    

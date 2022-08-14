@@ -1,3 +1,11 @@
+'''
+        There are two types of Keyboards in Telegram.
+        This module helps us to create inline and normal buttons for
+        those keyboards. Buttons have their text on them, so Text module goes brrrr
+'''
+
+
+
 from telegram import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, \
     ReplyKeyboardRemove
 
@@ -24,3 +32,4 @@ def create_inline_keyboard(language):
         buttons.append([InlineKeyboardButton(text=text, callback_data=type)])
 
     return InlineKeyboardMarkup(buttons)
+    

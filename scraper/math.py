@@ -36,3 +36,4 @@ class Math:
             new_announcements.append(announcement)
 
         return new_announcements
+        

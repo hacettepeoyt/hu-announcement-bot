@@ -1,8 +1,18 @@
+'''
+        index module simply creates the objects and store them in a dictionary.
+        That's what it does only.
+
+        If you are a contributor, don't forget to read scraper/README.md
+'''
+
+
+
 from scraper.math import Math
 from scraper.sksdb import Sksdb
 from scraper.cs import ComputerScience
 from scraper.standart import StandartDepartment
 from scraper.ie import IndustrialEngineering
+
 
 cs_website = ComputerScience('hu-1', 'http://www.cs.hacettepe.edu.tr/')
 math_website = Math('hu-2', 'http://www.mat.hacettepe.edu.tr/')
@@ -56,3 +66,4 @@ availableDepartments = {
     psychology_website.name: psychology_website,
     edu_website.name: edu_website
 }
+

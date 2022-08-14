@@ -31,3 +31,4 @@ class Sksdb:
             new_announcements.append(announcement)
 
         return new_announcements
+        

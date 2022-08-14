@@ -1,4 +1,7 @@
-config.py
+### PyCharm ###
 .idea/
-__pycache__/
 venv/
+
+
+### Python Caching ###
+__pycache__/

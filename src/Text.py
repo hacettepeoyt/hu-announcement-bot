@@ -1,3 +1,10 @@
+'''
+        Text module takes care of localization. Other modules generally use
+        encode() function.
+'''
+
+
+
 import json
 
 
@@ -9,6 +16,12 @@ def encode(text_id, language):
 
 
 def get_settings(dnd, holiday, language):
+    '''
+        Settings page shows the current status of DND, Holiday Mode and Language.
+        Also, give them information about DND and Holiday Mode.
+    '''
+
+
     text = ""
 
     if dnd:
@@ -30,6 +43,12 @@ def get_settings(dnd, holiday, language):
 
 
 def create_announcement_text(department_id, announcement, language):
+    '''
+        Creates well formatted announcement message to notify users.
+        All the announcements have title, some of them have no content and no url.
+    '''
+
+
     title = announcement['title']
     content = announcement['content']
     url = announcement['url']
@@ -49,6 +68,13 @@ def create_announcement_text(department_id, announcement, language):
 
 
 def get_departments(language):
+    '''
+        Department names are stored in database with IDs.
+        User needs to see somehow not IDs but names with a specific language.
+        This function finds the current id - name pair from locale and reverts it.
+    '''
+
+
     with open(f'locale/{language}.json') as file:
         text_json = json.load(file)
 
@@ -58,3 +84,4 @@ def get_departments(language):
             inverted[text_json[key]] = key
 
     return inverted
+    

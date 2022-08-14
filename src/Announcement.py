@@ -1,3 +1,10 @@
+'''
+        Announcement module is created by the sake of abstraction.
+        I write about this abstraction in mongo/AnnouncementDatabase
+'''
+
+
+
 from mongo import AnnouncementDatabase
 from Logging import logger
 
@@ -29,3 +36,4 @@ def compare(olds, news):
             diff.append(announcement)
 
     return diff
+    

@@ -1,3 +1,24 @@
+'''
+        CommandHandler module handles the commands that sent by users.
+        Telegram API has also module named CommandHandler, this is
+        obviously different than that.
+
+        I find this module most useful one, because using the commands
+        at enduser side and handling them here is the easiest thing in the world.
+        
+        Function names are self explanatory. One thing to mention is that you see
+        two similar line of codes in every method. Finding the language of the user
+        and creating a proper message to that. Thanks to Text module which is in
+        src/ , bot simply finds that proper message and reply to user.
+
+        This module does not handle just user commands, it also handles admin commands.
+        As a main developer and the owner of the project, I, sometimes need to send
+        message to every user of Hacettepe Duyurucusu. Those messages are mostly
+        related with the updates.
+'''
+
+
+
 import telegram
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import CallbackContext, ConversationHandler
@@ -54,8 +75,8 @@ def reset_subscriptions(update: Update, context: CallbackContext):
     language = User.get_language(user_id)
     message = Text.encode('reset-sub', language)
 
-    update.message.reply_text(message, reply_markup=ReplyKeyboardRemove())
     User.reset_subscriptions(update.effective_user.id)
+    update.message.reply_text(message, reply_markup=ReplyKeyboardRemove())
 
 
 def settings(update: Update, context: CallbackContext):
@@ -126,3 +147,4 @@ def send_from_admin(update: Update, context: CallbackContext):
                 logger.info(f"Couldn't deliver message to {user}")
     else:
         update.message.reply_text("403")
+        

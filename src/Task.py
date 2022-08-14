@@ -1,3 +1,15 @@
+'''
+        I mentioned that bot has one job to execute regularly. Task module
+        represents the jobs. Since the main task (checking announcements and then
+        notifying user and then updating database) is really long to implement,
+        it deserves it's own module.
+
+        Also, for the future it would be nice to have it. Maybe new tasks can
+        be added.
+'''
+
+
+
 import telegram
 from telegram.ext import CallbackContext
 
@@ -50,3 +62,4 @@ def notify_users(context: CallbackContext, announcement, user_list, department_i
 
         except telegram.error.Unauthorized:
             logger.info(f"Couldn't deliver message to {user}")
+            

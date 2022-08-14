@@ -1,3 +1,20 @@
+'''
+        Announcement related data is stored in MongoDB. This module helps us to
+        fetch and update those announcements.
+
+        To be more clear, I added a layer between database and Telegram API,
+        it makes the code more readable and more editable. You can find the layer
+        in src folder.
+
+        AnnouncementDatabase and UserDatabase modules can be optimised, because some
+        functions do similar things. However, I'm not the guy who tries to optimise
+        everything. So, I leave it that way. Maybe in the future, I get bored and
+        clear things up again. If you are reading this and want to contribute, here
+        you go. I won't open an issue about this.
+'''
+
+
+
 from pymongo import MongoClient, ReturnDocument
 import dns
 import config
@@ -8,7 +25,7 @@ def fetch_collection():
     client = MongoClient(CONNECTION_STRING)
 
     test_db = client['hu-announcement-db']
-    collection = test_db['announcements-test']
+    collection = test_db['announcements']
 
     return collection
 
@@ -37,3 +54,4 @@ def update(department, announcements):
     collection.find_one_and_update({'department': department},
                                    {'$set': {'announcements': announcements}},
                                    return_document=ReturnDocument.AFTER)
+                                   

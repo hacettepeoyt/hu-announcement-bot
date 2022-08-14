@@ -1,3 +1,22 @@
+'''
+        MessageHandler module, as you can understand from the name,
+        handles the messages sent by user. Just like CommandHandler module,
+        Telegram API also has a same named module.
+
+        Hacettepe Duyurucusu is interested in messages for subscriptions' sake.
+        If the user write a department's name and sends it, bot controls the
+        subscription status and decides whether to subscribe or unsubscribe.
+        
+        For the simplicity, bot doesn't require user to write one by one those
+        departments. That's where Keyboard module comes in. The difference
+        between normal and inline buttons is that normal ones are being used
+        just because of reduce time waste. I mean when you click them, they don't
+        send any data or they don't have any listener. Telegram App simply
+        copy-paste-sends the text inside of them.
+'''
+
+
+
 from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler
 
@@ -49,3 +68,4 @@ def feedback_done(update: Update, context: CallbackContext):
     message = Text.encode('feedback-done', language)
     update.message.reply_text(message)
     return ConversationHandler.END
+    

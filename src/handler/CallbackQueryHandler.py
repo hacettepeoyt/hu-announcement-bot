@@ -1,3 +1,18 @@
+'''
+        When the user clicked to an inline button, Telegram sends
+        a CallbackQuery to bot. This query includes data which we use
+        to understand what to do with request.
+
+        I used inline buttons in settings page. There are three of them.
+        Main function decides what to do.
+
+        There are other functions that aren't directly related with the
+        handler. They are there because changing the language isn't
+        one step procedure.
+'''
+
+
+
 import telegram
 from telegram import Update
 from telegram.ext import CallbackContext
@@ -6,13 +21,9 @@ from src import User, Text
 from src.Keyboard import create_inline_keyboard
 
 
-def button(update: Update, context: CallbackContext):
+def main(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
-
-    current_lang = User.get_language(user_id)
-    current_dnd = User.get_dnd(user_id)
-    current_holiday = User.get_holiday_mode(user_id)
-
+    current_dnd, current_holiday, current_lang = User.get_customs(user_id)
     query = update.callback_query
     data = query.data
 
@@ -34,7 +45,28 @@ def button(update: Update, context: CallbackContext):
     query.edit_message_text(text=message, reply_markup=reply_markup, parse_mode=telegram.ParseMode.HTML)
 
 
+
+
+def find_next_language(language):
+    language_list = find_language_list()
+    current_index = language_list.index(language)
+
+    if current_index == (len(language_list) - 1):
+        return language_list[0]
+
+    return language_list[current_index + 1]
+    
+
 def find_language_list():
+    '''
+        Finds available languages from locale folder.
+        This can be handled by storing a simple list that includes
+        the languages, but adding a language becomes more tricky.
+        Thanks to this function, we don't need to update that language list
+        everytime we add a new language.
+    '''
+
+
     file_list = sorted(os.listdir('locale/'))
     languages = []
 
@@ -46,13 +78,4 @@ def find_language_list():
         languages.append(name)
 
     return languages
-
-
-def find_next_language(language):
-    language_list = find_language_list()
-    current_index = language_list.index(language)
-
-    if current_index == (len(language_list) - 1):
-        return language_list[0]
-
-    return language_list[current_index + 1]
+    

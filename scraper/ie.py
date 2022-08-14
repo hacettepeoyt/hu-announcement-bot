@@ -45,3 +45,4 @@ class IndustrialEngineering:
                 {'title': title, 'content': content, 'url': url})
 
         return new_announcements
+        

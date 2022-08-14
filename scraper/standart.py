@@ -12,15 +12,18 @@ class StandartDepartment:
     def fix_invalid_url(self, text):
         valid_path_pattern = r'(-\d+)$'
         invalid_path_pattern = r'\/([^\/]+-\d+)$'
+
         if re.search(invalid_path_pattern, text) == None:
             return text
-        found_suffix = re.search(valid_path_pattern, text).group(1)
 
+        found_suffix = re.search(valid_path_pattern, text).group(1)
         text = re.sub(invalid_path_pattern, '/' + found_suffix, text)
+
         return text
 
     def complete_url(self, text):
         text = self.fix_invalid_url(text)
+
         if text[:4] == 'http' or text[:3] == 'www':
             return text
 
@@ -51,3 +54,4 @@ class StandartDepartment:
             new_announcements.append(announcement)
 
         return new_announcements
+        
