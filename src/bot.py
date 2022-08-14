@@ -27,6 +27,7 @@ def main():
     dispatcher.add_handler(CommandHandler('remove', Ch.remove_subscription))
     dispatcher.add_handler(CommandHandler('reset', Ch.reset_subscriptions))
     dispatcher.add_handler(CommandHandler('settings', Ch.settings))
+    dispatcher.add_handler(CommandHandler('donate', Ch.donate))
     dispatcher.add_handler(CommandHandler('answer', Ch.answer_feedback))
     dispatcher.add_handler(CommandHandler('new_department', Ch.add_new_department))
     dispatcher.add_handler(CommandHandler('send_from_admin', Ch.send_from_admin))

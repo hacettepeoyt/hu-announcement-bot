@@ -68,6 +68,14 @@ def settings(update: Update, context: CallbackContext):
     update.message.reply_text(message, reply_markup=reply_markup, parse_mode=telegram.ParseMode.HTML)
 
 
+def donate(update: Update, context: CallbackContext):
+    user_id = update.effective_user.id
+    language = User.get_language(user_id)
+
+    message = Text.encode('donation', language)
+    update.message.reply_text(message, parse_mode=telegram.ParseMode.HTML)
+
+
 def feedback(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     language = User.get_language(user_id)
