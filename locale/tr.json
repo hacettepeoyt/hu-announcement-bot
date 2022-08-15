@@ -24,7 +24,7 @@
   "settings-fail": "Oops! Bir şeyler yolunda değil...",
   "header": "yeni bir duyuru paylaştı!!!",
   "anchor-text": "Detaylar burada!",
-  "donation": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında bana atıştırmalık alabilirsin :) Visca Barça!\n\n<code>TR76 0011 1000 0000 0109 8128 40</code>\nEnpara: <code>Furkan Şimşekli</code>",
+  "donation": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında bana atıştırmalık alabilirsin :) Visca Barça!\n\nTL: <code>TR76 0011 1000 0000 0109 8128 40</code>\nUSD: <code>TRTR36 0011 1000 0000 0113 1638 43</code>\nEUR: <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
 
   "hu-1": "Bilgisayar Mühendisliği",
   "hu-2": "Matematik Bölümü",
@@ -49,5 +49,7 @@
   "hu-21": "İnşaat Mühendisliği",
   "hu-22": "Çevre Mühendisliği",
   "hu-23": "Psikoloji Bölümü",
-  "hu-24": "Eğitim Fakültesi"
+  "hu-24": "Eğitim Fakültesi",
+  "hu-25": "Edebiyat Fakültesi",
+  "hu-26": "Bilgi ve Belge Yönetimi Bölümü"
 }

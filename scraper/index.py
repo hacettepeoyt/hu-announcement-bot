@@ -12,6 +12,8 @@ from scraper.sksdb import Sksdb
 from scraper.cs import ComputerScience
 from scraper.standart import StandartDepartment
 from scraper.ie import IndustrialEngineering
+from scraper.literature import Literature
+from scraper.bby import InformationManagement
 
 
 cs_website = ComputerScience('hu-1', 'http://www.cs.hacettepe.edu.tr/')
@@ -38,6 +40,8 @@ ce_website = StandartDepartment('hu-21', 'http://www.ce.hacettepe.edu.tr/')
 cevre_website = StandartDepartment('hu-22', 'http://www.cevre.hacettepe.edu.tr/')
 psychology_website = StandartDepartment('hu-23', 'http://www.psikoloji.hacettepe.edu.tr/')
 edu_website = StandartDepartment('hu-24', 'http://www.egitim.hacettepe.edu.tr/')
+literature_website = Literature('hu-25', 'http://www.edebiyat.hacettepe.edu.tr/')
+bby_website = InformationManagement('hu-26', 'http://bby.hacettepe.edu.tr/')
 
 
 availableDepartments = {
@@ -64,6 +68,8 @@ availableDepartments = {
     ce_website.name: ce_website,
     cevre_website.name: cevre_website,
     psychology_website.name: psychology_website,
-    edu_website.name: edu_website
+    edu_website.name: edu_website,
+    literature_website.name: literature_website,
+    bby_website.name: bby_website
 }
 
