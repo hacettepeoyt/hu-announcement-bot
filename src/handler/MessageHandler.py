@@ -56,6 +56,10 @@ def edit_subscription(update: Update, context: CallbackContext):
                                       f"{Text.encode(department_id, language)}",
                                       reply_markup=reply_markup)
 
+    else:
+        message = Text.encode('invalid-message', language)
+        update.message.reply_text(message)
+
 
 def feedback_done(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
@@ -64,6 +68,8 @@ def feedback_done(update: Update, context: CallbackContext):
     context.bot.forward_message(chat_id=config.feedback_chat_id,
                                 from_chat_id=update.message.chat_id,
                                 message_id=update.message.message_id)
+    
+    context.bot.send_message(chat_id=config.feedback_chat_id, text=user_id)
 
     message = Text.encode('feedback-done', language)
     update.message.reply_text(message)

@@ -25,6 +25,9 @@
   "header": "yeni bir duyuru paylaştı!!!",
   "anchor-text": "Detaylar burada!",
   "donation": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında bana atıştırmalık alabilirsin :) Visca Barça!\n\nTL: <code>TR76 0011 1000 0000 0109 8128 40</code>\nUSD: <code>TRTR36 0011 1000 0000 0113 1638 43</code>\nEUR: <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
+  "invalid-message": "Üzgünüm, seni anlayamadım. Lütfen komutları kullan.",
+  "full-subscription": "Sakin ol şampiyon! Halihazırda mevcut olan tüm departmanlara abonesin zaten.",
+  "empty-subscription": "Aaaa, hiçbir departmana abone değilsin zaten. Önce abone olman lazım :p",
 
   "hu-1": "Bilgisayar Mühendisliği",
   "hu-2": "Matematik Bölümü",

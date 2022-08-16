@@ -27,7 +27,7 @@ from src import User, Text, Announcement
 from scraper.index import availableDepartments
 from src.Keyboard import create_keyboard, create_inline_keyboard
 from src.Logging import logger
-from config import admin_id
+from config import admin_id, feedback_chat_id
 
 
 def start(update: Update, context: CallbackContext):
@@ -50,23 +50,32 @@ def help(update: Update, context: CallbackContext):
 def new_subscription(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     language = User.get_language(user_id)
-    message = Text.encode('new-sub', language)
-
     subscriptions = User.get_subscriptions(update.effective_user.id)
+
     possible_deps = [department.name for department in availableDepartments.values() if
                      department.name not in subscriptions]
 
     reply_markup = create_keyboard(possible_deps, language)
+
+    if len(possible_deps) == 0:
+        message = Text.encode('full-subscription', language)
+    else:
+        message = Text.encode('new-sub', language)
+
     update.message.reply_text(message, reply_markup=reply_markup)
 
 
 def remove_subscription(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
     language = User.get_language(user_id)
-    message = Text.encode('remove-sub', language)
-
     subscriptions = User.get_subscriptions(update.effective_user.id)
     reply_markup = create_keyboard(subscriptions, language)
+
+    if len(subscriptions) == 0:
+        message = Text.encode('empty-subscription', language)
+    else:
+        message = Text.encode('remove-sub', language)
+
     update.message.reply_text(message, reply_markup=reply_markup)
 
 
@@ -116,11 +125,16 @@ def cancel(update: Update, context: CallbackContext):
 
 
 def answer_feedback(update: Update, context: CallbackContext):
-    reciever_id = update.message.reply_to_message.forward_from.id
-    message = update.message.text[8:]
+    reciever_id = context.args[0]
+    message = update.message.text
+    message = message.replace('/answer', '').replace(reciever_id, '').strip()
+    
     context.bot.send_message(chat_id=reciever_id, text=message,
                              parse_mode=telegram.ParseMode.HTML,
                              disable_web_page_preview=True)
+
+    context.bot.send_message(chat_id=feedback_chat_id,
+                             text="200")
 
 
 def add_new_department(update: Update, context: CallbackContext):
@@ -128,6 +142,7 @@ def add_new_department(update: Update, context: CallbackContext):
 
     if is_admin:
         Announcement.new_department(context.args[0])
+        update.message.reply_text("200")
     else:
         update.message.reply_text("403")
 
