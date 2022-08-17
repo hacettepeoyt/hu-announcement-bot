@@ -9,15 +9,16 @@
 from telegram import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, \
     ReplyKeyboardRemove
 
-import Text
+import Text, locale
 
 
 def create_keyboard(array, language):
     if len(array) == 0:
         return ReplyKeyboardRemove()
 
+    locale.setlocale(locale.LC_ALL, (language, "UTF8"))
     deps = [Text.encode(dep_id, language) for dep_id in array]
-    deps.sort()
+    deps.sort(key=locale.strxfrm)
     buttons = [[KeyboardButton(dep)] for dep in deps]
 
     return ReplyKeyboardMarkup(buttons)
