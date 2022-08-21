@@ -42,6 +42,7 @@ psychology_website = StandartDepartment('hu-23', 'http://www.psikoloji.hacettepe
 edu_website = StandartDepartment('hu-24', 'http://www.egitim.hacettepe.edu.tr/')
 literature_website = Literature('hu-25', 'http://www.edebiyat.hacettepe.edu.tr/')
 bby_website = InformationManagement('hu-26', 'http://bby.hacettepe.edu.tr/')
+ergo_website = StandartDepartment('hu-27', 'http://www.ergoterapi.hacettepe.edu.tr/')
 
 
 availableDepartments = {
@@ -70,6 +71,7 @@ availableDepartments = {
     psychology_website.name: psychology_website,
     edu_website.name: edu_website,
     literature_website.name: literature_website,
-    bby_website.name: bby_website
+    bby_website.name: bby_website,
+    ergo_website.name: ergo_website
 }
 

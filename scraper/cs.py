@@ -23,7 +23,14 @@ class ComputerScience:
         for document in data:
             body = BeautifulSoup(document['body'], 'lxml')
             title = document['title']
-            content = body.text
+            paragraphs = body.find_all('p')
+            content = ''
+
+            for p in paragraphs:
+                content += p.text.replace('\n', ' ')    # Texts are in static layout, we need to clean up.
+                content += '\n\n'
+
+            content = content[:-2]                      # Removes last two new line chars.
 
             try:
                 url = self.complete_url(body.find('a').get('href'))

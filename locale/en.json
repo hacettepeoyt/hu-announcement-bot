@@ -24,7 +24,7 @@
   "settings-fail": "Oops! Something went wrong...",
   "header": "published a new announcement!!!",
   "anchor-text": "Details are here!",
-  "donation": "If you enjoyed @HacettepeDuyurucuBot, you can buy me snacks for this week's Barça match :) Visca Barça!\n\nTL: <code>TR76 0011 1000 0000 0109 8128 40</code>\nUSD: <code>TRTR36 0011 1000 0000 0113 1638 43</code>\nEUR: <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
+  "donation": "If you enjoyed @HacettepeDuyurucuBot, you can buy me snacks for this week's Barça match :) Visca Barça!\n\n<b>₺:</b> <code>TR76 0011 1000 0000 0109 8128 40</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
   "invalid-message": "I'm sorry, I couldn't understand you. Please use commands.",
   "full-subscription": "Calm down champ! You already subscribed to all available departments!",
   "empty-subscription": "Hey, you don't have any department to unsubscribe from. You gotta subscribe first :p",
@@ -54,5 +54,6 @@
   "hu-23": "Department of Psychology",
   "hu-24": "Faculty of Education",
   "hu-25": "Faculty of Letters",
-  "hu-26": "Department of Information Management"
+  "hu-26": "Department of Information Management",
+  "hu-27": "Occupational Therapy"
 }
