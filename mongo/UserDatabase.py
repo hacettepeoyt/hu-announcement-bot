@@ -43,13 +43,13 @@ def enroll(user_id, first_name, last_name, lang, def_deps):
         user_configs.insert_one(user_info)
 
 
-def find_subscribers(departmentName):
+def find_subscribers(departmentName) -> list[tuple[int, str]]:
     user_configs = fetch_collection()
     users = user_configs.find({"departments": departmentName, "holiday_mode": False})
 
     subscribedUsers = []
     for user in users:
-        subscribedUsers.append(user['user_id'])
+        subscribedUsers.append((user['user_id'], user.get('backend', 'telegram')))
 
     return subscribedUsers
 

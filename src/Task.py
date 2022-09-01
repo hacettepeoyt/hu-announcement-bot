@@ -9,18 +9,15 @@
 '''
 
 
-
-import telegram
-from telegram.ext import CallbackContext
-
 import Announcement
 import Text
 import User
 from Logging import logger
 from scraper.index import availableDepartments
+from src import _abc
 
 
-def check_announcements(context: CallbackContext):
+def check_announcements(bot):
     for department in availableDepartments.values():
         logger.info(f"Checking {department.name}...")
 
@@ -32,34 +29,31 @@ def check_announcements(context: CallbackContext):
 
         olds = Announcement.find(department.name)
         diff = Announcement.compare(olds, news)
-        user_list = User.get_subscribers(department.name)
+
+        users: list[_abc.User] = []
+        for user, backend in User.get_subscribers(department.name):
+            users.append(bot.get_user(backend, user_id=user))
 
         for announcement in diff:
-            notify_users(context, announcement, user_list, department.name)
+            notify_users(announcement, users, department.name)
 
         if diff:
             olds.extend(diff)
             Announcement.update(department.name, olds)
 
 
-def notify_users(context: CallbackContext, announcement, user_list, department_id):
-    for user in user_list:
-        language = User.get_language(user)
+def notify_users(announcement, users: list[_abc.User], department_id):
+    for user in users:
+        language = user.get_language()
         message = Text.create_announcement_text(department_id, announcement, language)
 
         try:
-            if User.get_dnd(user):
-                context.bot.send_message(chat_id=user, text=f"{message}",
-                                         parse_mode=telegram.ParseMode.HTML,
-                                         disable_web_page_preview=True, disable_notification=True)
-
-            else:
-                context.bot.send_message(chat_id=user, text=f"{message}",
-                                         parse_mode=telegram.ParseMode.HTML,
-                                         disable_web_page_preview=True)
+            user.send(message, parse_mode='HTML',
+                               disable_web_page_preview=True,
+                               disable_notification=user.get_dnd())
 
             logger.info(f"Message has been sent to {user} from {department_id} Department")
 
-        except telegram.error.Unauthorized:
+        except Exception:  # TODO: Proper exception support.
             logger.info(f"Couldn't deliver message to {user}")
             
