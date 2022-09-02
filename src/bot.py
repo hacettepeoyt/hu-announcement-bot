@@ -57,9 +57,9 @@ def main():
     # TODO: Reorganize the code to properly use this as decorators?
     bot.command()(cmd_handler.start)
     bot.command()(cmd_handler.help)
-    bot.command()(cmd_handler.new_subscription)
-    bot.command()(cmd_handler.remove_subscription)
-    bot.command()(cmd_handler.reset_subscriptions)
+    bot.command("add")(cmd_handler.new_subscription)
+    bot.command("remove")(cmd_handler.remove_subscription)
+    bot.command("reset")(cmd_handler.reset_subscriptions)
     bot.command()(cmd_handler.settings)
     bot.command()(cmd_handler.donate)
     bot.command()(cmd_handler.feedback)
