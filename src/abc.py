@@ -1,9 +1,15 @@
+from typing import Optional
+
+
 class Messageable:
     def send(self, content: str, *args, **kwargs):
         raise NotImplementedError
 
 
 class User(Messageable):
+    first_name: str
+    last_name: Optional[str]
+
     def __eq__(self, other: object) -> bool:
         raise NotImplementedError
 

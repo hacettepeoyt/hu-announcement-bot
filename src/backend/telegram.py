@@ -1,3 +1,5 @@
+from typing import Optional
+
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
 
@@ -23,12 +25,14 @@ class TelegramUser(TelegramChat, User):
     dnd: bool
     language: str
 
-    def __init__(self, _id: int, bot: telegram.Bot):
+    def __init__(self, _id: int, bot: telegram.Bot, first_name: Optional[str] = None, last_name: Optional[str] = None):
         super().__init__(_id, bot)
-        props = user_db.get_properties(_id, ('dnd', 'holiday_mode', 'language'))
-        self.dnd = props['dnd']
+        props = user_db.get_properties(_id, ('first_name', 'last_name', 'dnd', 'holiday_mode', 'language'))
+        self.first_name = first_name or props['first_name']
+        self.last_name = last_name or props['last_name']
+        self.dnd = props['dnd'] or False
         self.language = props['language']
-        self.holiday_mode = props['holiday_mode']
+        self.holiday_mode = props['holiday_mode'] or False
 
     def __eq__(self, other: object):
         if not isinstance(other, TelegramUser):
@@ -83,6 +87,17 @@ class TelegramBackend(Backend):
 
         dispatcher.add_handler(MessageHandler(Filters.command, self._handle_command))
 
+    def _user_from_update(self, update) -> TelegramUser:
+        """ Returns a user from the cache or from the update. """
+        if update.effective_user.id in self.users:
+            return self.users[update.effective_user.id]
+
+        user = TelegramUser(_id=update.effective_user.id, bot=self._updater.bot,
+                            first_name=update.effective_user.first_name, last_name=update.effective_user.last_name)
+        self.users[update.effective_user.id] = user
+
+        return user
+
     def _handle_command(self, update, _) -> None:
         ctx = Context(bot=self._bot,
                       backend='telegram',
@@ -94,8 +109,10 @@ class TelegramBackend(Backend):
         return self.get_user(self._admin_id)
 
     def get_user(self, id: int) -> TelegramUser:
-        user = self.users[id] = self.users.get(id, TelegramUser(_id=id, bot=self._updater.bot))
+        if id in self.users:
+            return self.users[id]
 
+        user = self.users[id] = TelegramUser(_id=id, bot=self._updater.bot)
         return user
 
     def run(self):
