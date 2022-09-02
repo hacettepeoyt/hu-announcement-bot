@@ -19,8 +19,9 @@
 import time
 
 import config
-from . import abc, task
+from . import abc, cmd, task
 from .backend.telegram import TelegramBackend
+from .handler import cmd_handler
 
 
 BACKENDS: dict[str, type] = {'telegram': TelegramBackend}
@@ -28,12 +29,15 @@ BACKENDS: dict[str, type] = {'telegram': TelegramBackend}
 
 class Bot:
     backends: dict[str, abc.Backend]
+    cmd_handler: cmd.CommandParser
 
     def __init__(self, *args, **kwargs):
         self.backends = {}
         for name, backend in BACKENDS.items():
             self.backends[name] = backend(bot=self, **kwargs.get(f"{name}_options", {}))
         self.users = []
+        self.cmd_handler = cmd.CommandParser(cmd.on_prefix("/"))
+        self.command = self.cmd_handler.command
 
     def run(self):
         for backend in self.backends.values():
@@ -49,6 +53,21 @@ class Bot:
 
 def main():
     bot = Bot(telegram_options={"token": config.API_KEY, "webhook_url": config.WEBHOOK_URL})
+
+    # TODO: Reorganize the code to properly use this as decorators?
+    bot.command()(cmd_handler.start)
+    bot.command()(cmd_handler.help)
+    bot.command()(cmd_handler.new_subscription)
+    bot.command()(cmd_handler.remove_subscription)
+    bot.command()(cmd_handler.reset_subscriptions)
+    bot.command()(cmd_handler.settings)
+    bot.command()(cmd_handler.donate)
+    bot.command()(cmd_handler.feedback)
+    bot.command()(cmd_handler.cancel)
+    bot.command()(cmd_handler.answer_feedback)
+    bot.command()(cmd_handler.add_new_department)
+    bot.command()(cmd_handler.send_from_admin)
+
     bot.run()
 
 

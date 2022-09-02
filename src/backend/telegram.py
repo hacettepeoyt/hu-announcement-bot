@@ -2,24 +2,33 @@ import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
 
 from ..mongo import user_db
-from ..abc import Backend, User
+from ..abc import Backend, Messageable, User
+from ..cmd import Context
 from ..handler import cb_query_handler as Cqh, cmd_handler as Ch, msg_handler as Mh
 
 
-class TelegramUser(User):
+class TelegramChat(Messageable):
     _bot: telegram.Bot
     _id: int
-    dnd: bool
-    language: str
 
     def __init__(self, _id: int, bot: telegram.Bot):
         self._id = _id
         self._bot = bot
-        self.dnd = user_db.get_property(self._id, 'dnd')
-        self.language = user_db.get_property(self._id, 'language')
 
     def send(self, content: str, *args, **kwargs):
         self._bot.send_message(chat_id=self._id, text=content, **kwargs)
+
+
+class TelegramUser(TelegramChat, User):
+    dnd: bool
+    language: str
+
+    def __init__(self, _id: int, bot: telegram.Bot):
+        super().__init__(_id, bot)
+        props = user_db.get_properties(_id, ('dnd', 'holiday_mode', 'language'))
+        self.dnd = props['dnd']
+        self.language = props['language']
+        self.holiday_mode = props['holiday_mode']
 
     def get_dnd(self) -> bool:
         return self.dnd
@@ -32,8 +41,15 @@ class TelegramUser(User):
         return self.language
 
     def set_language(self, language: str):
-        user_db.set_customs(self._id, 'dnd', language)
+        user_db.set_customs(self._id, 'language', language)
         self.language = language
+
+    def get_holiday_mode(self) -> bool:
+        return self.holiday_mode
+
+    def set_holiday_mode(self, mode: bool) -> None:
+        user_db.set_customs(self._id, 'holiday_mode', mode)
+        self.holiday_mode = mode
 
 
 class TelegramBackend(Backend):
@@ -58,19 +74,14 @@ class TelegramBackend(Backend):
             fallbacks=[CommandHandler('cancel', Ch.cancel)]
         ))
 
-        # TODO: Do not use Telegram backend's CommandHandlers.
-        dispatcher.add_handler(CommandHandler('start', Ch.start))
-        dispatcher.add_handler(CommandHandler('help', Ch.help))
-        dispatcher.add_handler(CommandHandler('add', Ch.new_subscription))
-        dispatcher.add_handler(CommandHandler('remove', Ch.remove_subscription))
-        dispatcher.add_handler(CommandHandler('reset', Ch.reset_subscriptions))
-        dispatcher.add_handler(CommandHandler('settings', Ch.settings))
-        dispatcher.add_handler(CommandHandler('donate', Ch.donate))
-        dispatcher.add_handler(CommandHandler('answer', Ch.answer_feedback))
-        dispatcher.add_handler(CommandHandler('new_department', Ch.add_new_department))
-        dispatcher.add_handler(CommandHandler('send_from_admin', Ch.send_from_admin))
-        dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, Mh.edit_subscription))
-        dispatcher.add_handler(CallbackQueryHandler(Cqh.main))
+        dispatcher.add_handler(MessageHandler(Filters.command, self._handle_command))
+
+    def _handle_command(self, update, _) -> None:
+        ctx = Context(bot=self._bot,
+                      backend='telegram',
+                      author=self.get_user(update.effective_user.id),
+                      channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot))
+        self._bot.cmd_handler.parse_command(ctx, update.message.text)
 
     def get_user(self, id: int) -> TelegramUser:
         user = self.users[id] = self.users.get(id, TelegramUser(_id=id, bot=self._updater.bot))

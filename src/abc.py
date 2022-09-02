@@ -16,6 +16,12 @@ class User(Messageable):
     def set_language(self, language: str):
         raise NotImplementedError
 
+    def get_holiday_mode(self) -> bool:
+        raise NotImplementedError
+
+    def set_holiday_mode(self, mode: bool) -> None:
+        raise NotImplementedError
+
 
 class Backend:
     def run(self):
