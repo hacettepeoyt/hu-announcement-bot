@@ -9,12 +9,10 @@
 '''
 
 
-import Announcement
-import Text
-import User
-from Logging import logger
-from scraper.index import availableDepartments
-from src import _abc
+from . import announcement, text, user
+from .logging import logger
+from .scraper.index import availableDepartments
+from . import abc
 
 
 def check_announcements(bot):
@@ -27,25 +25,25 @@ def check_announcements(bot):
             logger.info(f"Couldn't connect to {department.name}!")
             continue
 
-        olds = Announcement.find(department.name)
-        diff = Announcement.compare(olds, news)
+        olds = announcement.find(department.name)
+        diff = announcement.compare(olds, news)
 
-        users: list[_abc.User] = []
-        for user, backend in User.get_subscribers(department.name):
-            users.append(bot.get_user(backend, user_id=user))
+        users: list[abc.User] = []
+        for id_, backend in user.get_subscribers(department.name):
+            users.append(bot.get_user(backend, user_id=id_))
 
-        for announcement in diff:
-            notify_users(announcement, users, department.name)
+        for ann in diff:
+            notify_users(ann, users, department.name)
 
         if diff:
             olds.extend(diff)
-            Announcement.update(department.name, olds)
+            announcement.update(department.name, olds)
 
 
-def notify_users(announcement, users: list[_abc.User], department_id):
+def notify_users(announcement, users: list[abc.User], department_id):
     for user in users:
         language = user.get_language()
-        message = Text.create_announcement_text(department_id, announcement, language)
+        message = text.create_announcement_text(department_id, announcement, language)
 
         try:
             user.send(message, parse_mode='HTML',

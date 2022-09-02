@@ -7,13 +7,13 @@
 
 
 
-from scraper.math import Math
-from scraper.sksdb import Sksdb
-from scraper.cs import ComputerScience
-from scraper.standart import StandartDepartment
-from scraper.ie import IndustrialEngineering
-from scraper.literature import Literature
-from scraper.bby import InformationManagement
+from .math import Math
+from .sksdb import Sksdb
+from .cs import ComputerScience
+from .standart import StandartDepartment
+from .ie import IndustrialEngineering
+from .literature import Literature
+from .bby import InformationManagement
 
 
 cs_website = ComputerScience('hu-1', 'http://www.cs.hacettepe.edu.tr/')

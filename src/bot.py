@@ -18,17 +18,16 @@
 
 import time
 
-import Task
 import config
-from src import _abc
-from src.backend.telegram import TelegramBackend
+from . import abc, task
+from .backend.telegram import TelegramBackend
 
 
 BACKENDS: dict[str, type] = {'telegram': TelegramBackend}
 
 
 class Bot:
-    backends: dict[str, _abc.Backend]
+    backends: dict[str, abc.Backend]
 
     def __init__(self, *args, **kwargs):
         self.backends = {}
@@ -41,10 +40,10 @@ class Bot:
             backend.run()
 
         while True:
-            Task.check_announcements(self)
+            task.check_announcements(self)
             time.sleep(600)
 
-    def get_user(self, backend: str, user_id: int) -> _abc.User:
+    def get_user(self, backend: str, user_id: int) -> abc.User:
         return self.backends[backend].get_user(user_id)
 
 

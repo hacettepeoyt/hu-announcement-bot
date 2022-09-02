@@ -17,30 +17,30 @@ import telegram
 from telegram import Update
 from telegram.ext import CallbackContext
 import os
-from src import User, Text
-from src.Keyboard import create_inline_keyboard
+from .. import user, text
+from ..keyboard import create_inline_keyboard
 
 
 def main(update: Update, context: CallbackContext):
     user_id = update.effective_user.id
-    current_dnd, current_holiday, current_lang = User.get_customs(user_id)
+    current_dnd, current_holiday, current_lang = user.get_customs(user_id)
     query = update.callback_query
     data = query.data
 
     if data == 'dnd-btn':
         current_dnd = not current_dnd
-        User.set_dnd(user_id, current_dnd)
+        user.set_dnd(user_id, current_dnd)
 
     elif data == 'holiday-btn':
         current_holiday = not current_holiday
-        User.set_holiday_mode(user_id, current_holiday)
+        user.set_holiday_mode(user_id, current_holiday)
 
     elif data == 'language-btn':
         current_lang = find_next_language(current_lang)
-        User.set_language(user_id, current_lang)
+        user.set_language(user_id, current_lang)
 
     query.answer()
-    message = Text.get_settings(current_dnd, current_holiday, current_lang)
+    message = text.get_settings(current_dnd, current_holiday, current_lang)
     reply_markup = create_inline_keyboard(current_lang)
     query.edit_message_text(text=message, reply_markup=reply_markup, parse_mode=telegram.ParseMode.HTML)
 

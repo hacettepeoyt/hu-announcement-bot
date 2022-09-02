@@ -1,20 +1,20 @@
 '''
         Announcement module is created by the sake of abstraction.
-        I write about this abstraction in mongo/AnnouncementDatabase
+        I write about this abstraction in mongo/announcement_db
 '''
 
 
 
-from mongo import AnnouncementDatabase
-from Logging import logger
+from .mongo import announcement_db
+from .logging import logger
 
 
 def find(department_id):
-    return AnnouncementDatabase.find(department_id)
+    return announcement_db.find(department_id)
 
 
 def update(department_id, announcements):
-    AnnouncementDatabase.update(department_id, announcements)
+    announcement_db.update(department_id, announcements)
     logger.info(f"Announcements updated for {department_id} department in database!")
 
 
@@ -24,7 +24,7 @@ def new_department(department_id):
         'announcements': []
     }
 
-    AnnouncementDatabase.insert_documents([document])
+    announcement_db.insert_documents([document])
     logger.info('New document(s) have been inserted!')
 
 

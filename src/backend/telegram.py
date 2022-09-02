@@ -1,9 +1,9 @@
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
 
-from mongo import UserDatabase
-from src._abc import Backend, User
-from src.handler import CallbackQueryHandler as Cqh, CommandHandler as Ch, MessageHandler as Mh
+from ..mongo import user_db
+from ..abc import Backend, User
+from ..handler import cb_query_handler as Cqh, cmd_handler as Ch, msg_handler as Mh
 
 
 class TelegramUser(User):
@@ -15,8 +15,8 @@ class TelegramUser(User):
     def __init__(self, _id: int, bot: telegram.Bot):
         self._id = _id
         self._bot = bot
-        self.dnd = UserDatabase.get_property(self._id, 'dnd')
-        self.language = UserDatabase.get_property(self._id, 'language')
+        self.dnd = user_db.get_property(self._id, 'dnd')
+        self.language = user_db.get_property(self._id, 'language')
 
     def send(self, content: str, **kwargs):
         self._bot.send_message(chat_id=self._id, text=content, **kwargs)
@@ -25,14 +25,14 @@ class TelegramUser(User):
         return self.dnd
 
     def set_dnd(self, dnd: bool):
-        UserDatabase.set_customs(self._id, 'dnd', dnd)
+        user_db.set_customs(self._id, 'dnd', dnd)
         self.dnd = dnd
 
     def get_language(self) -> str:
         return self.language
 
     def set_language(self, language: str):
-        UserDatabase.set_customs(self._id, 'dnd', language)
+        user_db.set_customs(self._id, 'dnd', language)
         self.language = language
 
 
