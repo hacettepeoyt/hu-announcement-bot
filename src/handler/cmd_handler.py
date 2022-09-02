@@ -27,7 +27,7 @@ from .. import user, text, announcement
 from ..scraper.index import availableDepartments
 from ..keyboard import create_keyboard, create_inline_keyboard
 from ..logging import logger
-from config import admin_id, feedback_chat_id
+from config import feedback_chat_id
 
 
 def start(update: Update, context: CallbackContext):
@@ -134,7 +134,7 @@ def answer_feedback(ctx, receiver_id: int, answer: str):
 
 def add_new_department(ctx, department: str):
     # TODO: is_admin decorator
-    if ctx.author != ctx.bot.get_admin(ctx.backend):
+    if ctx.author != ctx.get_admin():
         ctx.send("You do not have enough permissions to run this command.")
         return
 
@@ -144,7 +144,7 @@ def add_new_department(ctx, department: str):
 
 def send_from_admin(ctx, message: str):
     # TODO: is_admin decorator
-    if ctx.author != ctx.bot.get_admin(ctx.backend):
+    if ctx.author != ctx.get_admin():
         ctx.send("You do not have enough permissions to run this command.")
         return
 

@@ -52,7 +52,7 @@ class Bot:
 
 
 def main():
-    bot = Bot(telegram_options={"token": config.API_KEY, "webhook_url": config.WEBHOOK_URL})
+    bot = Bot(telegram_options={"token": config.API_KEY, "webhook_url": config.WEBHOOK_URL, 'admin_id': config.ADMIN_ID})
 
     # TODO: Reorganize the code to properly use this as decorators?
     bot.command()(cmd_handler.start)

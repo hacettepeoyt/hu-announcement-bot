@@ -30,5 +30,8 @@ class Backend:
     def run(self):
         raise NotImplementedError
 
+    def get_admin(self) -> User:
+        raise NotImplementedError
+
     def get_user(self, id: int) -> User:
         raise NotImplementedError

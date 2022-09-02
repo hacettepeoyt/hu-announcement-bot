@@ -21,6 +21,9 @@ class Context(Messageable):
     def send(self, content: str, *args, **kwargs):
         self.channel.send(content, *args, **kwargs)
 
+    def get_admin(self) -> User:
+        return self.bot.backends[self.backend].get_admin()
+
 
 # Modified from https://github.com/div72/grcbountybot/blob/c1b78f8848bf80132ee6f6f0c4fc025870751f9d/grcbountybot/shell.py.
 

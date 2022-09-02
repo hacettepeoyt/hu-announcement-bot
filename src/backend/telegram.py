@@ -63,9 +63,10 @@ class TelegramBackend(Backend):
     token: str
     users: dict[int, TelegramUser]
 
-    def __init__(self, bot, token: str, webhook_url: str):
+    def __init__(self, bot, token: str, webhook_url: str, admin_id: int):
         self._bot = bot
         self._token = token
+        self._admin_id = admin_id
         self.users = {}
         self.webhook_url = webhook_url
 
@@ -88,6 +89,9 @@ class TelegramBackend(Backend):
                       author=self.get_user(update.effective_user.id),
                       channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot))
         self._bot.cmd_handler.parse_command(ctx, update.message.text)
+
+    def get_admin(self) -> TelegramUser:
+        return self.get_user(self._admin_id)
 
     def get_user(self, id: int) -> TelegramUser:
         user = self.users[id] = self.users.get(id, TelegramUser(_id=id, bot=self._updater.bot))
