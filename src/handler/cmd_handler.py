@@ -27,16 +27,17 @@ from .. import user, text, announcement
 from ..scraper.index import availableDepartments
 from ..keyboard import create_keyboard, create_inline_keyboard
 from ..logging import logger
+from ..mongo import user_db
 from config import feedback_chat_id
 
 
-def start(update: Update, context: CallbackContext):
-    user.enroll(update.effective_user)
-    user_id = update.effective_user.id
-    language = user.get_language(user_id)
+def start(ctx):
+    user_db.enroll(ctx.backend, ctx.author.id, ctx.author.first_name, ctx.author.last_name,
+                   ctx.author.get_language(), ["hu-3", "hu-13"])
+    language = ctx.author.get_language()
     message = text.encode('greet', language)
 
-    update.message.reply_text(message)
+    ctx.send(message)
 
 
 def help(ctx):

@@ -25,13 +25,14 @@ class TelegramUser(TelegramChat, User):
     dnd: bool
     language: str
 
-    def __init__(self, _id: int, bot: telegram.Bot, first_name: Optional[str] = None, last_name: Optional[str] = None):
+    def __init__(self, _id: int, bot: telegram.Bot, first_name: Optional[str] = None, last_name: Optional[str] = None,
+                 language: Optional[str] = None):
         super().__init__(_id, bot)
         props = user_db.get_properties(_id, ('first_name', 'last_name', 'dnd', 'holiday_mode', 'language'))
         self.first_name = first_name or props['first_name']
         self.last_name = last_name or props['last_name']
         self.dnd = props['dnd'] or False
-        self.language = props['language']
+        self.language = language or props['language']
         self.holiday_mode = props['holiday_mode'] or False
 
     def __eq__(self, other: object):
@@ -93,7 +94,8 @@ class TelegramBackend(Backend):
             return self.users[update.effective_user.id]
 
         user = TelegramUser(_id=update.effective_user.id, bot=self._updater.bot,
-                            first_name=update.effective_user.first_name, last_name=update.effective_user.last_name)
+                            first_name=update.effective_user.first_name, last_name=update.effective_user.last_name,
+                            language=update.effective_user.language_code)
         self.users[update.effective_user.id] = user
 
         return user
@@ -101,7 +103,7 @@ class TelegramBackend(Backend):
     def _handle_command(self, update, _) -> None:
         ctx = Context(bot=self._bot,
                       backend='telegram',
-                      author=self.get_user(update.effective_user.id),
+                      author=self._user_from_update(update),
                       channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot))
         self._bot.cmd_handler.parse_command(ctx, update.message.text)
 

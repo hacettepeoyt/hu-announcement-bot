@@ -14,6 +14,7 @@
 '''
 
 
+from typing import Optional
 
 from pymongo import MongoClient, ReturnDocument
 import dns
@@ -30,7 +31,7 @@ def fetch_collection():
     return collection
 
 
-def enroll(user_id, first_name, last_name, lang, def_deps):
+def enroll(backend: str, user_id: int, first_name: str, last_name: Optional[str], lang: str, def_deps: list[str]) -> None:
     user_configs = fetch_collection()
     user = user_configs.find_one({'user_id': user_id})
 
@@ -38,7 +39,7 @@ def enroll(user_id, first_name, last_name, lang, def_deps):
         user_info = {'user_id': user_id, 'first_name': first_name,
                      'last_name': last_name, 'dnd': False,
                      'holiday_mode': False, 'language': lang,
-                     'departments': def_deps}
+                     'departments': def_deps, 'backend': backend}
 
         user_configs.insert_one(user_info)
 
@@ -104,4 +105,3 @@ def set_customs(user_id, key, value):
     user_configs = fetch_collection()
     user_configs.find_one_and_update({'user_id': user_id},
                                      {'$set': {key: value}})
-                                     
