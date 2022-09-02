@@ -18,7 +18,7 @@ class TelegramUser(User):
         self.dnd = user_db.get_property(self._id, 'dnd')
         self.language = user_db.get_property(self._id, 'language')
 
-    def send(self, content: str, **kwargs):
+    def send(self, content: str, *args, **kwargs):
         self._bot.send_message(chat_id=self._id, text=content, **kwargs)
 
     def get_dnd(self) -> bool:
