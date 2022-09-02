@@ -4,6 +4,9 @@ class Messageable:
 
 
 class User(Messageable):
+    def __eq__(self, other: object) -> bool:
+        raise NotImplementedError
+
     def get_dnd(self) -> bool:
         raise NotImplementedError
 

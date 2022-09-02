@@ -30,6 +30,12 @@ class TelegramUser(TelegramChat, User):
         self.language = props['language']
         self.holiday_mode = props['holiday_mode']
 
+    def __eq__(self, other: object):
+        if not isinstance(other, TelegramUser):
+            return False
+
+        return self._id == other._id
+
     def get_dnd(self) -> bool:
         return self.dnd
 
