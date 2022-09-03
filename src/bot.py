@@ -51,6 +51,10 @@ class Bot:
         return self.backends[backend].get_user(user_id)
 
     def on_message(self, ctx: cmd.Context, message: str) -> None:
+        # Do not trigger on_message if the message was sent from the bot.
+        if ctx.author == self.backends[ctx.backend].get_me():
+            return
+
         self.cmd_handler.parse_command(ctx, message)
 
 
