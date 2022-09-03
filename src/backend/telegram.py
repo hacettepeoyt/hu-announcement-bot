@@ -122,6 +122,7 @@ class TelegramBackend(Backend):
         self._updater = Updater(token)
         dispatcher = self._updater.dispatcher
         dispatcher.add_handler(MessageHandler(Filters.text | Filters.command, self._handle_message))
+        dispatcher.add_handler(CallbackQueryHandler(self._handle_query_callback))
 
     def _user_from_module(self, effective_user) -> TelegramUser:
         """ Returns an user from the backend cache or create a new one from a python-telegram-bot User. """
@@ -142,6 +143,15 @@ class TelegramBackend(Backend):
                       channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot),
                       message=update.message.text)
         self._bot.on_message(ctx, update.message.text)
+
+    def _handle_query_callback(self, update, _) -> None:
+        ctx = Context(bot=self._bot,
+                      backend='telegram',
+                      author=self._user_from_module(update.effective_user),
+                      channel=TelegramChat(_id=update.callback_query.message.chat.id, bot=self._updater.bot),
+                      message=update.callback_query.data)
+        self._bot.on_message(ctx, ctx.message)
+        update.callback_query.answer()
 
     def get_admin(self) -> TelegramUser:
         return self.get_user(self._admin_id)

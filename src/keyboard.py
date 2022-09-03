@@ -25,11 +25,11 @@ def create_keyboard(array, language):
 
 def create_inline_keyboard(language):
     buttons = []
-    types = ['dnd-btn', 'holiday-btn', 'language-btn']
+    types = ['/dnd', '/holiday', '/language']
 
     for type in types:
-        text = text.encode(type, language)
-        buttons.append([InlineKeyboardButton(text=text, callback_data=type)])
+        button = InlineKeyboardButton(text=text.encode(type, language), callback_data=type)
+        buttons.append([button])
 
     return InlineKeyboardMarkup(buttons)
-    
+

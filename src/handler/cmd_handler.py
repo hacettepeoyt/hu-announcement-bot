@@ -17,7 +17,7 @@
         related with the updates.
 '''
 
-
+import os
 
 import telegram
 from telegram import Update, ReplyKeyboardRemove
@@ -155,10 +155,60 @@ def settings(ctx):
 
     message = text.get_settings(dnd, holiday, lang)
     if ctx.backend == 'telegram':
-        reply_markup = create_inline_keyboard(language)
+        reply_markup = create_inline_keyboard(lang)
         ctx.send(message, reply_markup=reply_markup, parse_mode='HTML')
     else:
         ctx.send(message)
+
+
+def dnd(ctx):
+    # TODO: confirmation/edit for Telegram backend.
+    ctx.author.set_dnd(not ctx.author.get_dnd())
+
+
+def holiday(ctx):
+    # TODO: confirmation/edit for Telegram backend.
+    ctx.author.set_holiday_mode(not ctx.author.get_holiday_mode())
+
+
+def find_next_language(language):
+    language_list = find_language_list()
+    current_index = language_list.index(language)
+
+    if current_index == (len(language_list) - 1):
+        return language_list[0]
+
+    return language_list[current_index + 1]
+
+
+def find_language_list():
+    '''
+        Finds available languages from locale folder.
+        This can be handled by storing a simple list that includes
+        the languages, but adding a language becomes more tricky.
+        Thanks to this function, we don't need to update that language list
+        everytime we add a new language.
+    '''
+
+
+    file_list = sorted(os.listdir('locale/'))
+    languages = []
+
+    for file in file_list:
+        if file[-4:] != 'json':
+            continue
+
+        name = file.replace('.json', '')
+        languages.append(name)
+
+    return languages
+
+
+def language(ctx):
+    # TODO: confirmation/edit for Telegram backend.
+    current_lang = ctx.author.get_language()
+    next_lang = find_next_language(current_lang)
+    ctx.author.set_language(next_lang)
 
 
 def donate(ctx):
