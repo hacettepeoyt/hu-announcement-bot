@@ -53,3 +53,7 @@ class Backend:
 
     def get_user(self, id: int) -> User:
         raise NotImplementedError
+
+    def get_me(self) -> User:
+        """ Returns the bot user. """
+        raise NotImplementedError

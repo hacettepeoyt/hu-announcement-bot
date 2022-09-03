@@ -122,22 +122,22 @@ class TelegramBackend(Backend):
 
         dispatcher.add_handler(MessageHandler(Filters.text | Filters.command, self._handle_message))
 
-    def _user_from_update(self, update) -> TelegramUser:
-        """ Returns a user from the cache or from the update. """
-        if update.effective_user.id in self.users:
-            return self.users[update.effective_user.id]
+    def _user_from_module(self, effective_user) -> TelegramUser:
+        """ Returns an user from the backend cache or create a new one from a python-telegram-bot User. """
+        if effective_user.id in self.users:
+            return self.users[effective_user.id]
 
-        user = TelegramUser(_id=update.effective_user.id, bot=self._updater.bot,
-                            first_name=update.effective_user.first_name, last_name=update.effective_user.last_name,
-                            language=update.effective_user.language_code)
-        self.users[update.effective_user.id] = user
+        user = TelegramUser(_id=effective_user.id, bot=self._updater.bot,
+                            first_name=effective_user.first_name, last_name=effective_user.last_name,
+                            language=effective_user.language_code)
+        self.users[effective_user.id] = user
 
         return user
 
     def _handle_message(self, update, _) -> None:
         ctx = Context(bot=self._bot,
                       backend='telegram',
-                      author=self._user_from_update(update),
+                      author=self._user_from_module(update.effective_user),
                       channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot),
                       message=update.message.text)
         self._bot.on_message(ctx, update.message.text)
@@ -151,6 +151,9 @@ class TelegramBackend(Backend):
 
         user = self.users[id] = TelegramUser(_id=id, bot=self._updater.bot)
         return user
+
+    def get_me(self) -> TelegramUser:
+        return self._user_from_module(self._updater.bot.bot)
 
     def run(self):
         if self.webhook_url:
