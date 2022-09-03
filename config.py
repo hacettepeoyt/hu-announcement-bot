@@ -11,5 +11,5 @@ DB_STRING: str = ''
 feedback_chat_id = ''
 
 # Admin's own Telegram ID.
-admin_id: int = 0
+ADMIN_ID: int = 0
 

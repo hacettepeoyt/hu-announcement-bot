@@ -6,7 +6,6 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Conve
 from ..mongo import user_db
 from ..abc import Backend, Messageable, User
 from ..cmd import Context
-from ..handler import cb_query_handler as Cqh, cmd_handler as Ch, msg_handler as Mh
 from ..scraper.index import availableDepartments
 
 
