@@ -31,6 +31,18 @@ class User(Messageable):
     def set_holiday_mode(self, mode: bool) -> None:
         raise NotImplementedError
 
+    def get_subscriptions(self) -> list[str]:
+        raise NotImplementedError
+
+    def set_subscriptions(self, departments: list[str]) -> None:
+        raise NotImplementedError
+
+    def add_subscription(self, department: str) -> bool:
+        raise NotImplementedError
+
+    def remove_subscription(self, department: str) -> bool:
+        raise NotImplementedError
+
 
 class Backend:
     def run(self):

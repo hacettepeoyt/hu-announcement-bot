@@ -7,6 +7,7 @@ from ..mongo import user_db
 from ..abc import Backend, Messageable, User
 from ..cmd import Context
 from ..handler import cb_query_handler as Cqh, cmd_handler as Ch, msg_handler as Mh
+from ..scraper.index import availableDepartments
 
 
 class TelegramChat(Messageable):
@@ -24,6 +25,8 @@ class TelegramChat(Messageable):
 class TelegramUser(TelegramChat, User):
     dnd: bool
     language: str
+    holiday_mode: bool
+    subscriptions: list[str]
 
     def __init__(self, _id: int, bot: telegram.Bot, first_name: Optional[str] = None, last_name: Optional[str] = None,
                  language: Optional[str] = None):
@@ -34,6 +37,7 @@ class TelegramUser(TelegramChat, User):
         self.dnd = props['dnd'] or False
         self.language = language or props['language']
         self.holiday_mode = props['holiday_mode'] or False
+        self.subscriptions = user_db.find_subscriptions(_id) or ['hu-3', 'hu-13']
 
     def __eq__(self, other: object):
         if not isinstance(other, TelegramUser):
@@ -61,6 +65,36 @@ class TelegramUser(TelegramChat, User):
     def set_holiday_mode(self, mode: bool) -> None:
         user_db.set_customs(self._id, 'holiday_mode', mode)
         self.holiday_mode = mode
+
+    def get_subscriptions(self) -> list[str]:
+        return self.subscriptions
+
+    def set_subscriptions(self, departments: list[str]) -> None:
+        if __debug__:
+            for department in departments:
+                assert department in availableDepartments
+        user_db.update_subscriptions(self._id, departments)
+        self.departments = departments
+
+    def add_subscription(self, department: str) -> bool:
+        if department not in availableDepartments:
+            return False
+
+        subs = self.get_subscriptions()
+        subs.append(department)
+        self.set_subscriptions(subs)
+        return True
+
+    def remove_subscription(self, department: str) -> bool:
+        subs = self.get_subscriptions()
+
+        try:
+            subs.remove(department)
+        except ValueError:
+            return False
+
+        self.set_subscriptions(subs)
+        return True
 
 
 class TelegramBackend(Backend):
