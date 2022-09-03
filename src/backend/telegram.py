@@ -31,13 +31,23 @@ class TelegramUser(TelegramChat, User):
     def __init__(self, _id: int, bot: telegram.Bot, first_name: Optional[str] = None, last_name: Optional[str] = None,
                  language: Optional[str] = None):
         super().__init__(_id, bot)
-        props = user_db.get_properties(_id, ('first_name', 'last_name', 'dnd', 'holiday_mode', 'language'))
-        self.first_name = first_name or props['first_name']
-        self.last_name = last_name or props['last_name']
-        self.dnd = props['dnd'] or False
-        self.language = language or props['language']
-        self.holiday_mode = props['holiday_mode'] or False
-        self.subscriptions = user_db.find_subscriptions(_id) or ['hu-3', 'hu-13']
+        props = user_db.get_properties(_id, ('first_name', 'last_name', 'dnd', 'holiday_mode', 'language', 'departments'))
+        if props is None:
+            # Non-registered user.
+            self.first_name = first_name or ''
+            self.last_name = last_name
+            self.language = language or 'en'
+            self.dnd = False
+            self.holiday_mode = False
+            self.subscriptions = []
+        else:
+            # Registered user.
+            self.first_name = props['first_name']
+            self.last_name = props['last_name']
+            self.dnd = props['dnd']
+            self.language = props['language']
+            self.holiday_mode = props['holiday_mode']
+            self.subscriptions = props['departments']
 
     def __eq__(self, other: object):
         if not isinstance(other, TelegramUser):
