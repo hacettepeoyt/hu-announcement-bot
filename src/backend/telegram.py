@@ -120,7 +120,7 @@ class TelegramBackend(Backend):
             fallbacks=[CommandHandler('cancel', Ch.cancel)]
         ))
 
-        dispatcher.add_handler(MessageHandler(Filters.command, self._handle_command))
+        dispatcher.add_handler(MessageHandler(Filters.text | Filters.command, self._handle_message))
 
     def _user_from_update(self, update) -> TelegramUser:
         """ Returns a user from the cache or from the update. """
@@ -134,12 +134,13 @@ class TelegramBackend(Backend):
 
         return user
 
-    def _handle_command(self, update, _) -> None:
+    def _handle_message(self, update, _) -> None:
         ctx = Context(bot=self._bot,
                       backend='telegram',
                       author=self._user_from_update(update),
-                      channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot))
-        self._bot.cmd_handler.parse_command(ctx, update.message.text)
+                      channel=TelegramChat(_id=update.message.chat.id, bot=self._updater.bot),
+                      message=update.message.text)
+        self._bot.on_message(ctx, update.message.text)
 
     def get_admin(self) -> TelegramUser:
         return self.get_user(self._admin_id)

@@ -50,6 +50,9 @@ class Bot:
     def get_user(self, backend: str, user_id: int) -> abc.User:
         return self.backends[backend].get_user(user_id)
 
+    def on_message(self, ctx: cmd.Context, message: str) -> None:
+        self.cmd_handler.parse_command(ctx, message)
+
 
 def main():
     bot = Bot(telegram_options={"token": config.API_KEY, "webhook_url": config.WEBHOOK_URL, 'admin_id': config.ADMIN_ID})

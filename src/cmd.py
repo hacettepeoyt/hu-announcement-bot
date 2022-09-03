@@ -17,6 +17,7 @@ class Context(Messageable):
     backend: str
     author: "User"
     channel: Messageable
+    message: str
 
     def send(self, content: str, *args, **kwargs):
         self.channel.send(content, *args, **kwargs)
