@@ -121,15 +121,6 @@ class TelegramBackend(Backend):
 
         self._updater = Updater(token)
         dispatcher = self._updater.dispatcher
-
-        dispatcher.add_handler(ConversationHandler(
-            entry_points=[CommandHandler('feedback', Ch.feedback)],
-            states={
-                1: [MessageHandler(Filters.text & ~Filters.command, Mh.feedback_done)]
-            },
-            fallbacks=[CommandHandler('cancel', Ch.cancel)]
-        ))
-
         dispatcher.add_handler(MessageHandler(Filters.text | Filters.command, self._handle_message))
 
     def _user_from_module(self, effective_user) -> TelegramUser:

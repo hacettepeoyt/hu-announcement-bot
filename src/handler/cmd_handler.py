@@ -49,7 +49,7 @@ def help(ctx):
 
 def new_subscription(ctx):
     language = ctx.author.get_language()
-    subscriptions = user.get_subscriptions(update.effective_user.id)
+    subscriptions = ctx.author.get_subscriptions()
 
     possible_deps = [department.name for department in availableDepartments.values() if
                      department.name not in subscriptions]
@@ -65,6 +65,33 @@ def new_subscription(ctx):
         ctx.send(message, reply_markup=reply_markup)
     else:
         ctx.send(message)
+
+    def add_sub_hook(ctx2) -> bool:
+        if ctx.backend != ctx2.backend:
+            return False
+
+        if ctx.author != ctx2.author:
+            return False
+
+        language = ctx.author.get_language()
+        departments = text.get_departments(language)
+
+        if ctx2.message in departments:
+            department_id = departments[ctx2.message]
+            subs = ctx.author.get_subscriptions()
+
+            if department_id in subscriptions:
+                # TODO: Already subbed message.
+                pass
+            else:
+                ctx.author.add_subscription(department_id)
+                ctx2.send(f"{text.encode('sub-success', language)} {ctx2.message}")
+        else:
+            message = text.encode('invalid-message', language)
+            ctx.send(message)
+
+        return True
+    ctx.bot.hook("message", add_sub_hook)
 
 
 def remove_subscription(ctx):
@@ -82,12 +109,39 @@ def remove_subscription(ctx):
     else:
         ctx.send(message)
 
+    def remove_sub_hook(ctx2) -> bool:
+        if ctx.backend != ctx2.backend:
+            return False
+
+        if ctx.author != ctx2.author:
+            return False
+
+        language = ctx.author.get_language()
+        departments = text.get_departments(language)
+
+        if ctx2.message in departments:
+            department_id = departments[ctx2.message]
+            subs = ctx.author.get_subscriptions()
+
+            if department_id not in subscriptions:
+                # TODO: Already unsubbed message.
+                pass
+            else:
+                ctx.author.add_subscription(department_id)
+                ctx2.send(f"{text.encode('unsub-success', language)} {ctx2.message}")
+        else:
+            message = text.encode('invalid-message', language)
+            ctx.send(message)
+
+        return True
+    ctx.bot.hook("message", remove_sub_hook)
+
 
 def reset_subscriptions(ctx):
     language = ctx.author.get_language()
     message = text.encode('reset-sub', language)
 
-    ctx.author.reset_subscriptions()
+    ctx.author.set_subscriptions([])
     if ctx.backend == "telegram":
         ctx.send(message, reply_markup=ReplyKeyboardRemove())
     else:
@@ -119,14 +173,22 @@ def feedback(ctx):
     message = text.encode('feedback-info', language)
 
     ctx.send(message)
-    ctx.wait_for()  # TODO: implement this.
+    def receive_feedback(ctx2) -> bool:
+        if ctx.backend != ctx2.backend:
+            return False
 
+        if ctx.author != ctx2.author:
+            return False
 
-def cancel(ctx):
-    language = ctx.author.get_language()
-    message = text.encode('cancel', language)
+        if ctx2.message == '/abort':
+            language = ctx.author.get_language()
+            message = text.encode('cancel', language)
+            ctx2.send(message)
+            return True
 
-    ctx.send(message)
+        feedback: str = f"From {ctx.author.first_name} (ctx.author._id):\n{ctx2.message}"
+        ctx.get_feedback_channel().send(feedback)
+    ctx.bot.hook('message', receive_feedback)
 
 
 def answer_feedback(ctx, receiver_id: int, answer: str):

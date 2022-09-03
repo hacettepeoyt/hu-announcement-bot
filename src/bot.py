@@ -17,6 +17,7 @@
 
 
 import time
+from typing import Callable
 
 import config
 from . import abc, cmd, task
@@ -30,6 +31,7 @@ BACKENDS: dict[str, type] = {'telegram': TelegramBackend}
 class Bot:
     backends: dict[str, abc.Backend]
     cmd_handler: cmd.CommandParser
+    event_hooks: dict[str, list[Callable[[cmd.Context], bool]]]
 
     def __init__(self, *args, **kwargs):
         self.backends = {}
@@ -37,6 +39,7 @@ class Bot:
             self.backends[name] = backend(bot=self, **kwargs.get(f"{name}_options", {}))
         self.users = []
         self.cmd_handler = cmd.CommandParser(cmd.on_prefix("/"))
+        self.event_hooks = {'message': []}
         self.command = self.cmd_handler.command
 
     def run(self):
@@ -50,12 +53,25 @@ class Bot:
     def get_user(self, backend: str, user_id: int) -> abc.User:
         return self.backends[backend].get_user(user_id)
 
+    def hook(self, event_type: str, hook: Callable[[cmd.Context], bool]) -> None:
+        self.event_hooks[event_type].append(hook)
+
     def on_message(self, ctx: cmd.Context, message: str) -> None:
         # Do not trigger on_message if the message was sent from the bot.
         if ctx.author == self.backends[ctx.backend].get_me():
             return
+ 
+        triggered_hooks: list[Callable[[cmd.Context], bool]] = []
+        for hook in self.event_hooks['message']:
+            if hook(ctx):
+                triggered_hooks.append(hook)
 
-        self.cmd_handler.parse_command(ctx, message)
+        if triggered_hooks:
+            for hook in triggered_hooks:
+                self.event_hooks['message'].remove(hook)
+        else:
+            # Do not trigger the command handler if a hook was triggered.
+            self.cmd_handler.parse_command(ctx, message)
 
 
 def main():
@@ -70,7 +86,6 @@ def main():
     bot.command()(cmd_handler.settings)
     bot.command()(cmd_handler.donate)
     bot.command()(cmd_handler.feedback)
-    bot.command()(cmd_handler.cancel)
     bot.command()(cmd_handler.answer_feedback)
     bot.command()(cmd_handler.add_new_department)
     bot.command()(cmd_handler.send_from_admin)
