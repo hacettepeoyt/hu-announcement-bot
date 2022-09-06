@@ -32,7 +32,7 @@ from config import feedback_chat_id
 
 
 def start(ctx):
-    user_db.enroll(ctx.backend, ctx.author.id, ctx.author.first_name, ctx.author.last_name,
+    user_db.enroll(ctx.backend, ctx.author._id, ctx.author.first_name, ctx.author.last_name,
                    ctx.author.get_language(), ["hu-3", "hu-13"])
     language = ctx.author.get_language()
     message = text.encode('greet', language)
