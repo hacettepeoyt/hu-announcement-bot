@@ -8,6 +8,7 @@
         be added.
 '''
 
+from typing import List
 
 from . import announcement, text, user
 from .logging import logger
@@ -28,7 +29,7 @@ def check_announcements(bot):
         olds = announcement.find(department.name)
         diff = announcement.compare(olds, news)
 
-        users: list[abc.User] = []
+        users: List[abc.User] = []
         for id_, backend in user.get_subscribers(department.name):
             users.append(bot.get_user(backend, user_id=id_))
 
@@ -40,7 +41,7 @@ def check_announcements(bot):
             announcement.update(department.name, olds)
 
 
-def notify_users(announcement, users: list[abc.User], department_id):
+def notify_users(announcement, users: List[abc.User], department_id):
     for user in users:
         language = user.get_language()
         message = text.create_announcement_text(department_id, announcement, language)

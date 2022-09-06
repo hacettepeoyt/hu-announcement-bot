@@ -3,7 +3,7 @@ import shlex
 from dataclasses import dataclass
 from functools import wraps
 
-from typing import Callable, TYPE_CHECKING
+from typing import Callable, List, TYPE_CHECKING
 
 
 from .abc import Messageable, User
@@ -29,8 +29,8 @@ class Context(Messageable):
 # Modified from https://github.com/div72/grcbountybot/blob/c1b78f8848bf80132ee6f6f0c4fc025870751f9d/grcbountybot/shell.py.
 
 
-def on_prefix(prefix: str) -> Callable[[str], list[str]]:
-    def parser(msg: str) -> list[str]:
+def on_prefix(prefix: str) -> Callable[[str], List[str]]:
+    def parser(msg: str) -> List[str]:
         if not msg.startswith(prefix):
             return []
 
@@ -42,7 +42,7 @@ def on_prefix(prefix: str) -> Callable[[str], list[str]]:
 class CommandParser:
     commands = {"default": (lambda *args, **kwargs: None)}
 
-    def __init__(self, parse_fn: Callable[[str], list[str]]):
+    def __init__(self, parse_fn: Callable[[str], List[str]]):
         self.parse_fn = parse_fn
 
     def command(self, name: str = None):

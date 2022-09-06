@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 
 class Messageable:
@@ -31,10 +31,10 @@ class User(Messageable):
     def set_holiday_mode(self, mode: bool) -> None:
         raise NotImplementedError
 
-    def get_subscriptions(self) -> list[str]:
+    def get_subscriptions(self) -> List[str]:
         raise NotImplementedError
 
-    def set_subscriptions(self, departments: list[str]) -> None:
+    def set_subscriptions(self, departments: List[str]) -> None:
         raise NotImplementedError
 
     def add_subscription(self, department: str) -> bool:

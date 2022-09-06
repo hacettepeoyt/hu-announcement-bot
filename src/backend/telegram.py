@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Dict, List, Optional
 
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler, CallbackQueryHandler
@@ -25,7 +25,7 @@ class TelegramUser(TelegramChat, User):
     dnd: bool
     language: str
     holiday_mode: bool
-    subscriptions: list[str]
+    subscriptions: List[str]
 
     def __init__(self, _id: int, bot: telegram.Bot, first_name: Optional[str] = None, last_name: Optional[str] = None,
                  language: Optional[str] = None):
@@ -75,10 +75,10 @@ class TelegramUser(TelegramChat, User):
         user_db.set_customs(self._id, 'holiday_mode', mode)
         self.holiday_mode = mode
 
-    def get_subscriptions(self) -> list[str]:
+    def get_subscriptions(self) -> List[str]:
         return self.subscriptions
 
-    def set_subscriptions(self, departments: list[str]) -> None:
+    def set_subscriptions(self, departments: List[str]) -> None:
         if __debug__:
             for department in departments:
                 assert department in availableDepartments
@@ -109,7 +109,7 @@ class TelegramUser(TelegramChat, User):
 class TelegramBackend(Backend):
     _updater: Updater
     token: str
-    users: dict[int, TelegramUser]
+    users: Dict[int, TelegramUser]
 
     def __init__(self, bot, token: str, webhook_url: str, admin_id: int):
         self._bot = bot

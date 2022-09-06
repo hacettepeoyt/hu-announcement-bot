@@ -17,7 +17,7 @@
 
 
 import time
-from typing import Callable
+from typing import Callable, Dict, List
 
 import config
 from . import abc, cmd, task
@@ -25,13 +25,13 @@ from .backend.telegram import TelegramBackend
 from .handler import cmd_handler
 
 
-BACKENDS: dict[str, type] = {'telegram': TelegramBackend}
+BACKENDS: Dict[str, type] = {'telegram': TelegramBackend}
 
 
 class Bot:
-    backends: dict[str, abc.Backend]
+    backends: Dict[str, abc.Backend]
     cmd_handler: cmd.CommandParser
-    event_hooks: dict[str, list[Callable[[cmd.Context], bool]]]
+    event_hooks: Dict[str, List[Callable[[cmd.Context], bool]]]
 
     def __init__(self, *args, **kwargs):
         self.backends = {}
@@ -61,7 +61,7 @@ class Bot:
         if ctx.author == self.backends[ctx.backend].get_me():
             return
  
-        triggered_hooks: list[Callable[[cmd.Context], bool]] = []
+        triggered_hooks: List[Callable[[cmd.Context], bool]] = []
         for hook in self.event_hooks['message']:
             if hook(ctx):
                 triggered_hooks.append(hook)

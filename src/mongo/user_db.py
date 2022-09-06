@@ -14,7 +14,7 @@
 '''
 
 
-from typing import Optional
+from typing import List, Optional
 
 from pymongo import MongoClient, ReturnDocument
 import dns
@@ -31,7 +31,7 @@ def fetch_collection():
     return collection
 
 
-def enroll(backend: str, user_id: int, first_name: str, last_name: Optional[str], lang: str, def_deps: list[str]) -> None:
+def enroll(backend: str, user_id: int, first_name: str, last_name: Optional[str], lang: str, def_deps: List[str]) -> None:
     user_configs = fetch_collection()
     user = user_configs.find_one({'user_id': user_id})
 
@@ -44,7 +44,7 @@ def enroll(backend: str, user_id: int, first_name: str, last_name: Optional[str]
         user_configs.insert_one(user_info)
 
 
-def find_subscribers(departmentName) -> list[tuple[int, str]]:
+def find_subscribers(departmentName) -> List[tuple[int, str]]:
     user_configs = fetch_collection()
     users = user_configs.find({"departments": departmentName, "holiday_mode": False})
 
