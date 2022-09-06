@@ -1,1 +1,1 @@
-web: python -m src
+web: python3 -m src
