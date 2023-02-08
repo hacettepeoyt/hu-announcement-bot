@@ -174,7 +174,7 @@ async def update_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE
     language = user['language']
 
     if department_name not in LOCALE_DEPARTMENT_MAP[language]:
-        context.bot.send_message(chat_id=user_id, text=decode('department-doesnt-exist', language))
+        await context.bot.send_message(chat_id=user_id, text=decode('department-doesnt-exist', language))
         return
 
     chosen_department_code = LOCALE_DEPARTMENT_MAP[language][department_name]
