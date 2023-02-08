@@ -38,6 +38,8 @@
   "hu-mat": "Department of Mathematics",
   "hu-bby": "Department of Information Management",
   "hu-edebiyat": "Faculty of Letters",
+  "hu-ee": "Department of Electrical and Electronics Engineering",
+  "hu-phys": "Physics Engineering",
   "hu-me": "Department of Mechanical Engineering",
   "hu-cheng": "Chemical Engineering",
   "hu-bilisim": "Institute of Informatics",
@@ -58,5 +60,13 @@
   "hu-cevre": "Environmental Engineering Department",
   "hu-psikoloji": "Department of Psychology",
   "hu-egitim": "Faculty of Education",
-  "hu-ergoterapi": "Occupational Therapy"
+  "hu-ergoterapi": "Occupational Therapy",
+  "hu-geomatik": "Geomatics Engineering Department",
+  "hu-food": "Department of Food Engineering",
+  "hu-maden": "Department of Mining Engineering",
+  "hu-nuke": "Nuclear Engineering Department",
+  "hu-ofmamat": "Mathematics Teaching Programme",
+  "hu-imo": "Elementary Mathematics Teaching Programme",
+  "hu-bdb": "Department of Nutrition and Dietetics",
+  "hu-hemsirelik": "Faculty of Nursing"
 }

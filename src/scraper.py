@@ -232,3 +232,51 @@ class Edebiyat(BaseDepartment):
                     new_announcements.append(announcement)
 
                 return new_announcements
+
+
+class EE(BaseDepartment):
+    def __init__(self, id: str, address: str):
+        super().__init__(id, address)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.address + '?link=archivedAnno&lang=e') as resp:
+                html_text: str = await resp.text()
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                data = soup.find_all(
+                    class_='w3-card w3-light-grey my-flexItem my-xl3m my-l3m my-m4m my-s6m w3-margin-bottom w3-medium')
+                new_announcements: list[dict] = []
+
+                for d in data[:5]:
+                    title = d.findNext(class_='w3-medium').text.strip()
+                    url = self._complete_url(d.findNext('a').get('href'))
+                    announcement = {"title": title, "content": None, "url": url}
+                    new_announcements.append(announcement)
+
+                return new_announcements
+
+
+class Phys(BaseDepartment):
+    def __init__(self, id: str, address: str):
+        super().__init__(id, address)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.address + 'index.php') as resp:
+                html_text: str = await resp.text()
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                data = soup.find_all('p')
+                new_announcements: list[dict] = []
+
+                for p in data[2:7]:
+                    title = p.text.strip().replace('\n', ' ').replace('\r', '')
+
+                    try:
+                        url = self._complete_url(p.findNext('a').get('href'))
+                    except AttributeError:
+                        url = None
+
+                    announcement = {"title": title, "content": None, "url": url}
+                    new_announcements.append(announcement)
+
+                return new_announcements

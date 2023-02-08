@@ -25,6 +25,8 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         IE('hu-ie', 'http://www.ie.hacettepe.edu.tr/'),
         Mat('hu-mat', 'http://www.mat.hacettepe.edu.tr/'),
         BBY('hu-bby', 'http://bby.hacettepe.edu.tr/'),
+        EE('hu-ee', 'http://www.ee.hacettepe.edu.tr/'),
+        Phys('hu-phys', 'http://www.phys.hacettepe.edu.tr/'),
         Edebiyat('hu-edebiyat', 'http://www.edebiyat.hacettepe.edu.tr/'),
         BaseDepartment('hu-me', 'http://www.me.hacettepe.edu.tr/'),
         BaseDepartment('hu-cheng', 'http://www.cheng.hacettepe.edu.tr/'),
@@ -46,7 +48,15 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-cevre', 'http://www.cevre.hacettepe.edu.tr/'),
         BaseDepartment('hu-psikoloji', 'http://www.psikoloji.hacettepe.edu.tr/'),
         BaseDepartment('hu-egitim', 'http://www.egitim.hacettepe.edu.tr/'),
-        BaseDepartment('hu-ergoterapi', 'http://www.ergoterapi.hacettepe.edu.tr/')
+        BaseDepartment('hu-ergoterapi', 'http://www.ergoterapi.hacettepe.edu.tr/'),
+        BaseDepartment('hu-geomatik', 'http://geomatik.hacettepe.edu.tr/'),
+        BaseDepartment('hu-food', 'https://food.hacettepe.edu.tr/'),
+        BaseDepartment('hu-maden', 'https://maden.hacettepe.edu.tr/'),
+        BaseDepartment('hu-nuke', 'https://nuke.hacettepe.edu.tr/'),
+        BaseDepartment('hu-ofmamat', 'https://ofmamat.hacettepe.edu.tr/'),
+        BaseDepartment('hu-imo', 'http://imo.hacettepe.edu.tr/'),
+        BaseDepartment('hu-bdb', 'http://bdb.hacettepe.edu.tr/'),
+        BaseDepartment('hu-hemsirelik', 'https://hemsirelik.hacettepe.edu.tr/')
     ]
 
 
