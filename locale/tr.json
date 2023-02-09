@@ -1,4 +1,5 @@
 {
+  "CHARS": " ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZabcçdefgğhıijklmnoöprsştuüvyz",
   "cmd-start": "Hoşgeldin Hacettepeli, bundan sonra departmanların websitelerini manuel kontrol etmene gerek kalmadı. Yeni bir duyuru olduğunda bunu seninle ben otomatik olarak paylaşacağım.\n\nKendimi daha iyi tanıtmamı istiyorsan /help komutunu kullanabilirsin.",
   "cmd-help": "Aşağıdaki Menü butonundan gerekli komutlara ulaşabilirsin.\n\n\n/add   -->   Yeni departmanlara bu komut ile abone olabilirsin.\n\n/remove   -->   Aboneliğini iptal etmek istiyorsan bu komutu kullan.\n\n/reset   -->   Bak ama bu ciddi bir şey, tüm aboneliklerini iptal etmek istiyorsan bunu kullan. Dikkatli ol ama :)\n\n/settings   -->   Ayarlar menüsünü görmek için bu komutu kullanabilirsin.\n\n/feedback   -->   Benimle ilgili yorumlarını ve geliştiricilere iletmek istediklerini bu komut sayesinde yapabilirsin.",
   "cmd-add": "Hadi aşağıdan bir tane departman seç!\n\nEğer aradığını bulamıyorsan /feedback ile bu problemi bildirebilirsin. Unutma, bütün departmanlar benim kontrolümde değil henüz.",

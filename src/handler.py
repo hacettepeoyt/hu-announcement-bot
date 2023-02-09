@@ -234,24 +234,42 @@ async def err_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> Non
 
 
 # UTILS
+
+# The key function in sort() doesn't take extra argument, that's why I used this temp variable.
+temp_language_var: str = ''
+
+
 def create_keyboard(_list: list[str], language: str) -> Union[ReplyKeyboardRemove, ReplyKeyboardMarkup]:
     """
     Takes a list, decodes and sort them in given language
-    (sorting is being made according to ASCII). After that,
+    (sorting is being made according to given language's CHARS value). After that,
     creates a reply keyboard markup. In case the list is empty,
     returns ReplyKeyboardRemove.
     :param _list: List that contains department ids (doesn't have to be department ids)
     :param language: Language of the buttons
     :return: If the _list is empty ReplyKeyboardRemove, otherwise ReplyKeyboardMarkup
     """
+    global temp_language_var
 
     if not _list:
         return ReplyKeyboardRemove()
 
+    temp_language_var = language
     decoded_list = [decode(elem, language) for elem in _list]
-    decoded_list.sort()
+    decoded_list.sort(key=custom_sorting_key)
     buttons = [[KeyboardButton(elem)] for elem in decoded_list]
     return ReplyKeyboardMarkup(buttons)
+
+
+def custom_sorting_key(text: str) -> list[int]:
+    """
+    A language specific sorting key generator.
+    :param text: The input record
+    :return: List of each char's index number
+    """
+    global temp_language_var
+    chars = decode('CHARS', temp_language_var)
+    return [chars.index(text[i]) for i in range(len(text))]
 
 
 def create_inline_keyboard(language: str) -> InlineKeyboardMarkup:

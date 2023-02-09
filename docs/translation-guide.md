@@ -4,7 +4,9 @@
 
 1. Create a file named by the standard [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
 2. You see... there are some files named **en.json**, **tr.json**. Copy one of them and paste into your file.
-3. Change the texts on the right side with translations. Don't touch the key values which are on the left side.
+3. Replace `CHARS` value with the order of your language's alphabet. Notice that there is one space character at the
+   beginning. All characters in the department names must exist here.
+4. Change the texts on the right side with translations. Don't touch the key values which are on the left side.
 
 Example:
 

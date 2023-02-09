@@ -1,4 +1,5 @@
 {
+  "CHARS": " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   "cmd-start": "Welcome aboard Hacettepeli, From now on, I'll share the announcements with you! You don't need to regularly check the websites anymore.\n\nIf you want me to introduce myself in detail, you should use /help",
   "cmd-help": "I recommend you to use Menu button down below. It contains all sort of commands you need.\n\n\n/add   -->   You can subscribe to new departments with this command.\n\n/remove   -->   Do you want to unsubscribe, here you go, use this command.\n\n/reset   -->   Oh, this is serious... If you want to reset all subscriptions, you can use this one. Be careful tho :)\n\n/settings   -->   You can navigate through settings with this one.\n\n/feedback   -->   If you want to give any feedback, just use this command. Remember, every feedback is a contribution to me :)",
   "cmd-add": "Go ahead and pick a department!\n\nIf you can't see what you're looking for, just use /feedback and make sure concerned people are aware of this problem. Note that I don't provide every department, yet.",
