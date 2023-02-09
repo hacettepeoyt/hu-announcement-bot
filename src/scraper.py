@@ -130,14 +130,18 @@ class IE(BaseDepartment):
                 title, content, url = None, None, None
 
                 for document in data:
-                    if document.name == 'p':
+                    date = document.find('span', class_='tarih')
+
+                    if date:
                         document.span.decompose()
+
+                    if document.name == 'p':
                         title = document.text.strip(' \n')
                         content = None
                     elif document.name == 'details':
-                        document.summary.span.decompose()
                         title = document.summary.extract().text.strip(' \n,')
                         content = document.text.strip(' \n')
+
                         if content == '':
                             content = None
 
@@ -145,6 +149,11 @@ class IE(BaseDepartment):
                         url = self._complete_url(document.find('a').get('href'))
                     except AttributeError:
                         url = None
+
+                    # There are some blank p tags inside HTML. In that case, generated announcement becomes like below.
+                    # That's why this control flow needed.
+                    if title == '' and content is None and url is None:
+                        continue
 
                     new_announcements.append({'title': title, 'content': content, 'url': url})
 
