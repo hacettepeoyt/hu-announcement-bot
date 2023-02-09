@@ -41,6 +41,7 @@
   "hu-edebiyat": "Edebiyat Fakültesi",
   "hu-ee": "Elektrik Elektronik Mühendisliği",
   "hu-phys": "Fizik Mühendisliği",
+  "hu-abofisi": "Avrupa Birliği Ofisi",
   "hu-me": "Makina Mühendisliği",
   "hu-cheng": "Kimya Mühendisliği",
   "hu-bilisim": "Bilişim Enstitüsü",
@@ -69,5 +70,10 @@
   "hu-ofmamat": "Matematik Öğretmenliği Programı",
   "hu-imo": "İlköğretim Matematik Öğretmenliği Programı",
   "hu-bdb": "Beslenme ve Diyetetik Bölümü",
-  "hu-hemsirelik": "Hemşirelik Fakültesi"
+  "hu-hemsirelik": "Hemşirelik Fakültesi",
+  "hu-eob": "Engelli Öğrenci Birimi",
+  "hu-shmyo": "Sağlık Hizmetleri Meslek Yüksekokulu",
+  "hu-sbmy": "Sosyal Bilimler Meslek Yüksekokulu",
+  "hu-baskentosbtbmyo": "Başkent OSB Teknik Bilimler Meslek Yüksekokulu",
+  "hu-secmeli": "Seçmeli Dersler Koordinatörlüğü"
 }

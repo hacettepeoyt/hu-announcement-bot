@@ -28,6 +28,7 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         EE('hu-ee', 'http://www.ee.hacettepe.edu.tr/'),
         Phys('hu-phys', 'http://www.phys.hacettepe.edu.tr/'),
         Edebiyat('hu-edebiyat', 'http://www.edebiyat.hacettepe.edu.tr/'),
+        ABOfisi('hu-abofisi', 'https://abofisi.hacettepe.edu.tr/'),
         BaseDepartment('hu-me', 'http://www.me.hacettepe.edu.tr/'),
         BaseDepartment('hu-cheng', 'http://www.cheng.hacettepe.edu.tr/'),
         BaseDepartment('hu-bilisim', 'http://www.bilisim.hacettepe.edu.tr/'),
@@ -56,7 +57,12 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-ofmamat', 'https://ofmamat.hacettepe.edu.tr/'),
         BaseDepartment('hu-imo', 'http://imo.hacettepe.edu.tr/'),
         BaseDepartment('hu-bdb', 'http://bdb.hacettepe.edu.tr/'),
-        BaseDepartment('hu-hemsirelik', 'https://hemsirelik.hacettepe.edu.tr/')
+        BaseDepartment('hu-hemsirelik', 'https://hemsirelik.hacettepe.edu.tr/'),
+        BaseDepartment('hu-eob', 'https://eob.hacettepe.edu.tr/'),
+        BaseDepartment('hu-shmyo', 'https://shmyo.hacettepe.edu.tr/'),
+        BaseDepartment('hu-sbmy', 'https://sbmy.hacettepe.edu.tr/'),
+        BaseDepartment('hu-baskentosbtbmyo', 'https://baskentosbtbmyo.hacettepe.edu.tr/'),
+        BaseDepartment('hu-secmeli', 'https://secmeli.hacettepe.edu.tr/')
     ]
 
 
