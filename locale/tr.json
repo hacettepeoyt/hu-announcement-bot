@@ -7,7 +7,7 @@
   "cmd-reset": "Ne oldu?? Yoksa mezun mu oldun?",
   "cmd-feedback": "Mesajını aşağıya yaz, sonrasında bana gönder. İptal etmek istersen /cancel komutunu kullanabilirsin.",
   "cmd-cancel": "Tamamdır, işlem iptal edildi...",
-  "cmd-donation": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında geliştiriciye atıştırmalık alabilirsin :) Visca Barça!\n\n<b>₺:</b> <code>TR76 0011 1000 0000 0109 8128 40</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
+  "cmd-donate": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında geliştiriciye atıştırmalık alabilirsin :) Visca Barça!\n\n<b>₺:</b> <code>TR76 0011 1000 0000 0109 8128 40</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
   "subscribe-success": "Yeni abonelik eklendi:",
   "unsubscribe-success": "Abonelik iptal edildi:",
   "settings-dnd-btn": "DND Aç/Kapat",

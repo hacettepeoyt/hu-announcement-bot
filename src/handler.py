@@ -101,7 +101,8 @@ async def donate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     message = decode('cmd-donate', user['language'])
-    await context.bot.send_message(chat_id=update.effective_user.id, text=message)
+    await context.bot.send_message(chat_id=update.effective_user.id, text=message,
+                                   parse_mode=telegram.constants.ParseMode.HTML)
 
 
 async def admin_announcement(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

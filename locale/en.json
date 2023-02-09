@@ -7,7 +7,7 @@
   "cmd-reset": "What's wrong?? Did you graduate?",
   "cmd-feedback": "Write a feedback down below, and send it to me! If you want to cancel it, use /cancel",
   "cmd-cancel": "Alright, process has been cancelled...",
-  "cmd-donation": "If you enjoyed @HacettepeDuyurucuBot, you can buy some snacks to the developer!\n\n<b>₺:</b> <code>TR76 0011 1000 0000 0109 8128 40</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
+  "cmd-donate": "If you enjoyed @HacettepeDuyurucuBot, you can buy some snacks to the developer!\n\n<b>₺:</b> <code>TR76 0011 1000 0000 0109 8128 40</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
   "subscribe-success": "Successfully subscribed to",
   "unsubscribe-success": "Successfully unsubscribed from",
   "settings-dnd-btn": "DND On/Off",
