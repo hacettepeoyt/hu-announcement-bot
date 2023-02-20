@@ -59,6 +59,33 @@ class CS(BaseDepartment):
     def __init__(self, id: str, address: str):
         super().__init__(id, address)
 
+    @staticmethod
+    def cleanup(str_: str) -> str:
+        """
+        Reduces the number of consecutive `\n` by two. If there is an alone '\n', replaces it with space.
+        :param str_: The string that is going to be formatted
+        :return: String with new format
+        """
+
+        if len(str_) == 0 or str_ == "\n":
+            return ""
+
+        chars = list(str_)
+        i = 0
+        while i < len(chars):
+            if chars[i] == "\n":
+                j = i
+                while j < len(chars) and chars[j] == "\n":
+                    j += 1
+                if j - i > 1:
+                    chars[i] = ""
+                    chars[i + 1] = ""
+                else:
+                    chars[i] = " "
+                i = j
+            i += 1
+        return "".join(chars)
+
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address + '/json/announcements.json') as resp:
@@ -69,14 +96,8 @@ class CS(BaseDepartment):
                 for document in data:
                     body: BeautifulSoup = BeautifulSoup(document['body'], 'lxml')
                     title: str = document['title']
-                    paragraphs = body.find_all('p')
-                    content: str = ''
-
-                    for p in paragraphs:
-                        content += p.text.replace('\n', ' ')  # Texts are in static layout, we need to clean up.
-                        content += '\n\n'
-
-                    content = content[:-2]  # Removes last two new line chars.
+                    content = body.get_text("\n").replace("\r\n", "\n")  # CRLF to LF
+                    content = self.cleanup(content)
 
                     try:
                         url = self._complete_url(body.find('a').get('href'))
