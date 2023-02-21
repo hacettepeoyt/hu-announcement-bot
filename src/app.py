@@ -29,6 +29,7 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         Phys('hu-phys', 'http://www.phys.hacettepe.edu.tr/'),
         Edebiyat('hu-edebiyat', 'http://www.edebiyat.hacettepe.edu.tr/'),
         ABOfisi('hu-abofisi', 'https://abofisi.hacettepe.edu.tr/'),
+        BIDB('hu-bidb', 'http://bidb.hacettepe.edu.tr'),
         BaseDepartment('hu-me', 'http://www.me.hacettepe.edu.tr/'),
         BaseDepartment('hu-cheng', 'http://www.cheng.hacettepe.edu.tr/'),
         BaseDepartment('hu-bilisim', 'http://www.bilisim.hacettepe.edu.tr/'),
@@ -62,7 +63,8 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-shmyo', 'https://shmyo.hacettepe.edu.tr/'),
         BaseDepartment('hu-sbmy', 'https://sbmy.hacettepe.edu.tr/'),
         BaseDepartment('hu-baskentosbtbmyo', 'https://baskentosbtbmyo.hacettepe.edu.tr/'),
-        BaseDepartment('hu-secmeli', 'https://secmeli.hacettepe.edu.tr/')
+        BaseDepartment('hu-secmeli', 'https://secmeli.hacettepe.edu.tr/'),
+        BaseDepartment('hu-sosyalbilimler', 'https://sosyalbilimler.hacettepe.edu.tr/')
     ]
 
 

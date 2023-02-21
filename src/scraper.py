@@ -341,3 +341,34 @@ class ABOfisi(BaseDepartment):
                     new_announcements.append(announcement)
 
                 return new_announcements
+
+
+class BIDB(BaseDepartment):
+    def __init__(self, id: str, address: str):
+        super().__init__(id, address)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.address) as resp:
+                html_text: str = await resp.text(encoding='utf-8')
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                data = soup.find(class_='duyurular_liste').find_all('p')[:5]
+                new_announcements: list[dict] = []
+
+                for p in data:
+                    date = p.find('span', class_='tarih')
+
+                    if date:
+                        p.span.decompose()
+
+                    title: str = p.text.strip()
+
+                    try:
+                        url = self._complete_url(p.find('a').get('href'))
+                    except AttributeError:
+                        url = None
+
+                    announcement = {"title": title, "content": None, "url": url}
+                    new_announcements.append(announcement)
+
+                return new_announcements

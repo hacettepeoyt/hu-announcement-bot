@@ -42,6 +42,7 @@
   "hu-ee": "Elektrik Elektronik Mühendisliği",
   "hu-phys": "Fizik Mühendisliği",
   "hu-abofisi": "Avrupa Birliği Ofisi",
+  "hu-bidb": "Bilgi İşlem Daire Başkanlığı",
   "hu-me": "Makina Mühendisliği",
   "hu-cheng": "Kimya Mühendisliği",
   "hu-bilisim": "Bilişim Enstitüsü",
@@ -75,5 +76,6 @@
   "hu-shmyo": "Sağlık Hizmetleri Meslek Yüksekokulu",
   "hu-sbmy": "Sosyal Bilimler Meslek Yüksekokulu",
   "hu-baskentosbtbmyo": "Başkent OSB Teknik Bilimler Meslek Yüksekokulu",
-  "hu-secmeli": "Seçmeli Dersler Koordinatörlüğü"
+  "hu-secmeli": "Seçmeli Dersler Koordinatörlüğü",
+  "hu-sosyalbilimler": "Sosyal Bilimler Enstitüsü"
 }
