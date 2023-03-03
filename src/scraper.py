@@ -124,7 +124,7 @@ class SKSDB(BaseDepartment):
 
                 for p in data:
                     a = p.find('a')
-                    title: str = a.text
+                    title: str = a.text.strip()
 
                     try:
                         url = a.get('href')
@@ -194,7 +194,7 @@ class Mat(BaseDepartment):
                 new_announcements: list[dict] = []
 
                 for p in data:
-                    title = p.text
+                    title = p.text.strip()
 
                     try:
                         url = self._complete_url(p.select_one('a').get('href'))
@@ -222,7 +222,7 @@ class BBY(BaseDepartment):
 
                 for tr in data:
                     a = tr.find('a')
-                    title = a.text
+                    title = a.text.strip()
 
                     try:
                         url = self._complete_url(a.get('href'))
