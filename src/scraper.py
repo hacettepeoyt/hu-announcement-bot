@@ -17,8 +17,8 @@ class BaseDepartment:
 
         if url[:4] == 'http' or url[:3] == 'www':
             return url
-        if url[0] == '/':
-            url = url[1:]
+        if url[0] != '/':
+            url = '/' + url
 
         return self.address + url
 
