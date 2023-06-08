@@ -29,7 +29,7 @@ class BaseDepartment:
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find_all(class_='duyuru_baslik')[:5]
                 new_announcements: list[dict] = []
@@ -110,7 +110,7 @@ class SKSDB(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find_all('p')[8:13]
                 new_announcements: list[dict] = []
@@ -137,7 +137,7 @@ class IE(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.select_one('.homepageAnnouncements > section > div').find_all(['p', 'details'])[0:5]
                 new_announcements: list[dict] = []
@@ -181,7 +181,7 @@ class Mat(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address + '/duyurular.html') as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.select('.duyurular_liste p')[:5]
                 new_announcements: list[dict] = []
@@ -207,7 +207,7 @@ class BBY(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address + '/duyurular.php') as resp:
-                html_text = await resp.text(encoding='utf-8')
+                html_text = await resp.text(encoding='utf-8', errors="replace")
 
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find(id='yayinlar').find('tbody').find_all('tr')[-5:]
@@ -235,7 +235,7 @@ class Edebiyat(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='iso-8859-9')
+                html_text: str = await resp.text(encoding='iso-8859-9', errors="replace")
 
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 section = soup.find(id='duyurular')
@@ -264,7 +264,7 @@ class EE(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address + '?link=archivedAnno&lang=e') as resp:
-                html_text: str = await resp.text()
+                html_text: str = await resp.text(errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find_all(
                     class_='w3-card w3-light-grey my-flexItem my-xl3m my-l3m my-m4m my-s6m w3-margin-bottom w3-medium')
@@ -286,7 +286,7 @@ class Phys(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address + '/index.php') as resp:
-                html_text: str = await resp.text()
+                html_text: str = await resp.text(errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find_all('p')
                 new_announcements: list[dict] = []
@@ -312,7 +312,7 @@ class ABOfisi(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.select_one('#nav-1').find_all('p')[:5]
                 new_announcements: list[dict] = []
@@ -343,7 +343,7 @@ class BIDB(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find(class_='duyurular_liste').find_all('p')[:5]
                 new_announcements: list[dict] = []
@@ -374,7 +374,7 @@ class JeoMuh(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find(id='vision').find_all('p')[:5]
                 new_announcements: list[dict] = []
@@ -405,7 +405,7 @@ class Hidro(BaseDepartment):
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
             async with session.get(self.address) as resp:
-                html_text: str = await resp.text(encoding='utf-8')
+                html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find(class_='tabs').find_all('p')[:5]
                 new_announcements: list[dict] = []
