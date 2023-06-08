@@ -1,4 +1,4 @@
-import re
+import urllib.parse
 
 import aiohttp
 from bs4 import BeautifulSoup
@@ -24,14 +24,7 @@ class BaseDepartment:
 
     @staticmethod
     def _fix_invalid_url(url: str) -> str:
-        valid_path_pattern = r'(-\d+)$'
-        invalid_path_pattern = r'\/([^\/]+-\d+)$'
-
-        if re.search(invalid_path_pattern, url) is None:
-            return url
-
-        found_suffix = re.search(valid_path_pattern, url).group(1)
-        return re.sub(invalid_path_pattern, '/' + found_suffix, url)
+        return urllib.parse.quote(url, "\./_-:")
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
