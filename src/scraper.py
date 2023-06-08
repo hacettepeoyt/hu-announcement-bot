@@ -24,7 +24,7 @@ class BaseDepartment:
 
     @staticmethod
     def _fix_invalid_url(url: str) -> str:
-        return urllib.parse.quote(url, "\./_-:")
+        return urllib.parse.quote(url, "\./_-:=?%")
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
