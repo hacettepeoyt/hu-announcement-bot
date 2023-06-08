@@ -187,7 +187,7 @@ class Mat(BaseDepartment):
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
-            async with session.get(self.address + 'duyurular.html') as resp:
+            async with session.get(self.address + '/duyurular.html') as resp:
                 html_text: str = await resp.text(encoding='utf-8')
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.select('.duyurular_liste p')[:5]
@@ -213,7 +213,7 @@ class BBY(BaseDepartment):
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
-            async with session.get(self.address + 'duyurular.php') as resp:
+            async with session.get(self.address + '/duyurular.php') as resp:
                 html_text = await resp.text(encoding='utf-8')
 
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -292,7 +292,7 @@ class Phys(BaseDepartment):
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession() as session:
-            async with session.get(self.address + 'index.php') as resp:
+            async with session.get(self.address + '/index.php') as resp:
                 html_text: str = await resp.text()
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
                 data = soup.find_all('p')
