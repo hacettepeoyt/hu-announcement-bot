@@ -118,8 +118,8 @@ async def admin_announcement(update: Update, context: ContextTypes.DEFAULT_TYPE)
     admin_message = ' '.join(update.message.text.split()[1:])
     for target in await USER_DB.find_all():
         try:
-            context.bot.send_message(chat_id=target, text=admin_message,
-                                     parse_mode=telegram.constants.ParseMode.HTML)
+            await context.bot.send_message(chat_id=target, text=admin_message,
+                                           parse_mode=telegram.constants.ParseMode.HTML)
             logger.info(f"Message has been sent to {target}")
         except telegram.error.Forbidden:
             logger.info(f"FORBIDDEN: Message couldn't be delivered to {target}")
