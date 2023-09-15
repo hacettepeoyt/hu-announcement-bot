@@ -1,4 +1,7 @@
+import traceback
+
 import telegram
+from aiohttp import ClientConnectorError
 from telegram.ext import ContextTypes
 
 from .app import logger, DEPARTMENT_DB, USER_DB, AVAILABLE_DEPARTMENTS, decode
@@ -14,10 +17,15 @@ async def check_announcements(context: ContextTypes.DEFAULT_TYPE) -> None:
 
         try:
             news = await department.get_announcements()
-        except:
-            message = f"An exception raised while scraping {department.id}"
+        except ClientConnectorError:
+            message = f"Connection Error while scraping {department.id}"
             logger.exception(message)
             await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message)
+            continue
+        except:
+            message = f"Undefined Error while scraping {department.id}"
+            logger.exception(message)
+            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=f"{message}\n\n{traceback.format_exc()}")
             continue
 
         diff = compare(olds, news)
