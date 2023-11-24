@@ -11,6 +11,10 @@ def validate():
         print("ERROR: Please configure DB_STRING")
         exit(2)
 
+    if not config.DB_NAME:
+        print("ERROR: Please configure DB_NAME")
+        exit(2)
+
     if config.ADMIN_ID == 0:
         print("WARNING: You didn't configured an ADMIN_ID, so you won't be able to use admin commands!")
 

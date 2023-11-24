@@ -3,14 +3,15 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 class DepartmentDatabase:
     CONNECTION_STRING: str
+    DB_NAME: str
 
-    def __init__(self, connection_string: str):
+    def __init__(self, connection_string: str, db_name: str):
         self.CONNECTION_STRING = connection_string
-        pass
+        self.DB_NAME = db_name
 
     def __fetch_collection(self) -> AsyncIOMotorClient:
         client = AsyncIOMotorClient(self.CONNECTION_STRING)
-        db = client['hu-announcement-db']
+        db = client[self.DB_NAME]
         collection = db['announcements']
         return collection
 
@@ -32,13 +33,15 @@ class DepartmentDatabase:
 
 class UserDatabase:
     CONNECTION_STRING: str
+    DB_NAME: str
 
-    def __init__(self, connection_string: str):
+    def __init__(self, connection_string: str, db_name: str):
         self.CONNECTION_STRING = connection_string
+        self.DB_NAME = db_name
 
     def __fetch_collection(self) -> AsyncIOMotorClient:
         client = AsyncIOMotorClient(self.CONNECTION_STRING)
-        db = client['hu-announcement-db']
+        db = client[self.DB_NAME]
         collection = db['user_configs']
         return collection
 

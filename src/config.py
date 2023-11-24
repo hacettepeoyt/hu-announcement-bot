@@ -8,8 +8,9 @@ config = toml.load(config_path)
 # Telegram Bot Token
 TELEGRAM_API_KEY: str = config["TELEGRAM_API_KEY"]
 
-# MongoDB Connection String
+# Database configurations
 DB_STRING: str = config["DB_STRING"]
+DB_NAME: str = config["DB_NAME"]
 
 # Feedback Chat ID
 FEEDBACK_CHAT_ID: int = config["FEEDBACK_CHAT_ID"]
