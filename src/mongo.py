@@ -68,8 +68,7 @@ class UserDatabase:
         user_configs = self.__fetch_collection()
         users_cursor = user_configs.find({})
         user_list = await users_cursor.to_list(None)  # ChatGPT wrote here, I'm not sure why await find() didn't work
-        user_id_list = [user['user_id'] for user in user_list]
-        return user_id_list
+        return user_list
 
     async def toggle_language(self, user_id: int, langauge: str) -> None:
         collection = self.__fetch_collection()

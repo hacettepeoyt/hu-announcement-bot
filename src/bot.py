@@ -16,6 +16,15 @@ def main() -> None:
         fallbacks=[CommandHandler('cancel', handler.cancel)]
     ))
 
+    app.add_handler(ConversationHandler(
+        entry_points=[CommandHandler('admin_announcement', handler.admin_announcement)],
+        states={
+            1: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.admin_announcement_choose_department)],
+            2: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.admin_announcement_done)]
+        },
+        fallbacks=[CommandHandler('cancel', handler.cancel)]
+    ))
+
     app.add_handler(CommandHandler('start', handler.start))
     app.add_handler(CommandHandler('help', handler.help))
     app.add_handler(CommandHandler('add', handler.new_subscription))
@@ -23,7 +32,6 @@ def main() -> None:
     app.add_handler(CommandHandler('reset', handler.reset_subscriptions))
     app.add_handler(CommandHandler('settings', handler.settings))
     app.add_handler(CommandHandler('donate', handler.donate))
-    app.add_handler(CommandHandler('admin_announcement', handler.admin_announcement))
     app.add_handler(CommandHandler('answer', handler.answer))
     app.add_handler(CallbackQueryHandler(handler.settings_buttons))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handler.update_subscription))

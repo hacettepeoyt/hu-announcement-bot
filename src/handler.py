@@ -8,7 +8,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboard
     ReplyKeyboardRemove
 from telegram.ext import ContextTypes
 
-from .app import logger, USER_DB, LOCALE_DEPARTMENT_MAP, decode, get_possible_deps
+from .app import logger, USER_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, get_possible_deps
 from .config import ADMIN_ID, FEEDBACK_CHAT_ID, LOGGER_CHAT_ID, DEFAULT_DEPS
 from .utils import find_next_language
 
@@ -105,27 +105,20 @@ async def donate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                                    parse_mode=telegram.constants.ParseMode.HTML)
 
 
-async def admin_announcement(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def admin_announcement(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     language = user['language']
 
     if user_id != ADMIN_ID:
         await context.bot.send_message(chat_id=user_id, text=decode('auth-fail', language))
-        return
+        return -1
 
-    # Message: /<command> <message> --- ignore "/<command>" text, accept only <message> part.
-    admin_message = ' '.join(update.message.text.split()[1:])
-    for target in await USER_DB.find_all():
-        try:
-            await context.bot.send_message(chat_id=target, text=admin_message,
-                                           parse_mode=telegram.constants.ParseMode.HTML)
-            logger.info(f"Message has been sent to {target}")
-        except telegram.error.Forbidden:
-            logger.info(f"FORBIDDEN: Message couldn't be delivered to {target}")
-
-    message = decode('admin-announcement-successful', language)
-    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+    all_departments = [dep.id for dep in AVAILABLE_DEPARTMENTS]
+    reply_markup = create_keyboard(all_departments, user['language'])
+    await context.bot.send_message(chat_id=user_id, text=decode('cmd-admin_announcement', language),
+                                   reply_markup=reply_markup)
+    return 1
 
 
 async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -202,6 +195,53 @@ async def feedback_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
                                       message_id=update.message.message_id)
     await context.bot.send_message(chat_id=FEEDBACK_CHAT_ID, text=user_id)
     await context.bot.send_message(chat_id=user_id, text=message)
+    return -1
+
+
+async def admin_announcement_choose_department(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    department_name = update.message.text
+    language = user['language']
+
+    if department_name != "ALL" and department_name not in LOCALE_DEPARTMENT_MAP[language]:
+        await context.bot.send_message(chat_id=user_id, text=decode('department-doesnt-exist', language))
+        return -1
+
+    if department_name == "ALL":
+        context.user_data['admin-announcement-department_id'] = "ALL"
+    else:
+        context.user_data['admin-announcement-department_id'] = LOCALE_DEPARTMENT_MAP[language][department_name]
+
+    message = (f"{department_name}\n\n"
+               f"{decode('admin-announcement-department-chosen', language)}")
+    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+    return 2
+
+
+async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    admin_message = update.message.text
+    department_id = context.user_data.pop('admin-announcement-department_id')
+    language = user['language']
+
+    if department_id == "ALL":
+        user_list = await USER_DB.find_all()
+    else:
+        user_list = await USER_DB.get_subscribers(department_id)
+
+    for target in user_list:
+        try:
+            await context.bot.send_message(chat_id=target['user_id'], text=admin_message,
+                                           parse_mode=telegram.constants.ParseMode.MARKDOWN,
+                                           disable_web_page_preview=True)
+            logger.info(f"Admin message has been sent to {target['user_id']}")
+        except telegram.error.Forbidden:
+            logger.info(f"FORBIDDEN: Admin message couldn't be delivered to {target['user_id']}")
+
+    message = f"{decode('admin-announcement-successful', language)}"
+    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
     return -1
 
 
