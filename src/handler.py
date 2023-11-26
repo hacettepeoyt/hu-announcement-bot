@@ -282,6 +282,13 @@ async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_
     return -1
 
 
+async def conversation_timeout(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    language = user['language']
+    await context.bot.send_message(chat_id=user_id, text=decode('conversation-timeout', language))
+
+
 async def err_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Log the error and send a telegram message to notify the developer."""
 

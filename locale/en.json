@@ -37,6 +37,7 @@
   "auth-fail": "You are not authorized to do this operation!",
   "admin-answer-success": "Answer has been forwarded to the user!",
   "department-doesnt-exist": "This department doesn't exist! If you think this department should be added, contact to developers with /feedback",
+  "conversation-timeout": "Our previous conversation has timed out due to inactivity! You can restart it again if you want =)",
   "hu-cs": "Computer Science",
   "hu-sksdb": "SKSDB",
   "hu-ie": "Department of Industrial Engineering",

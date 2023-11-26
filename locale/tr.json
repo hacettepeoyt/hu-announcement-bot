@@ -37,6 +37,7 @@
   "auth-fail": "Bunu yapmak için yetkili değilsin!",
   "admin-answer-success": "Cevap kullanıcıya iletildi!",
   "department-doesnt-exist": "Böyle bir departman yok! Eklenmesi gerektiğini düşünüyorsan /feedback ile geliştiricilere ulaşabilirsin.",
+  "conversation-timeout": "Önceki sohbetimiz cevap vermemenden ötürü zaman aşımına uğradı, istersen yeniden başlatabilirsin =)",
   "hu-cs": "Bilgisayar Mühendisliği",
   "hu-sksdb": "SKSDB",
   "hu-ie": "Endüstri Mühendisliği",
