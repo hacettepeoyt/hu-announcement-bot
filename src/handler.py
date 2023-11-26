@@ -134,13 +134,19 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await context.bot.send_message(chat_id=user_id, text=decode('auth-fail', user['language']))
         return
 
-    receiver_id = context.args[0]
-    answer_msg = " ".join(update.message.text.split()[2:])
-    answer_msg = answer_msg.replace('/answer', '').replace(receiver_id, '').strip()
-    message = decode('admin-answer-success', user['language'])
-    await context.bot.send_message(chat_id=receiver_id, text=answer_msg, parse_mode=telegram.constants.ParseMode.HTML,
+    replied_message_id = update.message.reply_to_message.id
+    _feedback = await FEEDBACK_DB.find_by_message_id(forwarded_message_id=replied_message_id)
+
+    # Removes the "/answer" part from the message.
+    # TODO: Use Message.parse_entity() instead of hard-coding
+    admin_reply = update.message.text[7:]
+    await context.bot.send_message(chat_id=_feedback['user_id'], text=admin_reply,
+                                   reply_to_message_id=_feedback['original_message_id'],
+                                   allow_sending_without_reply=True, parse_mode=telegram.constants.ParseMode.MARKDOWN,
                                    disable_web_page_preview=True)
-    await context.bot.send_message(chat_id=FEEDBACK_CHAT_ID, text=message)
+
+    success_message = decode('admin-answer-success', user['language'])
+    await context.bot.send_message(chat_id=FEEDBACK_CHAT_ID, text=success_message)
 
 
 async def settings_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -224,7 +230,7 @@ async def feedback_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     message = decode('feedback-done', user['language'])
     forwarded_message = await context.bot.forward_message(chat_id=FEEDBACK_CHAT_ID, from_chat_id=user_id,
                                                           message_id=update.message.message_id)
-    await FEEDBACK_DB.new_feedback(user_id, forwarded_message.id, update.message.text)
+    await FEEDBACK_DB.new_feedback(user_id, update.message.id, forwarded_message.id, update.message.text)
     await context.bot.send_message(chat_id=user_id, text=message)
     return -1
 

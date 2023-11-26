@@ -113,7 +113,7 @@ class FeedbackDatabase:
         collection = db['feedbacks']
         return collection
 
-    async def new_feedback(self, user_id: int, message_id: int, message_text: str) -> dict:
+    async def new_feedback(self, user_id: int, original_message_id: int, message_id: int, message_text: str) -> dict:
         collection = self.__fetch_collection()
 
         # Message text doesn't have big role in this document, but it could be useful for diagnostic reasons.
@@ -123,13 +123,14 @@ class FeedbackDatabase:
 
         feedback = {
             'user_id': user_id,
-            'message_id': message_id,
+            'original_message_id': original_message_id,
+            'forwarded_message_id': message_id,
             'message_text': message_text,
             'last_modified': datetime.datetime.now(tz=datetime.timezone.utc)
         }
         await collection.insert_one(feedback)
         return feedback
 
-    async def find_by_message_id(self, message_id: int) -> dict:
+    async def find_by_message_id(self, forwarded_message_id: int) -> dict:
         collection = self.__fetch_collection()
-        return await collection.find_one({'message_id': message_id})
+        return await collection.find_one({'forwarded_message_id': forwarded_message_id})
