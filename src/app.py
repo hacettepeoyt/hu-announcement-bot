@@ -2,7 +2,7 @@ import logging
 
 from . import utils
 from .config import DB_STRING, DB_NAME
-from .mongo import DepartmentDatabase, UserDatabase
+from .mongo import DepartmentDatabase, UserDatabase, FeedbackDatabase
 from .scraper import *
 
 # Logging
@@ -16,6 +16,7 @@ LOCALE_DEPARTMENT_MAP = utils.create_locale_department_unit()
 # Database objects
 DEPARTMENT_DB = DepartmentDatabase(DB_STRING, DB_NAME)
 USER_DB = UserDatabase(DB_STRING, DB_NAME)
+FEEDBACK_DB = FeedbackDatabase(DB_STRING, DB_NAME)
 
 # Department initialization
 AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \

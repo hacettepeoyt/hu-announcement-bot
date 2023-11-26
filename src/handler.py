@@ -8,7 +8,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboard
     ReplyKeyboardRemove
 from telegram.ext import ContextTypes
 
-from .app import logger, USER_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, get_possible_deps
+from .app import logger, USER_DB, FEEDBACK_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, get_possible_deps
 from .config import ADMIN_ID, FEEDBACK_CHAT_ID, LOGGER_CHAT_ID, DEFAULT_DEPS
 from .utils import find_next_language
 
@@ -191,9 +191,9 @@ async def feedback_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     message = decode('feedback-done', user['language'])
-    await context.bot.forward_message(chat_id=FEEDBACK_CHAT_ID, from_chat_id=user_id,
-                                      message_id=update.message.message_id)
-    await context.bot.send_message(chat_id=FEEDBACK_CHAT_ID, text=user_id)
+    forwarded_message = await context.bot.forward_message(chat_id=FEEDBACK_CHAT_ID, from_chat_id=user_id,
+                                                          message_id=update.message.message_id)
+    await FEEDBACK_DB.new_feedback(user_id, forwarded_message.id, update.message.text)
     await context.bot.send_message(chat_id=user_id, text=message)
     return -1
 
