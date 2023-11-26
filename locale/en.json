@@ -12,6 +12,8 @@
   "admin-announcement-department-chosen": "You chosen the department above. Please type your message now, and send me.",
   "subscribe-success": "Successfully subscribed to",
   "unsubscribe-success": "Successfully unsubscribed from",
+  "subscribe-fail": "You are already subscribed to",
+  "unsubscribe-fail": "You aren't already subscribe to",
   "settings-dnd-btn": "DND On/Off",
   "settings-holiday-mode-btn": "Holiday Mode On/Off",
   "settings-language-btn": "Change Language",

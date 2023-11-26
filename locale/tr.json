@@ -12,6 +12,8 @@
   "admin-announcement-department-chosen": "Yukarıdaki departmanı seçtin. Lütfen şimdi iletmek istediğin mesajı yaz ve sonrasında bana gönder.",
   "subscribe-success": "Yeni abonelik eklendi:",
   "unsubscribe-success": "Abonelik iptal edildi:",
+  "subscribe-fail": "Hali hazırda zaten bu departmana abonesin:",
+  "unsubscribe-fail": "Hali hazırda zaten bu departmana abone değilsin:",
   "settings-dnd-btn": "DND Aç/Kapat",
   "settings-holiday-mode-btn": "Tatil Modu Aç/Kapat",
   "settings-language-btn": "Dili Değiştir",

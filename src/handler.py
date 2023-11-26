@@ -32,7 +32,7 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
 
 
-async def new_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     possible_deps = get_possible_deps(user['departments'])
@@ -44,9 +44,10 @@ async def new_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE) -
         message = decode('full-subscription', user['language'])
 
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
+    return 1
 
 
-async def remove_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def remove(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     reply_markup = create_keyboard(user['departments'], user['language'])
@@ -57,6 +58,7 @@ async def remove_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE
         message = decode('empty-subscription', user['language'])
 
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
+    return 1
 
 
 async def reset_subscriptions(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -93,7 +95,10 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     message = decode('cmd-cancel', user['language'])
-    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+
+    if update.message.text == '/cancel':
+        await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+
     return -1
 
 
@@ -160,7 +165,7 @@ async def settings_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE) -
     await query.edit_message_text(text=message, reply_markup=reply_markup, parse_mode=telegram.constants.ParseMode.HTML)
 
 
-async def update_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def add_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     department_name = update.message.text
@@ -169,7 +174,34 @@ async def update_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE
 
     if department_name not in LOCALE_DEPARTMENT_MAP[language]:
         await context.bot.send_message(chat_id=user_id, text=decode('department-doesnt-exist', language))
-        return
+        return 1
+
+    chosen_department_code = LOCALE_DEPARTMENT_MAP[language][department_name]
+
+    if chosen_department_code in subscriptions:
+        message = f"{decode('subscribe-fail', language)} {department_name}"
+        await context.bot.send_message(chat_id=user_id, text=message)
+    else:
+        subscriptions.append(chosen_department_code)
+        possible_deps = get_possible_deps(subscriptions)
+        reply_markup = create_keyboard(possible_deps, language)
+        message = f"{decode('subscribe-success', language)} {department_name}"
+        await USER_DB.update_subscriptions(user_id, subscriptions)
+        await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
+
+    return 1
+
+
+async def remove_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    department_name = update.message.text
+    subscriptions = user['departments']
+    language = user['language']
+
+    if department_name not in LOCALE_DEPARTMENT_MAP[language]:
+        await context.bot.send_message(chat_id=user_id, text=decode('department-doesnt-exist', language))
+        return 1
 
     chosen_department_code = LOCALE_DEPARTMENT_MAP[language][department_name]
 
@@ -177,14 +209,13 @@ async def update_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE
         subscriptions.remove(chosen_department_code)
         reply_markup = create_keyboard(subscriptions, language)
         message = f"{decode('unsubscribe-success', language)} {department_name}"
+        await USER_DB.update_subscriptions(user_id, subscriptions)
+        await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
     else:
-        subscriptions.append(chosen_department_code)
-        possible_deps = get_possible_deps(subscriptions)
-        reply_markup = create_keyboard(possible_deps, language)
-        message = f"{decode('subscribe-success', language)} {department_name}"
+        message = f"{decode('unsubscribe-fail', language)} {department_name}"
+        await context.bot.send_message(chat_id=user, text=message)
 
-    await USER_DB.update_subscriptions(user_id, subscriptions)
-    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
+    return 1
 
 
 async def feedback_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
