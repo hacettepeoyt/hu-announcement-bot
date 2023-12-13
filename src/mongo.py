@@ -36,6 +36,11 @@ class DepartmentDatabase:
         await collection.find_one_and_update({'department_id': department_id},
                                              {'$set': {'announcement_list': announcement_list}})
 
+    async def toggle_is_active(self, department_id: int) -> None:
+        collection = self.__fetch_collection()
+        await collection.find_one_and_update({'department_id': department_id},
+                                             [{'$set': {'is_active': {'$not': '$is_active'}}}])
+
 
 class UserDatabase:
     CONNECTION_STRING: str

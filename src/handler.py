@@ -8,7 +8,8 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboard
     ReplyKeyboardRemove
 from telegram.ext import ContextTypes
 
-from .app import logger, USER_DB, FEEDBACK_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, get_possible_deps
+from .app import logger, DEPARTMENT_DB, USER_DB, FEEDBACK_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, \
+    get_possible_deps
 from .config import ADMIN_ID, FEEDBACK_CHAT_ID, LOGGER_CHAT_ID, DEFAULT_DEPS
 from .utils import find_next_language
 
@@ -147,6 +148,50 @@ async def answer(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     success_message = decode('admin-answer-success', user['language'])
     await context.bot.send_message(chat_id=FEEDBACK_CHAT_ID, text=success_message)
+
+
+async def activate_department(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    language = user['language']
+
+    if user_id != ADMIN_ID:
+        await context.bot.send_message(chat_id=user_id, text=decode('auth-fail', language))
+        return
+
+    department_id = update.message.text.split(" ")[1]
+    department = await DEPARTMENT_DB.find(department_id)
+
+    if department["is_active"] is True:
+        message = f"{decode(department_id, language)} {decode('already-activated-department', language)}"
+        await context.bot.send_message(chat_id=user_id, text=message)
+        return
+
+    await DEPARTMENT_DB.toggle_is_active(department_id)
+    message = f"{decode('activated-department', language)} {decode(department_id, language)}"
+    await context.bot.send_message(chat_id=user_id, text=message)
+
+
+async def deactivate_department(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    language = user['language']
+
+    if user_id != ADMIN_ID:
+        await context.bot.send_message(chat_id=user_id, text=decode('auth-fail', language))
+        return
+
+    department_id = update.message.text.split(" ")[1]
+    department = await DEPARTMENT_DB.find(department_id)
+
+    if department["is_active"] is False:
+        message = f"{decode(department_id, language)} {decode('already-deactivated-department', language)}"
+        await context.bot.send_message(chat_id=user_id, text=message)
+        return
+
+    await DEPARTMENT_DB.toggle_is_active(department_id)
+    message = f"{decode('deactivated-department', language)} {decode(department_id, language)}"
+    await context.bot.send_message(chat_id=user_id, text=message)
 
 
 async def settings_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:

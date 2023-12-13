@@ -16,6 +16,8 @@ def main() -> None:
     app.add_handler(CommandHandler('settings', handler.settings), group=1)
     app.add_handler(CommandHandler('donate', handler.donate), group=1)
     app.add_handler(CommandHandler('answer', handler.answer), group=1)
+    app.add_handler(CommandHandler('activate_department', handler.activate_department), group=1)
+    app.add_handler(CommandHandler('deactivate_department', handler.deactivate_department), group=1)
     app.add_handler(CallbackQueryHandler(handler.settings_buttons), group=1)
 
     app.add_handler(ConversationHandler(

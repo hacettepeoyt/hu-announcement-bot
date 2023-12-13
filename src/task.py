@@ -13,7 +13,15 @@ async def check_announcements(context: ContextTypes.DEFAULT_TYPE) -> None:
 
     for department in AVAILABLE_DEPARTMENTS:
         logger.info(f"Checking {department.id}")
-        olds = await DEPARTMENT_DB.find(department.id)
+        dep = await DEPARTMENT_DB.find(department.id)
+
+        if dep["is_active"] is False:
+            message = f"Skipping {department.id}, because it's deactivated!"
+            logger.info(message)
+            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message)
+            continue
+
+        olds = dep["announcement_list"]
 
         try:
             news = await department.get_announcements()
