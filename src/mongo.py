@@ -14,7 +14,7 @@ class DepartmentDatabase:
     def __fetch_collection(self) -> AsyncIOMotorClient:
         client = AsyncIOMotorClient(self.CONNECTION_STRING)
         db = client[self.DB_NAME]
-        collection = db['announcements']
+        collection = db['departments']
         return collection
 
     async def find(self, department_id: str) -> list[dict]:
@@ -22,10 +22,14 @@ class DepartmentDatabase:
         document = await collection.find_one({'department_id': department_id})
 
         if not document:
-            await collection.insert_one({'department_id': department_id, 'announcement_list': []})
+            await collection.insert_one({
+                'department_id': department_id,
+                'announcement_list': [],
+                'is_active': True
+            })
             return []
 
-        return document['announcement_list']
+        return document
 
     async def update(self, department_id: str, announcement_list: list[dict]) -> None:
         collection = self.__fetch_collection()
@@ -44,7 +48,7 @@ class UserDatabase:
     def __fetch_collection(self) -> AsyncIOMotorClient:
         client = AsyncIOMotorClient(self.CONNECTION_STRING)
         db = client[self.DB_NAME]
-        collection = db['user_configs']
+        collection = db['users']
         return collection
 
     async def new_user(self, user_id: int, first_name: str, last_name: str, default_departments: list[str],
