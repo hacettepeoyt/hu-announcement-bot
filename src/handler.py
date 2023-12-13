@@ -304,7 +304,6 @@ async def admin_announcement_choose_department(update: Update, context: ContextT
 async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
-    admin_message = update.message.text
     department_id = context.user_data.pop('admin-announcement-department_id')
     language = user['language']
 
@@ -315,9 +314,8 @@ async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_
 
     for target in user_list:
         try:
-            await context.bot.send_message(chat_id=target['user_id'], text=admin_message,
-                                           parse_mode=telegram.constants.ParseMode.MARKDOWN,
-                                           disable_web_page_preview=True)
+            await context.bot.copy_message(chat_id=target['user_id'], from_chat_id=user_id,
+                                           message_id=update.message.id)
             logger.info(f"Admin message has been sent to {target['user_id']}")
         except telegram.error.Forbidden:
             logger.info(f"FORBIDDEN: Admin message couldn't be delivered to {target['user_id']}")

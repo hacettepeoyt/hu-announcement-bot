@@ -9,7 +9,7 @@
   "cmd-cancel": "Alright, process has been cancelled...",
   "cmd-donate": "If you enjoyed @HacettepeDuyurucuBot, you can buy some snacks to the developer!\n\n<b>₺:</b> <code>TR84 0011 1000 0000 0109 3410 82</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
   "cmd-admin_announcement": "Please choose a department below to send a message. If you want to send a message to all users, you should type \"ALL\". If you want to cancel it, use /cancel",
-  "admin-announcement-department-chosen": "You chosen the department above. Please type your message now, and send me.",
+  "admin-announcement-department-chosen": "You chosen the department above. Please type your message now, and send me. Oh wait! You can also send media, whatever you want boss ;)",
   "subscribe-success": "Successfully subscribed to",
   "unsubscribe-success": "Successfully unsubscribed from",
   "subscribe-fail": "You are already subscribed to",

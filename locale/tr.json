@@ -9,7 +9,7 @@
   "cmd-cancel": "Tamamdır, işlem iptal edildi...",
   "cmd-donate": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında geliştiriciye atıştırmalık alabilirsin :) Visca Barça!\n\n<b>₺:</b> <code>TR84 0011 1000 0000 0109 3410 82</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
   "cmd-admin_announcement": "Lütfen mesaj göndermek istediğin departmanı aşağıdan seç. Eğer bütün kullanıcılara mesaj göndermek istiyorsan \"ALL\" yazmalısın. İptal etmek istersen /cancel komutunu kullanabilirsin.",
-  "admin-announcement-department-chosen": "Yukarıdaki departmanı seçtin. Lütfen şimdi iletmek istediğin mesajı yaz ve sonrasında bana gönder.",
+  "admin-announcement-department-chosen": "Yukarıdaki departmanı seçtin. Lütfen şimdi iletmek istediğin mesajı yaz ve sonrasında bana gönder. Ah bi saniye, medya da gönderebilirsin patron!",
   "subscribe-success": "Yeni abonelik eklendi:",
   "unsubscribe-success": "Abonelik iptal edildi:",
   "subscribe-fail": "Hali hazırda zaten bu departmana abonesin:",

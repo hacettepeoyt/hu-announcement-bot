@@ -35,7 +35,7 @@ def main() -> None:
         entry_points=[CommandHandler('admin_announcement', handler.admin_announcement)],
         states={
             1: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.admin_announcement_choose_department)],
-            2: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.admin_announcement_done)],
+            2: [MessageHandler(~filters.COMMAND, handler.admin_announcement_done)],
             ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
         },
         fallbacks=[MessageHandler(filters.COMMAND, handler.cancel)],
