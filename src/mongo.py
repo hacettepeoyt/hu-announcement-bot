@@ -122,19 +122,12 @@ class FeedbackDatabase:
         collection = db['feedbacks']
         return collection
 
-    async def new_feedback(self, user_id: int, original_message_id: int, message_id: int, message_text: str) -> dict:
+    async def new_feedback(self, user_id: int, original_message_id: int, message_id: int) -> dict:
         collection = self.__fetch_collection()
-
-        # Message text doesn't have big role in this document, but it could be useful for diagnostic reasons.
-        # Therefore, to keep the database lighter, I decided to shorten the text up to 64 chars.
-        if len(message_text) > 64:
-            message_text = message_text[:64]
-
         feedback = {
             'user_id': user_id,
             'original_message_id': original_message_id,
             'forwarded_message_id': message_id,
-            'message_text': message_text,
             'last_modified': datetime.datetime.now(tz=datetime.timezone.utc)
         }
         await collection.insert_one(feedback)

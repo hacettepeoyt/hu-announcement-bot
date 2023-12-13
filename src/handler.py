@@ -275,7 +275,7 @@ async def feedback_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     message = decode('feedback-done', user['language'])
     forwarded_message = await context.bot.forward_message(chat_id=FEEDBACK_CHAT_ID, from_chat_id=user_id,
                                                           message_id=update.message.message_id)
-    await FEEDBACK_DB.new_feedback(user_id, update.message.id, forwarded_message.id, update.message.text)
+    await FEEDBACK_DB.new_feedback(user_id, update.message.id, forwarded_message.id)
     await context.bot.send_message(chat_id=user_id, text=message)
     return -1
 
