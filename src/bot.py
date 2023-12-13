@@ -23,7 +23,7 @@ def main() -> None:
     app.add_handler(ConversationHandler(
         entry_points=[CommandHandler('feedback', handler.feedback)],
         states={
-            1: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.feedback_done)],
+            1: [MessageHandler(~filters.COMMAND, handler.feedback_done)],
             ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
         },
         fallbacks=[MessageHandler(filters.COMMAND, handler.cancel)],

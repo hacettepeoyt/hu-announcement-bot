@@ -5,7 +5,7 @@
   "cmd-add": "Hadi aşağıdan bir tane departman seç!\n\nEğer aradığını bulamıyorsan /feedback ile bu problemi bildirebilirsin. Unutma, bütün departmanlar benim kontrolümde değil henüz.",
   "cmd-remove": "Aboneliğini iptal etmek için aşağıdan bir departman seç.",
   "cmd-reset": "Ne oldu?? Yoksa mezun mu oldun?",
-  "cmd-feedback": "Mesajını aşağıya yaz, sonrasında bana gönder. İptal etmek istersen /cancel komutunu kullanabilirsin.",
+  "cmd-feedback": "Sorun nedir canım? İstersen sadece mesaj yaz, istersen medya gönder, sana kalmış ^^ İptal etmek istersen /cancel komutunu kullanabilirsin.",
   "cmd-cancel": "Tamamdır, işlem iptal edildi...",
   "cmd-donate": "@HacettepeDuyurucuBot deneyiminden memnunsan bu haftaki Barça maçında geliştiriciye atıştırmalık alabilirsin :) Visca Barça!\n\n<b>₺:</b> <code>TR84 0011 1000 0000 0109 3410 82</code>\n<b>$:</b> <code>TR36 0011 1000 0000 0113 1638 43</code>\n<b>€:</b> <code>TR68 0011 1000 0000 0113 1638 49</code>\n\nEnpara: <code>Furkan Şimşekli</code>",
   "cmd-admin_announcement": "Lütfen mesaj göndermek istediğin departmanı aşağıdan seç. Eğer bütün kullanıcılara mesaj göndermek istiyorsan \"ALL\" yazmalısın. İptal etmek istersen /cancel komutunu kullanabilirsin.",
