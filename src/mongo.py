@@ -17,17 +17,18 @@ class DepartmentDatabase:
         collection = db['departments']
         return collection
 
-    async def find(self, department_id: str) -> list[dict]:
+    async def find(self, department_id: str) -> dict:
         collection = self.__fetch_collection()
         document = await collection.find_one({'department_id': department_id})
 
         if not document:
-            await collection.insert_one({
+            document = {
                 'department_id': department_id,
                 'announcement_list': [],
                 'is_active': True
-            })
-            return []
+            }
+            await collection.insert_one(document)
+            return document
 
         return document
 
