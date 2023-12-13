@@ -22,7 +22,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                                       DEFAULT_DEPS)
 
     message = decode('cmd-start', user['language'])
-    await context.bot.send_message(chat_id=user, text=message, reply_markup=ReplyKeyboardRemove())
+    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
 
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
