@@ -430,3 +430,40 @@ class Hidro(BaseDepartment):
                     new_announcements.append(announcement)
 
                 return new_announcements
+
+
+class IDE(BaseDepartment):
+    def __init__(self, id: str, address: str):
+        super().__init__(id, address)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.address) as resp:
+                html_text: str = await resp.text(encoding='iso-8859-9', errors="replace")
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                data = soup.find(id='duyurular_ic').find_all('p')[:5]
+                new_announcements: list[dict] = []
+
+                for p in data:
+                    date = p.find('span', class_='tarih')
+
+                    if date:
+                        p.span.decompose()
+
+                    title: str = p.text.strip()
+
+                    try:
+                        url = self._complete_url(p.find('a').get('href'))
+                    except AttributeError:
+                        try:
+                            url = self._complete_url(p.find('img').get('src'))
+                        except AttributeError:
+                            url = None
+
+                    if title == '' and url is None:
+                        continue
+
+                    announcement = {"title": title, "content": None, "url": url}
+                    new_announcements.append(announcement)
+
+                return new_announcements
