@@ -39,11 +39,12 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     possible_deps = get_possible_deps(user['departments'])
     reply_markup = create_keyboard(possible_deps, user['language'])
 
-    if possible_deps:
-        message = decode('cmd-add', user['language'])
-    else:
+    if not possible_deps:
         message = decode('full-subscription', user['language'])
+        await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
+        return -1
 
+    message = decode('cmd-add', user['language'])
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
     return 1
 
@@ -53,11 +54,12 @@ async def remove(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user = await USER_DB.find(user_id)
     reply_markup = create_keyboard(user['departments'], user['language'])
 
-    if user['departments']:
-        message = decode('cmd-remove', user['language'])
-    else:
+    if not user['departments']:
         message = decode('empty-subscription', user['language'])
+        await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
+        return -1
 
+    message = decode('cmd-remove', user['language'])
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=reply_markup)
     return 1
 
