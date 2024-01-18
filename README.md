@@ -1,16 +1,14 @@
 ![Hacettepe Duyurucusu Banner](assets/hu-announcement-bot-banner-light.png#gh-light-mode-only)
 ![Hacettepe Duyurucusu Banner](assets/hu-announcement-bot-banner-dark.png#gh-dark-mode-only)
 
+<p align="center">
+  <img src="https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/6ed3dfff-d098-4118-9482-7e557dedd7b9">
+</p>
+
+# 🎉 What is this?
+
 Who really enjoys visiting department websites regularly? Probably nobody. Now it's time to automate it with a Telegram
 Bot. [Hacettepe Duyurucusu](https://t.me/HacettepeDuyurucuBot) offers this simple service to you with no cost.
-
-![screenshot](https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/a6a92fec-f9cf-4767-b516-e297af32600c)
-
-# 🎉 How To Use?
-
-1. Well... it's simple. You can use it by clicking the below.
-
-You see? It's one-step procedure.
 
 <a href="https://t.me/HacettepeDuyurucuBot">
   <img src="https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/e28fa352-71c0-4f38-9107-2e33eef42d12" width="200px" />   
