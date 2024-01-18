@@ -331,7 +331,8 @@ async def conversation_timeout(update: Update, context: ContextTypes.DEFAULT_TYP
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
     language = user['language']
-    await context.bot.send_message(chat_id=user_id, text=decode('conversation-timeout', language))
+    await context.bot.send_message(chat_id=user_id, text=decode('conversation-timeout', language),
+                                   reply_markup=ReplyKeyboardRemove())
 
 
 async def err_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
