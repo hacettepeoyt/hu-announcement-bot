@@ -26,7 +26,7 @@ def main() -> None:
             1: [MessageHandler(~filters.COMMAND, handler.feedback_done)],
             ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
         },
-        fallbacks=[MessageHandler(filters.COMMAND, handler.cancel)],
+        fallbacks=[CommandHandler('done', handler.done)],
         allow_reentry=True,
         conversation_timeout=FEEDBACK_TIMEOUT
     ), group=2)
@@ -38,7 +38,7 @@ def main() -> None:
             2: [MessageHandler(~filters.COMMAND, handler.admin_announcement_done)],
             ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
         },
-        fallbacks=[MessageHandler(filters.COMMAND, handler.cancel)],
+        fallbacks=[CommandHandler('done', handler.done)],
         allow_reentry=True,
         conversation_timeout=ADMIN_ANNOUNCEMENT_TIMEOUT
     ), group=3)
@@ -49,7 +49,7 @@ def main() -> None:
             1: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.add_subscription)],
             ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
         },
-        fallbacks=[MessageHandler(filters.COMMAND, handler.cancel)],
+        fallbacks=[CommandHandler('done', handler.done)],
         allow_reentry=True,
         conversation_timeout=ADD_TIMEOUT
     ), group=4)
@@ -60,7 +60,7 @@ def main() -> None:
             1: [MessageHandler(filters.TEXT & ~filters.COMMAND, handler.remove_subscription)],
             ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
         },
-        fallbacks=[MessageHandler(filters.COMMAND, handler.cancel)],
+        fallbacks=[CommandHandler('done', handler.done)],
         allow_reentry=True,
         conversation_timeout=REMOVE_TIMEOUT
     ), group=5)

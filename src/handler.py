@@ -94,12 +94,12 @@ async def feedback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return 1
 
 
-async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
-    message = decode('cmd-cancel', user['language'])
+    message = decode('cmd-done', user['language'])
 
-    if update.message.text == '/cancel':
+    if update.message.entities[0].type == 'bot_command':
         await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
 
     return -1
