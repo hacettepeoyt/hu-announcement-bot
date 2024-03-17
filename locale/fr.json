@@ -1,5 +1,5 @@
 {
-  "CHARS": " ABCDEÉFGHIJKLMNOPQRSTUVWXYZaàbcçdeéèêfghijklmnopqrstuvwxyz",
+  "CHARS": " 'AÀBCÇDEÉÈFGHIÎJKLMNOÔÒPQRSTUÛÙVWXYZaàbcçdeéèêfghiîjklmnoôòpqrstuûùvwxyz",
   "cmd-start": "Bienvenue Hacettepien ! A partir de maintenant, je partagerai les annonces avec toi, tu n'as plus besoin de consulter le site web régulièrement.\n\nSi tuv eux que je me présente en détail, utilise /help",
   "cmd-help": "Je te conseille d'utiliser le bouton Menu ci-dessous. Il contient toutes les commandes dont tu as besoin.\n\n\n/add   -->   Cette commande te permet de t'abonner à de nouveaux départements\n\n/remove   -->   Cette commande te permet de te désabonner\n\n/reset   -->   On passe aux choses sérieuses... Cette commande te permet de réinitialiser tous tes abonnements. Sois prudent :)\n\n/settings   -->   Cette commande te permet de naviguer dans les paramètres\n\n/feedback   -->   Si tu as des retours, utilise cette commande ! Chaque retour est une contribution pour moi :)",
   "cmd-add": "Choisis un département !\n\nSi tu ne trouves pas ce que tu cherches, utilise /feedback pour être sûr que nous avons connaissance du problème. A noter que l'appli ne possède pas encore chaque département. Quand tu as terminé, utilise la commande /done.",
