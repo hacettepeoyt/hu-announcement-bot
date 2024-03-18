@@ -31,7 +31,7 @@ ANNOUNCEMENT_CHECK_FIRST: int = config.get("ANNOUNCEMENT_CHECK_FIRST", 5)
 # Polling or Webhook?
 WEBHOOK_CONNECTED: bool = config.get("WEBHOOK_CONNECTED", False)
 PORT: str = config.get("PORT", "31415")
-WEBHOOK_URL: str = config.get("WEBHOOK_URL", "")
+WEBHOOK_URL: str = config.get("WEBHOOK_URL", "") + "/" + TELEGRAM_API_KEY
 
 # Conversation timeout values
 FEEDBACK_TIMEOUT: int = config.get("FEEDBACK_TIMEOUT", 300)

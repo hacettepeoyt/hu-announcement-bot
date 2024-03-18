@@ -30,12 +30,12 @@ def validate():
         exit(2)
 
     if config.WEBHOOK_CONNECTED:
-        if config.WEBHOOK_URL == config.TELEGRAM_API_KEY:
-            print("ERROR: Please make sure you configured a WEBHOOK_URL if you are using webhook rather than polling!")
+        if config.WEBHOOK_URL[1:] == config.TELEGRAM_API_KEY:
+            print("ERROR: Please make sure you configured a WEBHOOK_URL when WEBHOOK_CONNECTED is True")
             exit(2)
 
         if not config.PORT:
-            print("ERROR: Please make sure you configured a valid PORT number!")
+            print("ERROR: Please make sure you configured a valid PORT number when WEBHOOK_CONNECTED is True")
             exit(2)
 
 
