@@ -16,18 +16,17 @@ def validate():
         exit(2)
 
     if config.ADMIN_ID == 0:
-        print("WARNING: You didn't configured an ADMIN_ID, so you won't be able to use admin commands!")
-
-    if config.FEEDBACK_CHAT_ID == 0:
-        print("ERROR: Please configure FEEDBACK_CHAT_ID")
+        print("ERROR: Please configure ADMIN_ID")
         exit(2)
 
-    if config.LOGGER_CHAT_ID == 0:
-        print("ERROR: Please configure LOGGER_CHAT_ID")
-        exit(2)
+    if config.FEEDBACK_CHAT_ID == config.ADMIN_ID:
+        print("WARNING: FEEDBACK_CHAT_ID and ADMIN_ID are same")
 
-    if config.ANNOUNCEMENT_CHECK_INTERVAL == 0:
-        print("ERROR: Please configure ANNOUNCEMENT_CHECK_INTERVAL")
+    if config.LOGGER_CHAT_ID == config.ADMIN_ID:
+        print("WARNING: LOGGER_CHAT_ID and ADMIN_ID are same")
+
+    if config.ANNOUNCEMENT_CHECK_INTERVAL <= 0:
+        print("ERROR: Please configure ANNOUNCEMENT_CHECK_INTERVAL greater than 0")
         exit(2)
 
     if config.WEBHOOK_CONNECTED:
