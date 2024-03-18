@@ -6,7 +6,7 @@ from typing import Union
 import telegram.constants
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, \
     ReplyKeyboardRemove
-from telegram.ext import ContextTypes
+from telegram.ext import ContextTypes, CallbackContext
 
 from .app import logger, DEPARTMENT_DB, USER_DB, FEEDBACK_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, \
     get_possible_deps
@@ -324,6 +324,10 @@ async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_
 
     message = f"{decode('admin-announcement-successful', language)}"
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+    return -1
+
+
+async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return -1
 
 
