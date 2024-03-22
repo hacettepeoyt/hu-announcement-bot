@@ -18,7 +18,7 @@ async def check_announcements(context: ContextTypes.DEFAULT_TYPE) -> None:
         if dep["is_active"] is False:
             message = f"Skipping {department.id}, because it's deactivated!"
             logger.info(message)
-            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message)
+            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message, disable_notification=True)
             continue
 
         olds = dep["announcement_list"]
@@ -28,7 +28,7 @@ async def check_announcements(context: ContextTypes.DEFAULT_TYPE) -> None:
         except ClientConnectorError:
             message = f"Connection Error while scraping {department.id}"
             logger.exception(message)
-            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message)
+            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message, disable_notification=True)
             continue
         except:
             message = f"Undefined Error while scraping {department.id}"
