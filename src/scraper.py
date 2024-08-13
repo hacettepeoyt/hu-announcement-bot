@@ -467,3 +467,32 @@ class IDE(BaseDepartment):
                     new_announcements.append(announcement)
 
                 return new_announcements
+
+
+class SporBilimleri(BaseDepartment):
+    def __init__(self, id: str, address: str):
+        super().__init__(id, address)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.address + '/index.php?pid=1444&lang=tr') as resp:
+                html_text: str = await resp.text(encoding='iso-8859-9', errors='replace')
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                data = soup.find(id='duyurular').find_all('li')[:5]
+                new_announcements: list[dict] = []
+
+                for li in data:
+                    for span in li.find_all('span'):
+                        span.decompose()
+
+                    title: str = li.text.strip()
+
+                    try:
+                        url = self._complete_url(li.find('a').get('href'))
+                    except AttributeError:
+                        url = None
+
+                    announcement = {"title": title, "content": "Test", "url": url}
+                    new_announcements.append(announcement)
+
+            return new_announcements
