@@ -75,7 +75,10 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-eeb', 'https://eeb.hacettepe.edu.tr'),
         BaseDepartment('hu-maliye', 'https://maliye.hacettepe.edu.tr'),
         BaseDepartment('hu-history', 'https://history.hacettepe.edu.tr'),
-        BaseDepartment('hu-psikolojikdanismabirimi', 'https://psikolojikdanismabirimi.hacettepe.edu.tr')
+        BaseDepartment('hu-psikolojikdanismabirimi', 'https://psikolojikdanismabirimi.hacettepe.edu.tr'),
+        BaseDepartment('hu-biology', 'https://biology.hacettepe.edu.tr'),
+        BaseDepartment('hu-ict', 'https://ict.hacettepe.edu.tr'),
+        BaseDepartment('hu-idb', 'https://idb.hacettepe.edu.tr')
     ]
 
 
