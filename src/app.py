@@ -34,6 +34,7 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         JeoMuh('hu-jeomuh', 'https://jeomuh.hacettepe.edu.tr'),
         Hidro('hu-hidro', 'https://hidro.hacettepe.edu.tr'),
         IDE('hu-ide', 'https://ide.hacettepe.edu.tr'),
+        SporBilimleri('hu-sporbilimleri', 'https://sporbilimleri.hacettepe.edu.tr'),
         BaseDepartment('hu-me', 'https://me.hacettepe.edu.tr'),
         BaseDepartment('hu-cheng', 'https://cheng.hacettepe.edu.tr'),
         BaseDepartment('hu-bilisim', 'https://bilisim.hacettepe.edu.tr'),
