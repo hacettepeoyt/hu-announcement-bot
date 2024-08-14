@@ -103,6 +103,20 @@ def main() -> None:
         conversation_timeout=REMOVE_TIMEOUT
     ), group=5)
 
+    app.add_handler(ConversationHandler(
+        entry_points=[CommandHandler('dm', handler.direct_message)],
+        states={
+            1: [MessageHandler(~filters.COMMAND, handler.direct_message_done)],
+            ConversationHandler.TIMEOUT: [TypeHandler(Update, handler.conversation_timeout)]
+        },
+        fallbacks=[
+            CommandHandler('done', handler.done),
+            conversation_switch_handler
+        ],
+        allow_reentry=True,
+        conversation_timeout=ADMIN_ANNOUNCEMENT_TIMEOUT
+    ), group=6)
+
     app.add_error_handler(handler.err_handler)
     app.job_queue.run_repeating(task.check_announcements, interval=ANNOUNCEMENT_CHECK_INTERVAL,
                                 first=ANNOUNCEMENT_CHECK_FIRST)

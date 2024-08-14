@@ -271,6 +271,23 @@ async def remove_subscription(update: Update, context: ContextTypes.DEFAULT_TYPE
     return 1
 
 
+async def direct_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+
+    if user_id != ADMIN_ID:
+        await context.bot.send_message(chat_id=user_id, text=decode('auth-fail', user['language']))
+        return -1
+
+    # Removes the "/dm" part from the message.
+    # TODO: Use Message.parse_entity() instead of hard-coding
+    context.user_data['direct_message_user_id'] = update.message.text[3:].strip()
+    message = (f"{context.user_data['direct_message_user_id']}\n\n"
+               f"{decode('cmd-dm', user['language'])}")
+    await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+    return 1
+
+
 async def feedback_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user_id = update.effective_user.id
     user = await USER_DB.find(user_id)
@@ -324,6 +341,24 @@ async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_
 
     message = f"{decode('admin-announcement-successful', language)}"
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
+    return -1
+
+
+async def direct_message_done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user_id = update.effective_user.id
+    user = await USER_DB.find(user_id)
+    target_user_id = context.user_data.pop('direct_message_user_id')
+    language = user['language']
+
+    try:
+        await context.bot.copy_message(chat_id=target_user_id, from_chat_id=user_id,
+                                       message_id=update.message.id)
+        await context.bot.send_message(chat_id=user_id,
+                                       text=decode('dm-successful', language))
+    except (telegram.error.Forbidden, telegram.error.BadRequest):
+        await context.bot.send_message(chat_id=user_id,
+                                       text=decode('dm-fail', language))
+
     return -1
 
 
