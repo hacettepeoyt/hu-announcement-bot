@@ -1,7 +1,7 @@
 import logging
 
 from . import utils
-from .config import DB_STRING, DB_NAME
+from .config import DB_STRING, DB_NAME, DEFAULT_LANGUAGE
 from .mongo import DepartmentDatabase, UserDatabase, FeedbackDatabase
 from .scraper import *
 
@@ -84,7 +84,12 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
 
 
 def decode(text_id: str, language: str) -> str:
-    return TRANSLATION_UNIT[language][text_id]
+    translation = TRANSLATION_UNIT.get(language).get(text_id)
+
+    if not translation:
+        translation = TRANSLATION_UNIT.get(DEFAULT_LANGUAGE).get(text_id)
+
+    return translation
 
 
 def get_possible_deps(_list) -> list[str]:

@@ -38,3 +38,6 @@ FEEDBACK_TIMEOUT: int = config.get("FEEDBACK_TIMEOUT", 300)
 ADMIN_ANNOUNCEMENT_TIMEOUT: int = config.get("ADMIN_ANNOUNCEMENT_TIMEOUT", 300)
 ADD_TIMEOUT: int = config.get("ADD_TIMEOUT", 60)
 REMOVE_TIMEOUT: int = config.get("REMOVE_TIMEOUT", 60)
+
+# Default language
+DEFAULT_LANGUAGE: str = config.get("DEFAULT_LANGUAGE", "en")
