@@ -4,8 +4,12 @@ import json
 
 def create_translation_unit() -> dict:
     """
-    Read locale files and store them in memory to quickly access while doing translation.
-    :return: Dictionary that stores translations
+    Reads locale files from the 'locale' directory and creates a dictionary
+    mapping language codes to their respective translations.
+
+    Returns:
+        A dictionary where keys are language codes and values are dictionaries
+        of translations for those languages.
     """
 
     language_file_list = os.listdir('locale/')
@@ -22,9 +26,15 @@ def create_translation_unit() -> dict:
 
 def create_locale_department_unit() -> dict:
     """
-    Creates a map such:
-    Language -> (Locale Department Name -> Department Key)
-    :return: Dictionary in given format
+    Creates a mapping of languages to locale department names and their keys.
+
+    The resulting dictionary maps each language to another dictionary where
+    keys are department names and values are department keys, specifically
+    for departments with keys starting with 'hu-'.
+
+    Returns:
+        A dictionary where keys are language codes and values are dictionaries
+        mapping department names to department keys.
     """
 
     tu = create_translation_unit()
@@ -42,8 +52,17 @@ def create_locale_department_unit() -> dict:
 
 def find_next_language(language: str) -> str:
     """
-    :param language: User's current language
-    :return: Next language that can be chosen
+    Finds the next language in the sorted list of available languages.
+
+    The language parameter should be provided without the '.json' extension.
+    This function returns the next language code in the sorted order or wraps
+    around to the first language if the current one is the last in the list.
+
+    Args:
+        language: The current language code (without the '.json' extension).
+
+    Returns:
+        The language code of the next language in the sorted list.
     """
 
     language += '.json'

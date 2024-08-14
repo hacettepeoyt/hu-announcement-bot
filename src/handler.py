@@ -6,7 +6,7 @@ from typing import Union
 import telegram.constants
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, \
     ReplyKeyboardRemove
-from telegram.ext import ContextTypes, CallbackContext
+from telegram.ext import ContextTypes
 
 from .app import logger, DEPARTMENT_DB, USER_DB, FEEDBACK_DB, LOCALE_DEPARTMENT_MAP, AVAILABLE_DEPARTMENTS, decode, \
     get_possible_deps
@@ -420,13 +420,17 @@ async def err_handler(update: object, context: ContextTypes.DEFAULT_TYPE) -> Non
 
 def create_keyboard(_list: list[str], language: str) -> Union[ReplyKeyboardRemove, ReplyKeyboardMarkup]:
     """
-    Takes a list, decodes and sort them in given language
-    (sorting is being made according to given language's CHARS value). After that,
-    creates a reply keyboard markup. In case the list is empty,
-    returns ReplyKeyboardRemove.
-    :param _list: List that contains department ids (doesn't have to be department ids)
-    :param language: Language of the buttons
-    :return: If the _list is empty ReplyKeyboardRemove, otherwise ReplyKeyboardMarkup
+    Creates a keyboard markup based on the given list and language.
+
+    The function decodes and sorts the list based on the given language,
+    then creates a keyboard markup with one button per list item.
+
+    Args:
+        _list: A list of strings to be used as keyboard buttons.
+        language: The language of the buttons.
+
+    Returns:
+        A `ReplyKeyboardRemove` object if the list is empty, otherwise a `ReplyKeyboardMarkup` object.
     """
     if not _list:
         return ReplyKeyboardRemove()
@@ -439,9 +443,18 @@ def create_keyboard(_list: list[str], language: str) -> Union[ReplyKeyboardRemov
 
 def custom_sorting_key(text: str, language: str) -> list[int]:
     """
-    A language specific sorting key generator.
-    :param text: The input record
-    :return: List of each char's index number
+    Generates a custom sorting key based on the given text and language.
+
+    This function decodes the character set for the specified language and assigns
+    an index to each character in the input text based on its position in the character set.
+    The resulting list of indices is used as a sorting key.
+
+    Args:
+        text: The input text to be sorted.
+        language: The language used for sorting.
+
+    Returns:
+        A list of integer indices representing the position of each character in the language's character set.
     """
     chars = decode('CHARS', language)
     return [chars.index(text[i]) for i in range(len(text))]
@@ -449,9 +462,14 @@ def custom_sorting_key(text: str, language: str) -> list[int]:
 
 def create_inline_keyboard(language: str) -> InlineKeyboardMarkup:
     """
-    Creates an inline keyboard markup in given language.
-    :param language: Language of the buttons
-    :return: InlineKeyboardMarkup that contains settings buttons
+    Generates an inline keyboard with buttons for DND, holiday mode, and language settings.
+    The button texts are decoded based on the given language.
+
+    Args:
+        language: The language of the buttons.
+
+    Returns:
+        An InlineKeyboardMarkup object containing the settings buttons.
     """
 
     buttons = []
@@ -463,11 +481,15 @@ def create_inline_keyboard(language: str) -> InlineKeyboardMarkup:
 
 def get_settings(dnd: bool, holiday_mode: bool, language: str) -> str:
     """
-    Generates a user specific settings page message.
-    :param dnd: Do not disturb status
-    :param holiday_mode: Holiday mode status
-    :param language: Language of the message
-    :return: Settings page message
+    Constructs a settings page message based on the provided DND, holiday mode status, and language.
+
+    Args:
+        dnd: Indicates whether DND is enabled (True) or disabled (False).
+        holiday_mode: Indicates whether holiday mode is enabled (True) or disabled (False).
+        language: The language of the message.
+
+    Returns:
+        A formatted string representing the settings page message.
     """
 
     text = ""
