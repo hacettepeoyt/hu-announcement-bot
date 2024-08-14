@@ -1,4 +1,4 @@
-aiohttp~=3.8.3
+aiohttp~=3.10.3
 beautifulsoup4==4.11.2
 dnspython==2.3.0
 lxml==4.9.2
