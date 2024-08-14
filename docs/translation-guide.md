@@ -38,4 +38,6 @@ After finishing, you can also add yourself down below!
 
 ## Contributors
 
+- [Jeanne Kt](https://github.com/Mesaan) (French)
+- [furkansimsekli](https://github.com/furkansimsekli) (English, French, Turkish)
 - 

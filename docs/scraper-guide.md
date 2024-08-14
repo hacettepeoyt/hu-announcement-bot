@@ -43,3 +43,5 @@ Also, don't forget to add yourself down below!
 
 - [M.Eren SOYKOK](https://github.com/rentale)
 - [Melike Vurucu](https://github.com/melikechan)
+- [furkansimsekli](https://github.com/furkansimsekli)
+- 
