@@ -492,7 +492,7 @@ class SporBilimleri(BaseDepartment):
                     except AttributeError:
                         url = None
 
-                    announcement = {"title": title, "content": "Test", "url": url}
+                    announcement = {"title": title, "content": None, "url": url}
                     new_announcements.append(announcement)
 
             return new_announcements
