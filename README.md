@@ -1,17 +1,17 @@
 ![Hacettepe Duyurucusu Banner](assets/hu-announcement-bot-banner-light.png#gh-light-mode-only)
 ![Hacettepe Duyurucusu Banner](assets/hu-announcement-bot-banner-dark.png#gh-dark-mode-only)
 
-<p align="center">
-  <img src="https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/6ed3dfff-d098-4118-9482-7e557dedd7b9">
-</p>
-
 # 🎉 What is this?
+
+<p align="center">
+  <img src="https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/a6a92fec-f9cf-4767-b516-e297af32600c" width="300">
+</p>
 
 Who really enjoys visiting department websites regularly? Probably nobody. Now it's time to automate it with a Telegram
 Bot. [Hacettepe Duyurucusu](https://t.me/HacettepeDuyurucuBot) offers this simple service to you with no cost.
 
 <a href="https://t.me/HacettepeDuyurucuBot">
-  <img src="https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/e28fa352-71c0-4f38-9107-2e33eef42d12" width="200px" />   
+  <img src="https://github.com/user-attachments/assets/58c18620-ebda-45e9-affe-9c0c31aaae1e" width="200px">
 </a>
 
 # 🦾 How To Contribute?
@@ -34,7 +34,15 @@ use [issue page](https://github.com/hacettepeoyt/hu-announcement-bot/issues) for
 Any language even [High Valyrian](https://awoiaf.westeros.org/index.php/High_Valyrian). For a detailed instructions, go
 ahead and see [this](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/docs/translation-guide.md).
 
-## 💻 Development Stage
+### 🈶 Supported Languages
+
+| **Language**       | **Status**                                                                                |
+|--------------------|-------------------------------------------------------------------------------------------|
+| **🇬🇧 English**     | [🟢](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/en.json) 100% |
+| **🇫🇷 French**      | [🟢](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/fr.json) 100% |
+| **🇹🇷 Turkish**     | [🟢](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/tr.json) 100% |
+
+## 💻 Development
 
 If you know a bit Python, I'm sure you can do something.
 
@@ -46,9 +54,33 @@ If you know a bit Python, I'm sure you can do something.
   appreciated.
 - You have an idea for a new feature, and you want to add it; I'm waiting for your pull request mate!
 
+### 🧑‍💻 Development Environment
+
+After cloning the repository, you should create a virtual environment. Python3.11 is recommended but any version higher
+than or equal to 3.9 should work just fine. Then, install the requirements.
+
+```bash
+# Clone the repository
+git clone git@github.com:hacettepeoyt/hu-announcement-bot.git
+cd hu-announcement-bot
+
+# Create a virtual environment with venv and activate it 
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install the requirements
+pip install -r requirements.txt
+```
+
+Fill the missing configurations in `config.toml`. Then, run the following command:
+
+```bash
+python -m src -c <path/to/config.toml> -d <path/to/database.json>
+```
+
 # 🆕 Changelog
 <a href="https://t.me/hacettepeduyuru">
-  <img src="https://github.com/hacettepeoyt/hu-announcement-bot/assets/51515287/f749954e-9146-4131-890a-798941cfe461" width="200px" />   
+  <img src="https://github.com/user-attachments/assets/f1175906-80d5-48b6-b642-2e4128458268" width="200px">   
 </a>
 
 # 📃 License
