@@ -496,3 +496,32 @@ class SporBilimleri(BaseDepartment):
                     new_announcements.append(announcement)
 
             return new_announcements
+
+
+class Iletisim(BaseDepartment):
+    def __init__(self, id: str, address: str):
+        super().__init__(id, address)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession() as session:
+            async with session.get(self.address) as resp:
+                html_text: str = await resp.text(encoding='utf-8', errors='replace')
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                data = soup.find_all(class_='ptakvimbaslik')[:5]
+                new_announcements: list[dict] = []
+
+                for d in data:
+                    title: str = d.text.strip()
+
+                    if not title:
+                        continue
+
+                    try:
+                        url = self._complete_url(d.find('a').get('href'))
+                    except AttributeError:
+                        url = None
+
+                    announcement = {"title": title, "content": None, "url": url}
+                    new_announcements.append(announcement)
+
+            return new_announcements

@@ -35,6 +35,7 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         Hidro('hu-hidro', 'https://hidro.hacettepe.edu.tr'),
         IDE('hu-ide', 'https://ide.hacettepe.edu.tr'),
         SporBilimleri('hu-sporbilimleri', 'https://sporbilimleri.hacettepe.edu.tr'),
+        Iletisim('hu-iletisim', 'https://iletisim.hacettepe.edu.tr'),
         BaseDepartment('hu-me', 'https://me.hacettepe.edu.tr'),
         BaseDepartment('hu-cheng', 'https://cheng.hacettepe.edu.tr'),
         BaseDepartment('hu-bilisim', 'https://bilisim.hacettepe.edu.tr'),
@@ -79,7 +80,15 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-psikolojikdanismabirimi', 'https://psikolojikdanismabirimi.hacettepe.edu.tr'),
         BaseDepartment('hu-biology', 'https://biology.hacettepe.edu.tr'),
         BaseDepartment('hu-ict', 'https://ict.hacettepe.edu.tr'),
-        BaseDepartment('hu-idb', 'https://idb.hacettepe.edu.tr')
+        BaseDepartment('hu-idb', 'https://idb.hacettepe.edu.tr'),
+        BaseDepartment('hu-mtb', 'https://mtb.hacettepe.edu.tr'),
+        BaseDepartment('hu-arkeo', 'https://arkeo.hacettepe.edu.tr'),
+        BaseDepartment('hu-antropoloji', 'https://antropoloji.hacettepe.edu.tr'),
+        BaseDepartment('hu-gsf', 'https://gsf.hacettepe.edu.tr'),
+        BaseDepartment('hu-grafik', 'https://grafik.hacettepe.edu.tr'),
+        BaseDepartment('hu-heykel', 'https://heykel.hacettepe.edu.tr'),
+        BaseDepartment('hu-resim', 'https://resim.hacettepe.edu.tr'),
+        BaseDepartment('hu-seramikvecam', 'https://seramikvecam.hacettepe.edu.tr'),
     ]
 
 

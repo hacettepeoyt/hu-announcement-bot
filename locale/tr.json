@@ -59,6 +59,7 @@
   "hu-hidro": "Hidrojeoloji Mühendisliği",
   "hu-ide": "İngiliz Dili ve Edebiyatı Bölümü",
   "hu-sporbilimleri": "Spor Bilimleri Fakültesi",
+  "hu-iletisim": "İletişim Fakültesi",
   "hu-me": "Makina Mühendisliği",
   "hu-cheng": "Kimya Mühendisliği",
   "hu-bilisim": "Bilişim Enstitüsü",
@@ -103,5 +104,13 @@
   "hu-psikolojikdanismabirimi": "Psikolojik Danışma Birimi",
   "hu-biology": "Biyoloji Bölümü",
   "hu-ict": "İç Mimarlık ve Çevre Tasarımı Bölümü",
-  "hu-idb": "İngiliz Dilbilimi Bölümü"
+  "hu-idb": "İngiliz Dilbilimi Bölümü",
+  "hu-mtb": "Mütercim ve Tercümanlık Bölümü",
+  "hu-arkeo": "Arkeoloji Bölümü",
+  "hu-antropoloji": "Antropoloji Bölümü",
+  "hu-gsf": "Güzel Sanatlar Fakültesi",
+  "hu-grafik": "Grafik Bölümü",
+  "hu-heykel": "Heykel Bölümü",
+  "hu-resim": "Resim Bölümü",
+  "hu-seramikvecam": "Seramik ve Cam Bölümü"
 }

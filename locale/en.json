@@ -59,6 +59,7 @@
   "hu-hidro": "Hydrogeological Engineering",
   "hu-ide": "Department of English Language and Literature",
   "hu-sporbilimleri": "Faculty of Sport Sciences",
+  "hu-iletisim": "Faculty of Communication",
   "hu-me": "Department of Mechanical Engineering",
   "hu-cheng": "Chemical Engineering",
   "hu-bilisim": "Institute of Informatics",
@@ -103,5 +104,13 @@
   "hu-psikolojikdanismabirimi": "Psychological Counseling Unit",
   "hu-biology": "Department of Biology",
   "hu-ict": "Department of Interior Architecture and Environmental Design",
-  "hu-idb": "Department of English Linguistics"
+  "hu-idb": "Department of English Linguistics",
+  "hu-mtb": "Department of Translation and Interpretation",
+  "hu-arkeo": "Department of Archeology",
+  "hu-antropoloji": "Department of Anthropology",
+  "hu-gsf": "Faculty of Fine Arts",
+  "hu-grafik": "Department of Graphic Design",
+  "hu-heykel": "Department of Sculpture",
+  "hu-resim": "Department of Painting",
+  "hu-seramikvecam": "Department of Ceramics and Glass"
 }
