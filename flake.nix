@@ -16,7 +16,7 @@
 
       hu-announcement-bot = pkgs.stdenv.mkDerivation {
         pname = "hu-announcement-bot";
-        version = "3.8.0";
+        version = "3.8.1";
         src = ./.;
 
         buildInputs = with pkgs; [
