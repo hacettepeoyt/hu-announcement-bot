@@ -338,6 +338,15 @@ async def admin_announcement_done(update: Update, context: ContextTypes.DEFAULT_
             logger.info(f"Admin message has been sent to {target['user_id']}")
         except telegram.error.Forbidden:
             logger.info(f"FORBIDDEN: Admin message couldn't be delivered to {target['user_id']}")
+        except telegram.error.BadRequest:
+            logger.info(f"BAD REQUEST: Message couldn't be delivered to {user['user_id']}")
+            continue
+        except telegram.error.TimedOut:
+            # Message might be still sent to the user even if Telegram doesn't return a response
+            # That's why I'm not trying to resend the message. If this is not the case FIXME.
+            logger.info(f"WARNING: Telegram didn't return a response in time while sending a message to "
+                        f"{user['user_id']}")
+            continue
 
     message = f"{decode('admin-announcement-successful', language)}"
     await context.bot.send_message(chat_id=user_id, text=message, reply_markup=ReplyKeyboardRemove())
