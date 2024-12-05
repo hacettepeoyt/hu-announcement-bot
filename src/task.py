@@ -33,7 +33,7 @@ async def check_announcements(context: ContextTypes.DEFAULT_TYPE) -> None:
         except ConnectionTimeoutError:
             message = f"Connection Timeout while scraping {department.id}"
             logger.exception(message)
-            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=f"{message}\n\n{traceback.format_exc()}")
+            await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message, disable_notification=True)
             continue
         except:
             message = f"Undefined Error while scraping {department.id}"

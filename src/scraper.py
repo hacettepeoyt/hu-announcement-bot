@@ -51,8 +51,8 @@ class BaseDepartment:
 
 
 class CS(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=60):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     @staticmethod
     def cleanup(str_: str) -> str:
@@ -106,8 +106,8 @@ class CS(BaseDepartment):
 
 
 class SKSDB(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -133,8 +133,8 @@ class SKSDB(BaseDepartment):
 
 
 class IE(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str,**kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -177,8 +177,8 @@ class IE(BaseDepartment):
 
 
 class Mat(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str,**kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -203,8 +203,8 @@ class Mat(BaseDepartment):
 
 
 class BBY(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -231,8 +231,8 @@ class BBY(BaseDepartment):
 
 
 class Edebiyat(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -260,8 +260,8 @@ class Edebiyat(BaseDepartment):
 
 
 class EE(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -282,8 +282,8 @@ class EE(BaseDepartment):
 
 
 class Phys(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -308,8 +308,8 @@ class Phys(BaseDepartment):
 
 
 class ABOfisi(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timout=self.timeout) as session:
@@ -339,8 +339,8 @@ class ABOfisi(BaseDepartment):
 
 
 class BIDB(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -370,8 +370,8 @@ class BIDB(BaseDepartment):
 
 
 class JeoMuh(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=60):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -401,8 +401,8 @@ class JeoMuh(BaseDepartment):
 
 
 class Hidro(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -435,8 +435,8 @@ class Hidro(BaseDepartment):
 
 
 class IDE(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -472,8 +472,8 @@ class IDE(BaseDepartment):
 
 
 class SporBilimleri(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
@@ -501,8 +501,8 @@ class SporBilimleri(BaseDepartment):
 
 
 class Iletisim(BaseDepartment):
-    def __init__(self, id: str, address: str, timeout: int=5):
-        super().__init__(id, address, timeout)
+    def __init__(self, id: str, address: str,**kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
         async with aiohttp.ClientSession(timeout=self.timeout) as session:
