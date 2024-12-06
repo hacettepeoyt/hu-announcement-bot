@@ -7,10 +7,12 @@ from bs4 import BeautifulSoup
 class BaseDepartment:
     address: str
     id: str
+    timeout: aiohttp.ClientTimeout
 
-    def __init__(self, id: str, address: str) -> None:
+    def __init__(self, id: str, address: str, timeout: int = 5) -> None:
         self.id = id
         self.address = address
+        self.timeout = aiohttp.ClientTimeout(total=timeout)
 
     def _complete_url(self, url: str) -> str:
         url = self._fix_invalid_url(url)
@@ -27,7 +29,7 @@ class BaseDepartment:
         return urllib.parse.quote(url, "\./_-:=?%&")
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -49,8 +51,8 @@ class BaseDepartment:
 
 
 class CS(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     @staticmethod
     def cleanup(str_: str) -> str:
@@ -80,7 +82,7 @@ class CS(BaseDepartment):
         return "".join(chars)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address + '/json/announcements.json') as resp:
                 data: list[dict] = await resp.json()
                 data = data[:5]
@@ -104,11 +106,11 @@ class CS(BaseDepartment):
 
 
 class SKSDB(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -131,11 +133,11 @@ class SKSDB(BaseDepartment):
 
 
 class IE(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str,**kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -175,11 +177,11 @@ class IE(BaseDepartment):
 
 
 class Mat(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str,**kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address + '/duyurular.html') as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -201,11 +203,11 @@ class Mat(BaseDepartment):
 
 
 class BBY(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address + '/duyurular.php') as resp:
                 html_text = await resp.text(encoding='utf-8', errors="replace")
 
@@ -229,11 +231,11 @@ class BBY(BaseDepartment):
 
 
 class Edebiyat(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='iso-8859-9', errors="replace")
 
@@ -258,11 +260,11 @@ class Edebiyat(BaseDepartment):
 
 
 class EE(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address + '?link=archivedAnno&lang=e') as resp:
                 html_text: str = await resp.text(errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -280,11 +282,11 @@ class EE(BaseDepartment):
 
 
 class Phys(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address + '/index.php') as resp:
                 html_text: str = await resp.text(errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -306,11 +308,11 @@ class Phys(BaseDepartment):
 
 
 class ABOfisi(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -337,11 +339,11 @@ class ABOfisi(BaseDepartment):
 
 
 class BIDB(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -368,11 +370,11 @@ class BIDB(BaseDepartment):
 
 
 class JeoMuh(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -399,11 +401,11 @@ class JeoMuh(BaseDepartment):
 
 
 class Hidro(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -433,11 +435,11 @@ class Hidro(BaseDepartment):
 
 
 class IDE(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='iso-8859-9', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -470,11 +472,11 @@ class IDE(BaseDepartment):
 
 
 class SporBilimleri(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address + '/index.php?pid=1444&lang=tr') as resp:
                 html_text: str = await resp.text(encoding='iso-8859-9', errors='replace')
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
@@ -499,11 +501,11 @@ class SporBilimleri(BaseDepartment):
 
 
 class Iletisim(BaseDepartment):
-    def __init__(self, id: str, address: str):
-        super().__init__(id, address)
+    def __init__(self, id: str, address: str,**kwargs):
+        super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors='replace')
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
