@@ -39,8 +39,11 @@ ahead and see [this](https://github.com/hacettepeoyt/hu-announcement-bot/blob/ma
 | **Language**       | **Status**                                                                                |
 |--------------------|-------------------------------------------------------------------------------------------|
 | **🇬🇧 English**     | [🟢](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/en.json) 100% |
-| **🇫🇷 French**      | [🟢](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/fr.json) 100% |
+| **🇫🇷 French**      | [🟡](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/fr.json) 100% |
 | **🇹🇷 Turkish**     | [🟢](https://github.com/hacettepeoyt/hu-announcement-bot/blob/master/locale/tr.json) 100% |
+
+Languages with yellow circle need verification because some of the translations have been made by Google Translate and
+ChatGPT.
 
 ## 💻 Development
 
