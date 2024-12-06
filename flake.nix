@@ -16,7 +16,7 @@
 
       hu-announcement-bot = pkgs.stdenv.mkDerivation {
         pname = "hu-announcement-bot";
-        version = "3.8.1";
+        version = "3.9";
         src = ./.;
 
         buildInputs = with pkgs; [
@@ -178,7 +178,7 @@
         systemd.services.hu-announcement-bot = {
           enable = true;
           wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          after = [ "network-online.target" ];
           startLimitBurst = 3;
           startLimitIntervalSec = 60;
 
