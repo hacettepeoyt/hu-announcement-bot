@@ -1,3 +1,4 @@
+import re
 import urllib.parse
 
 import aiohttp
@@ -133,7 +134,7 @@ class SKSDB(BaseDepartment):
 
 
 class IE(BaseDepartment):
-    def __init__(self, id: str, address: str,**kwargs):
+    def __init__(self, id: str, address: str, **kwargs):
         super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
@@ -177,7 +178,7 @@ class IE(BaseDepartment):
 
 
 class Mat(BaseDepartment):
-    def __init__(self, id: str, address: str,**kwargs):
+    def __init__(self, id: str, address: str, **kwargs):
         super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
@@ -501,7 +502,7 @@ class SporBilimleri(BaseDepartment):
 
 
 class Iletisim(BaseDepartment):
-    def __init__(self, id: str, address: str,**kwargs):
+    def __init__(self, id: str, address: str, **kwargs):
         super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
@@ -524,6 +525,34 @@ class Iletisim(BaseDepartment):
                         url = None
 
                     announcement = {"title": title, "content": None, "url": url}
+                    new_announcements.append(announcement)
+
+            return new_announcements
+
+
+class Library(BaseDepartment):
+    def __init__(self, id: str, address: str, **kwargs):
+        super().__init__(id, address, **kwargs)
+
+    async def get_announcements(self) -> list[dict]:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
+            async with session.get(self.address) as resp:
+                html_text: str = await resp.text(encoding='utf-8', errors='replace')
+                soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')
+                accordions = soup.find_all(class_='panel panel-default')[:5]
+                new_announcements: list[dict] = []
+
+                for accordion in accordions:
+                    divs = accordion.find_all('div')
+                    title = divs[0].text.strip()
+
+                    content = re.sub(r'<br\s*/?>', '\n', divs[1].decode_contents())
+                    content = BeautifulSoup(content, 'lxml').text.strip()
+
+                    if not title:
+                        continue
+
+                    announcement = {"title": title, "content": content, "url": None}
                     new_announcements.append(announcement)
 
             return new_announcements

@@ -60,6 +60,7 @@
   "hu-ide": "Département de Littérature et Langue Anglaise",
   "hu-sporbilimleri": "Faculté des Sciences du Sport",
   "hu-iletisim": "Faculté de Communication",
+  "hu-library": "Bibliothèques",
   "hu-me": "Département d'Ingéniérie Mécanique",
   "hu-cheng": "Département d'Ingéniérie Chimique",
   "hu-bilisim": "Institut d'Informatique",
@@ -115,5 +116,6 @@
   "hu-seramikvecam": "Département de Céramique et Verre",
   "hu-snf": "Division de l'Éducation en Classe",
   "hu-egitimbilimlerienstitusu": "École Supérieure de Sciences de l'Éducation",
-  "hu-okuloncesi": "Division de l'Éducation Préscolaire"
+  "hu-okuloncesi": "Division de l'Éducation Préscolaire",
+  "hu-elt": "Département l'Enseignement de Langue Anglaise"
 }

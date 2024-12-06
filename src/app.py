@@ -36,6 +36,7 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         IDE('hu-ide', 'https://ide.hacettepe.edu.tr'),
         SporBilimleri('hu-sporbilimleri', 'https://sporbilimleri.hacettepe.edu.tr'),
         Iletisim('hu-iletisim', 'https://iletisim.hacettepe.edu.tr'),
+        Library('hu-library', 'https://library.hacettepe.edu.tr'),
         BaseDepartment('hu-me', 'https://me.hacettepe.edu.tr'),
         BaseDepartment('hu-cheng', 'https://cheng.hacettepe.edu.tr'),
         BaseDepartment('hu-bilisim', 'https://bilisim.hacettepe.edu.tr'),
@@ -91,7 +92,8 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-seramikvecam', 'https://seramikvecam.hacettepe.edu.tr'),
         BaseDepartment('hu-snf', 'https://snf.hacettepe.edu.tr'),
         BaseDepartment('hu-egitimbilimlerienstitusu', 'https://egitimbilimlerienstitusu.hacettepe.edu.tr'),
-        BaseDepartment('hu-okuloncesi', 'https://okuloncesi.hacettepe.edu.tr')
+        BaseDepartment('hu-okuloncesi', 'https://okuloncesi.hacettepe.edu.tr'),
+        BaseDepartment('hu-elt', 'https://elt.hacettepe.edu.tr'),
     ]
 
 
