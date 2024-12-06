@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 class BaseDepartment:
     address: str
     id: str
-    timeout: int
+    timeout: aiohttp.ClientTimeout
 
     def __init__(self, id: str, address: str, timeout: int = 5) -> None:
         self.id = id
@@ -312,7 +312,7 @@ class ABOfisi(BaseDepartment):
         super().__init__(id, address, **kwargs)
 
     async def get_announcements(self) -> list[dict]:
-        async with aiohttp.ClientSession(timout=self.timeout) as session:
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
             async with session.get(self.address) as resp:
                 html_text: str = await resp.text(encoding='utf-8', errors="replace")
                 soup: BeautifulSoup = BeautifulSoup(html_text, 'lxml')

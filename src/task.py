@@ -1,4 +1,5 @@
 import traceback
+from asyncio.exceptions import TimeoutError
 
 import telegram
 from aiohttp import ClientConnectorError, ConnectionTimeoutError
@@ -30,11 +31,16 @@ async def check_announcements(context: ContextTypes.DEFAULT_TYPE) -> None:
             logger.exception(message)
             await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message, disable_notification=True)
             continue
-        except ConnectionTimeoutError:
+        except (TimeoutError, ConnectionTimeoutError):
             message = f"Connection Timeout while scraping {department.id}"
             logger.exception(message)
             await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message, disable_notification=True)
             continue
+        # except TimeoutError:
+        #     message = f"Connection Timeout while scraping {department.id}"
+        #     logger.exception(message)
+        #     await context.bot.send_message(chat_id=LOGGER_CHAT_ID, text=message, disable_notification=True)
+        #     continue
         except:
             message = f"Undefined Error while scraping {department.id}"
             logger.exception(message)
