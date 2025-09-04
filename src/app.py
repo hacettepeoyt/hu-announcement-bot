@@ -94,6 +94,7 @@ AVAILABLE_DEPARTMENTS: list[BaseDepartment] = \
         BaseDepartment('hu-egitimbilimlerienstitusu', 'https://egitimbilimlerienstitusu.hacettepe.edu.tr'),
         BaseDepartment('hu-okuloncesi', 'https://okuloncesi.hacettepe.edu.tr'),
         BaseDepartment('hu-elt', 'https://elt.hacettepe.edu.tr'),
+        BaseDepartment('hu-ebb', 'https://ebb.hacettepe.edu.tr'),
     ]
 
 
